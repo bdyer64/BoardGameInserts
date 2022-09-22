@@ -1,0 +1,8 @@
+*.stl
+*.rsls
+old
+BIT_*.scad
+*.test.scad
+*.code-workspace
+launch.json
+gh-md-toc
