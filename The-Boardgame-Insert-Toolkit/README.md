@@ -3,7 +3,7 @@
 # This is a Fork
 This is my fork of The Board Game Insert Toolkit that can be found here:
 
-![The Boardgame Insert Toolkit](https://github.com/dppdppd/The-Boardgame-Insert-Toolkit)
+[The Boardgame Insert Toolkit](https://github.com/dppdppd/The-Boardgame-Insert-Toolkit)
 
 # What
 
