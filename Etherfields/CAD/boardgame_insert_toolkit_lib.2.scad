@@ -505,17 +505,21 @@ module MakeDividers( div )
             }
 
             // words
-            text_pos = title_pos + [ tab_width/2, font_size * 2, 0 ];
+            text_pos = title_pos + [ tab_width/2, height_overlap + tab_height/2, depth/2 ];
+            echo(title_pos);
+            echo(text_pos);
 
             text_width = len(title) > number_of_letters_before_scale_to_fit ? tab_width * 0.8 : 0;
+            echo(text_width);
+            echo(number_of_letters_before_scale_to_fit);
 
             translate( text_pos)
                 resize([ text_width,0, 0 ], auto=[ true, true, false])
-                    linear_extrude( depth )
+                    linear_extrude( depth/2 )
                         text(text = title, 
                             font = font, 
                             size = font_size, 
-                            valign = "top",
+                            valign = "center",
                             halign = "center", 
                             spacing = font_spacing,
                             $fn = fn);
@@ -2634,10 +2638,6 @@ module MakeRoundedCubeAxis( vec3, radius, vecRounded = [ t, t, t, t ], axis = k_
         vecRounded[ 2 ] ? radius : 0.001,
         vecRounded[ 3 ] ? radius : 0.001,
     ];
-
-    echo(vec3);
-    echo(radius);
-    echo(vecRounded);
 
     pos =
     [

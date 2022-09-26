@@ -7,7 +7,7 @@ g_b_print_lid = false;
 g_b_print_box = true; 
 
 // Focus on one box
-g_isolated_print_box = "Box Scene"; 
+g_isolated_print_box = "Tough Guy Divider"; 
 
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
@@ -33,8 +33,10 @@ g_tolerance = 0.15;
 // The larger the value, the bigger the gap between the lid and the box.
 g_tolerance_detents_pos = 0.1;
 
-card_width = 67.5;
-card_height = 100;
+card_sizes = [[68,91],[102,102]];
+card_width = 68;
+card_height = 91;
+insert_font = "Libre Baskerville:style=Regular";
 
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
@@ -59,7 +61,7 @@ function boxLid( label, label_size, label_rotation,label_gap) =
                         [ LBL_TEXT,     label[i] ],
                         [ LBL_SIZE,     label_size],
                         [ ROTATION,     label_rotation ],
-                        [ LBL_FONT,     "Libre Baskerville:style=Regular"],
+                        [ LBL_FONT,     insert_font],
                         [ POSITION_XY,   [label_rotation == 0?0:label_offset(len(label),i,label_gap,label_size),
                                           label_rotation == 90?0:label_offset(len(label),i,label_gap,label_size)]]
                     ]
@@ -87,16 +89,15 @@ function bottomLabel(label_text,y) =
         ]
     ];       
     
-function squareCompartment(num,x,y,height,cutout) = 
+function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f]) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   [num,1]],
             [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
-            [CMP_CUTOUT_BOTTOM_B,cutout],
+            [CMP_CUTOUT_BOTTOM_B,cutout_bottom],
             [CMP_CUTOUT_BOTTOM_PCT,40],
             [POSITION_XY, [CENTER,CENTER]],
-            // This all temp to see how it works
-            [CMP_CUTOUT_SIDES_4B,       [t,t,f,f]], // all sides
+            [CMP_CUTOUT_SIDES_4B,       cutout_sides], // all sides
             [CMP_CUTOUT_DEPTH_PCT,          20],
             [CMP_CUTOUT_WIDTH_PCT,          50],
             [CMP_CUTOUT_HEIGHT_PCT,         33],    
@@ -104,7 +105,7 @@ function squareCompartment(num,x,y,height,cutout) =
             [CMP_PADDING_XY, [ 2, 1 ] ]
         ]
     ];
-    
+        
 function bowlCompartment(num,x,y,height,cutout) = 
     [ BOX_COMPONENT,
         [
@@ -137,10 +138,10 @@ function thirdSizeBox(box_name,label, height, stack ) =
             box(box_name, 1, label, 4, 0, card_width, (card_height/3 - 1.5), height, stack, f);
 function twoThirdsSizeBox(box_name,label, height, stack ) =
             box(box_name, 1, label,6,0,card_width,((card_height*2)/3 - 1.5),height,stack, f);     
-function verticleCardBox(box_name, label, length, num_rows, stack) =
-    box(box_name, num_rows, label,6,0,card_width, length, card_height,stack,f);
+function verticleCardBox(box_name, label, length, num_rows, divider_space=0,stack, card= 0) =
+    box(box_name, num_rows, label,10,90,card_sizes[card][0], length, card_sizes[card][1]+divider_space,stack,f,cutout_sides = [t,t,f,f]);
             
-function box( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack, cutout , padding = 2) =
+function box( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack, cutout , padding = 2,cutout_sides = [f,f,f,f]) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
@@ -149,7 +150,7 @@ function box( box_name, num_compartments, label, label_size, label_rotation, x, 
                   height + g_wall_thickness] ],  
             boxLid(label, label_size, label_rotation, 12),
             bottomLabel(stack,y),
-            squareCompartment(num_compartments,x,y,height,cutout),        
+            squareCompartment(num_compartments,x,y,height,cutout,cutout_sides),        
         ]
     ];
     
@@ -162,22 +163,21 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
             bowlCompartment(num_compartments,x,y,height),        
         ]
     ];
-    
- data =
-[
-    //verticleCardBox("Core Cards", ["Core Cards"], 150, 2, "1"),
-
-    [ "divider example 2",
+function divider( divider_name, label, tab_height) = 
+     [ divider_name,
         [
             [ TYPE,                     DIVIDERS ],
 
-            [ DIV_TAB_TEXT,             ["Specialist"]],
+            [ DIV_TAB_TEXT,             [label]],
 
             [ DIV_TAB_TEXT_SIZE,        6],
+            [ DIV_THICKNESS,            1],
+            [ DIV_TAB_TEXT_CHAR_THRESHOLD, 20],
 
-            [ DIV_TAB_SIZE_XY,          [card_width-2, 10]],
+            [ DIV_TAB_SIZE_XY,          [card_width-2, tab_height]],
             [ DIV_TAB_CYCLE,            2],
             [ DIV_TAB_CYCLE_START,      1],
+            [ DIV_TAB_TEXT_FONT,        insert_font],
 
             [ DIV_FRAME_NUM_COLUMNS,    1],
             [ DIV_FRAME_SIZE_XY,        [card_width-2, card_height-2]],
@@ -185,7 +185,47 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
 
 
         ]
-    ],  
+    ];
+    
+function marker( marker_name, label, tab_height) = 
+     [ marker_name,
+        [
+            [ TYPE,                     DIVIDERS ],
+
+            [ DIV_TAB_TEXT,             [label]],
+
+            [ DIV_TAB_TEXT_SIZE,        20],
+            [ DIV_THICKNESS,            0.75],
+            [ DIV_TAB_TEXT_CHAR_THRESHOLD, 3],
+
+            [ DIV_TAB_SIZE_XY,          [card_width-2, tab_height]],
+            [ DIV_TAB_CYCLE,            2],
+            [ DIV_TAB_CYCLE_START,      1],
+            [ DIV_TAB_TEXT_FONT,        insert_font],
+
+            [ DIV_FRAME_NUM_COLUMNS,    -1],
+            [ DIV_FRAME_SIZE_XY,        [card_width-2, card_height-tab_height]],
+            [ DIV_FRAME_COLUMN,         15],
+
+
+        ]
+    ];
+data =
+[
+    verticleCardBox("Secret Cards", ["Secret Cards"], 150, 2, 10, "1"),
+    verticleCardBox("Player Cards", ["Player Cards"], 138, 1, 10,  "2"),
+    divider("Specialist Divider","Specialist",10),
+    divider("Tough Guy Divider","Tough Guy",10),
+    divider("Free Spirit Divider","Free Spirit",10),
+    divider("Gambler Divider","Gambler",10),
+    divider("Reaper Divider","Reaper",10),
+    marker("Deck Marker","Deck",50),
+    marker("Discard Marker","Discard",50),
+    marker("Hand Marker","Hand",50),
+    marker("Progress Marker","Progress",50),
+    marker("Other Marker","Other",50),
+    arker("Blank Marker","",50),
+    verticleCardBox("Core Tile Cards", ["Core Tiles"], 115, 1, 10,  "3", 1),
 ];
 
 MakeAll();
