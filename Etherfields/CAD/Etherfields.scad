@@ -1,13 +1,13 @@
 include <boardgame_insert_toolkit_lib.2.scad>;
 
 // determines whether lids are output.
-g_b_print_lid = false;
+g_b_print_lid = true;
 
 // determines whether boxes are output.
-g_b_print_box = true; 
+g_b_print_box = false; 
 
 // Focus on one box
-g_isolated_print_box = "Tough Guy Divider"; 
+g_isolated_print_box = "Turns Divider"; 
 
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
@@ -44,13 +44,13 @@ function label_offset(num_labels,index,label_gap,label_size) =
 function boxLid( label, label_size, label_rotation,label_gap) =
     [ BOX_LID,
         [
-            [ LID_PATTERN_RADIUS,           8],        
-            [ LID_PATTERN_N1,               6 ],
-            [ LID_PATTERN_N2,               3 ],
-            [ LID_PATTERN_ANGLE,            60 ],
-            [ LID_PATTERN_ROW_OFFSET,       10 ],
-            [ LID_PATTERN_COL_OFFSET,       140 ],
-            [ LID_PATTERN_THICKNESS,        0.6 ],      
+            [ LID_PATTERN_RADIUS,           6],        
+            //[ LID_PATTERN_N1,               6 ],
+            //[ LID_PATTERN_N2,               3 ],
+            //[ LID_PATTERN_ANGLE,            60 ],
+            //[ LID_PATTERN_ROW_OFFSET,       10 ],
+            //[ LID_PATTERN_COL_OFFSET,       140 ],
+            [ LID_PATTERN_THICKNESS,        0.8 ],      
             [ LID_INSET_B, f ],
             [ LID_TABS_4B, [ t,t,t,t]],
             [ LID_FIT_UNDER_B, f],
@@ -163,25 +163,26 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
             bowlCompartment(num_compartments,x,y,height),        
         ]
     ];
-function divider( divider_name, label, tab_height) = 
+function divider( divider_name, label, tab_height,card = 0) = 
      [ divider_name,
         [
             [ TYPE,                     DIVIDERS ],
 
             [ DIV_TAB_TEXT,             [label]],
+            [ DIV_TAB_TEXT_INVERTED,    true],
 
             [ DIV_TAB_TEXT_SIZE,        6],
             [ DIV_THICKNESS,            1],
             [ DIV_TAB_TEXT_CHAR_THRESHOLD, 20],
 
-            [ DIV_TAB_SIZE_XY,          [card_width-2, tab_height]],
+            [ DIV_TAB_SIZE_XY,          [card_sizes[card][0]-2, tab_height]],
             [ DIV_TAB_CYCLE,            2],
             [ DIV_TAB_CYCLE_START,      1],
             [ DIV_TAB_TEXT_FONT,        insert_font],
 
             [ DIV_FRAME_NUM_COLUMNS,    1],
-            [ DIV_FRAME_SIZE_XY,        [card_width-2, card_height-2]],
-            [ DIV_FRAME_COLUMN,         15],
+            [ DIV_FRAME_SIZE_XY,        [card_sizes[card][0]-2, card_sizes[card][1]-2]],
+            [ DIV_FRAME_COLUMN,         (card_sizes[card][0]-2) * 0.2],
 
 
         ]
@@ -193,6 +194,7 @@ function marker( marker_name, label, tab_height) =
             [ TYPE,                     DIVIDERS ],
 
             [ DIV_TAB_TEXT,             [label]],
+            [ DIV_TAB_TEXT_INVERTED,    true],
 
             [ DIV_TAB_TEXT_SIZE,        20],
             [ DIV_THICKNESS,            0.75],
@@ -219,13 +221,26 @@ data =
     divider("Free Spirit Divider","Free Spirit",10),
     divider("Gambler Divider","Gambler",10),
     divider("Reaper Divider","Reaper",10),
+    divider("Thorn Knight Divider","Thorn Knight",10),
     marker("Deck Marker","Deck",50),
     marker("Discard Marker","Discard",50),
     marker("Hand Marker","Hand",50),
     marker("Progress Marker","Progress",50),
     marker("Other Marker","Other",50),
-    arker("Blank Marker","",50),
+    marker("Blank Marker","",50),
     verticleCardBox("Core Tile Cards", ["Core Tiles"], 115, 1, 10,  "3", 1),
+    divider("Removed Secret Divider","Removed",10),
+    divider("Removed Tiles Divider","Removed",10,card = 1),
+    divider("Current Dream Small Divider","Current Dream",10),
+    divider("Current Dream Large Divider","Current Dream",10,card = 1),
+    divider("Slumber Deck Divider","Slumber Deck",10,card = 1),
+    divider("Slumber Map Divider","Slumber Map",10,card = 1),
+    divider("Storage Divider","Storage",10),
+    divider("Turns Divider","Turns",10),
+    divider("Flaws Divider","Flaws",10),
+    divider("Influence Market Divider","Influence",10),
+    divider("Items Market Divider","Items",10),
+    divider("Fate Divider","Fate",10),
 ];
 
 MakeAll();
