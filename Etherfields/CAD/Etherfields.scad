@@ -7,7 +7,7 @@ g_b_print_lid = true;
 g_b_print_box = false; 
 
 // Focus on one box
-g_isolated_print_box = "Turns Divider"; 
+g_isolated_print_box = "Fate Divider"; 
 
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
