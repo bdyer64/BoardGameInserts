@@ -6,9 +6,6 @@ g_b_print_lid = true;
 // determines whether boxes are output.
 g_b_print_box = false; 
 
-// Focus on one box
-g_isolated_print_box = "Fate Divider"; 
-
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
         
@@ -188,7 +185,7 @@ function divider( divider_name, label, tab_height,card = 0) =
         ]
     ];
     
-function marker( marker_name, label, tab_height) = 
+function marker( marker_name, label, tab_height, card = 0) = 
      [ marker_name,
         [
             [ TYPE,                     DIVIDERS ],
@@ -200,47 +197,65 @@ function marker( marker_name, label, tab_height) =
             [ DIV_THICKNESS,            0.75],
             [ DIV_TAB_TEXT_CHAR_THRESHOLD, 3],
 
-            [ DIV_TAB_SIZE_XY,          [card_width-2, tab_height]],
+            [ DIV_TAB_SIZE_XY,          [card_sizes[card][0]-2, tab_height]],
             [ DIV_TAB_CYCLE,            2],
             [ DIV_TAB_CYCLE_START,      1],
             [ DIV_TAB_TEXT_FONT,        insert_font],
 
             [ DIV_FRAME_NUM_COLUMNS,    -1],
-            [ DIV_FRAME_SIZE_XY,        [card_width-2, card_height-tab_height]],
+            [ DIV_FRAME_SIZE_XY,        [card_sizes[card][0]-2, card_sizes[card][1]-tab_height]],
             [ DIV_FRAME_COLUMN,         15],
 
 
         ]
     ];
+    
+    
+// Focus on one box
+g_isolated_print_box = "Fate Divider"; 
+
 data =
 [
-    verticleCardBox("Secret Cards", ["Secret Cards"], 150, 2, 10, "1"),
-    verticleCardBox("Player Cards", ["Player Cards"], 138, 1, 10,  "2"),
-    divider("Specialist Divider","Specialist",10),
-    divider("Tough Guy Divider","Tough Guy",10),
-    divider("Free Spirit Divider","Free Spirit",10),
-    divider("Gambler Divider","Gambler",10),
-    divider("Reaper Divider","Reaper",10),
-    divider("Thorn Knight Divider","Thorn Knight",10),
+    // Secret Cards Box
+    verticleCardBox("Secret Cards", ["Secret Cards"], 150, 2, 0, ""),
+    marker("Removed Secrets Divider","Removed",50),
+    
+    // Player Careds and Dividers
+    verticleCardBox("Player Cards", ["Player Cards"], 138, 1, 0,  ""),
+    marker("Specialist Divider","Specialist",50),
+    marker("Tough Guy Divider","Tough Guy",50),
+    marker("Free Spirit Divider","Free Spirit",50),
+    marker("Gambler Divider","Gambler",50),
+    marker("Reaper Divider","Reaper",50),
+    marker("Thorn Knight Divider","Thorn Knight",50),
     marker("Deck Marker","Deck",50),
     marker("Discard Marker","Discard",50),
     marker("Hand Marker","Hand",50),
     marker("Progress Marker","Progress",50),
     marker("Other Marker","Other",50),
+    
+
+    // Tiles Box and Dividers
+    verticleCardBox("Core Tile Cards", ["Core Tiles"], 115, 1, 0,  "", 1),
+    marker("Removed Tiles Divider","Removed",50,card = 1),
+    marker("Current Dream Large Divider","Current Dream",50,card = 1),
+    marker("Slumber Deck Divider","Slumber Deck",50,card = 1),
+    marker("Slumber Map Divider","Slumber Map",50,card = 1),
+    
+    
+    // Markets + Storage
+    verticleCardBox("Markets + Storage", ["Markets + Storage"], 138, 1, 0,  ""),
+    marker("Current Dream Small Divider","Current Dream",50),
+    marker("Storage Divider","Storage",50),
+    marker("Turns Divider","Turns",50),
+    marker("Flaws Divider","Flaws",50),
+    marker("Influence Market Divider","Influence",50),
+    marker("Items Market Divider","Items",50),
+    marker("Fate Divider","Fate",50),
+    
+    
+    
     marker("Blank Marker","",50),
-    verticleCardBox("Core Tile Cards", ["Core Tiles"], 115, 1, 10,  "3", 1),
-    divider("Removed Secret Divider","Removed",10),
-    divider("Removed Tiles Divider","Removed",10,card = 1),
-    divider("Current Dream Small Divider","Current Dream",10),
-    divider("Current Dream Large Divider","Current Dream",10,card = 1),
-    divider("Slumber Deck Divider","Slumber Deck",10,card = 1),
-    divider("Slumber Map Divider","Slumber Map",10,card = 1),
-    divider("Storage Divider","Storage",10),
-    divider("Turns Divider","Turns",10),
-    divider("Flaws Divider","Flaws",10),
-    divider("Influence Market Divider","Influence",10),
-    divider("Items Market Divider","Items",10),
-    divider("Fate Divider","Fate",10),
 ];
 
 MakeAll();
