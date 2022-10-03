@@ -1,10 +1,10 @@
 include <boardgame_insert_toolkit_lib.2.scad>;
 
 // determines whether lids are output.
-g_b_print_lid = true;
+g_b_print_lid = false;
 
 // determines whether boxes are output.
-g_b_print_box = false; 
+g_b_print_box = true; 
 
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
@@ -212,7 +212,7 @@ function marker( marker_name, label, tab_height, card = 0) =
     
     
 // Focus on one box
-g_isolated_print_box = "Fate Divider"; 
+g_isolated_print_box = "Core Tile Cards"; 
 
 data =
 [
@@ -237,6 +237,7 @@ data =
 
     // Tiles Box and Dividers
     verticleCardBox("Core Tile Cards", ["Core Tiles"], 115, 1, 0,  "", 1),
+    verticleCardBox("Expansion Tile Cards", ["Expansion Tiles"], 105, 1, 0,  "", 1),
     marker("Removed Tiles Divider","Removed",50,card = 1),
     marker("Current Dream Large Divider","Current Dream",50,card = 1),
     marker("Slumber Deck Divider","Slumber Deck",50,card = 1),
@@ -252,6 +253,7 @@ data =
     marker("Influence Market Divider","Influence",50),
     marker("Items Market Divider","Items",50),
     marker("Fate Divider","Fate",50),
+    marker("Seasons Divider","Seasons",50),
     
     
     
