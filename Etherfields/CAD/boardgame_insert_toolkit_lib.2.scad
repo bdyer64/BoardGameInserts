@@ -155,6 +155,8 @@ HEX = "hex";
 HEX2 = "hex2";
 OCT = "oct";
 OCT2 = "oct2";
+TRI = "triangle";
+TRI2 = "triangle2";
 ROUND = "round";
 FILLET = "fillet";
 BOWL = "bowl";
@@ -207,6 +209,9 @@ g_detent_dist_from_corner = 1.5;
 
 // default = g_wall_thickness
 g_lid_thickness = g_wall_thickness; 
+
+// allow compartments to carve into bottom when needed
+g_min_bottom_thickness = g_wall_thickness;
 
 // give each compartment a different color. Useful for development
 g_b_colorize = true;
@@ -586,6 +591,7 @@ module MakeBox( box )
     m_box_is_stackable = __value( box, BOX_STACKABLE_B, default = false );
 
     m_wall_thickness = g_b_fit_test ? 0.5 : __value( box, "wall_thickness", default = g_wall_thickness ); // needs work to change if no lid
+    m_bottom_offset = g_wall_thickness - g_min_bottom_thickness;
 
     m_lid = __value( box, BOX_LID, default = [] );
 
@@ -786,7 +792,9 @@ module MakeBox( box )
         function __component_is_hex() = __component_shape() == HEX;
         function __component_is_hex2() = __component_shape() == HEX2;
         function __component_is_oct() = __component_shape() == OCT;
-        function __component_is_oct2() = __component_shape() == OCT2;        
+        function __component_is_oct2() = __component_shape() == OCT2;  
+        function __component_is_tri() = __component_shape() == TRI;
+        function __component_is_tri2() = __component_shape() == TRI2;      
         function __component_is_round() = __component_shape() == ROUND;
         function __component_is_square() = __component_shape() == SQUARE;
         function __component_is_fillet() = __component_shape() == FILLET || __component_shape() == BOWL;
@@ -798,7 +806,7 @@ module MakeBox( box )
     
         function __partition_height_scale( D ) = D == __Y2() ? __req_lower_partitions() ? 0.5 : 1.00 : 1.00;
 
-        m_component_base_height = m_box_size[ k_z ] - __component_size( k_z ) - m_wall_thickness;
+        m_component_base_height = m_box_size[ k_z ] - __component_size( k_z ) - m_wall_thickness + m_bottom_offset;
   
         // DERIVED VARIABLES
 
@@ -877,7 +885,7 @@ module MakeBox( box )
         {
             ContainWithinBox()
                 RotateAboutPoint( __component_rotation(), [0,0,1], [__component_position( k_x ) + __component_size( k_x )/2, __component_position( k_y )+ __component_size( k_y )/2, 0] ) 
-                    translate( [ __component_position( k_x ), __component_position( k_y ), m_wall_thickness ] )
+                    translate( [ __component_position( k_x ), __component_position( k_y ), m_wall_thickness - m_bottom_offset ] )
                         Shear( __component_shear( k_x ), __component_shear( k_y ), __component_size( k_z ) )
                             children();
         }
@@ -1183,7 +1191,6 @@ module MakeBox( box )
                 if ( m_push_base && m_component_base_height > 0 )
                 {
                     frac = 0.4;
-
                     InEachCompartment()
                         translate( [ (__compartment_size( k_x) * (1-frac))/2, (__compartment_size( k_y) * (1-frac))/2, 0 ])
                             resize( [ 0, 0, m_component_base_height ], auto=false )  // fit it to the base
@@ -2317,33 +2324,58 @@ module MakeBox( box )
         {
             compartment_z_min = m_wall_thickness;
             compartment_internal_z = __compartment_size( k_z ) - compartment_z_min;
-
-            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 , 0 ];
+            trans_y_offset = __component_is_tri() ? -r/4 : __component_is_tri2() ? r/4 : 0;
+            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 + trans_y_offset, 0 ];
 
             translate( cylinder_translation )
             {
-                angle = __component_is_hex() ? 30 : __component_is_oct() ? 22.5 : 0;
+                angle = __component_is_hex() ? 30 : __component_is_oct() ? 22.5 : __component_is_tri() ? -30 : __component_is_tri2() ? 30 : 0;
 
                 rotate( a=angle, v=[0, 0, 1] )
                     cylinder(h, r, r, center = false );                      
             }
-                
+
+        }
+
+        module MakeVerticalOvalShape(h,x,y)
+        {
+            compartment_z_min = m_wall_thickness;
+            compartment_internal_z = __compartment_size( k_z ) - compartment_z_min;
+
+            trans_y_offset =  0;
+            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 + trans_y_offset, 0 ];
+
+            translate( cylinder_translation )
+            {
+                angle = 0;
+
+                rotate( a=angle, v=[0, 0, 1] )
+                    scale([x,y,1])
+                        cylinder(h, 1, 1, center = false );                      
+            }
         }
 
         module MakeCompartmentShape()
         {
-            $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : 100;
-
+            $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : __component_is_tri() || __component_is_tri2()? 3 : 100;
+            
             if ( __component_is_square() )
             {
                 cube( [ __compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height]);
             }
             else if ( __component_shape_vertical() )
             {
-                r = __compartment_largest_dimension()/2;
-                x = __component_is_hex()  ? r * sin( 360/ $fn ) : r;
+                if (__component_is_round())
+                {
+                    MakeVerticalOvalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = __compartment_size( k_x )/2, y = __compartment_size( k_y )/2);
+                }
+                else
+                {
+                    r = __component_is_tri() || __component_is_tri2() ? __compartment_largest_dimension()/sqrt(3): __compartment_largest_dimension()/2;
+                    x = __component_is_hex()  ? r * sin( 360/ $fn ) : r;
 
-                MakeVerticalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = x, r = r);
+                    MakeVerticalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = x, r = r);
+                }
             }
             else
             {
