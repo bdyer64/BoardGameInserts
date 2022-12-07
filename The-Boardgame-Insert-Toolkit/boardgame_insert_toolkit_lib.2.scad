@@ -797,7 +797,7 @@ module MakeBox( box )
         function __component_is_tri2() = __component_shape() == TRI2;      
         function __component_is_round() = __component_shape() == ROUND;
         function __component_is_square() = __component_shape() == SQUARE;
-        function __component_is_fillet() = __component_shape() == FILLET || __component_shape() == BOWL;
+        function __component_is_fillet() = __component_shape() == FILLET; //|| __component_shape() == BOWL;
 	    function __component_is_bowl() = __component_shape() == BOWL;
         function __component_fillet_radius() = __value( component, CMP_FILLET_RADIUS, default = min( __compartment_size( k_z ), 10) );
 
@@ -807,7 +807,7 @@ module MakeBox( box )
         function __partition_height_scale( D ) = D == __Y2() ? __req_lower_partitions() ? 0.5 : 1.00 : 1.00;
 
         m_component_base_height = m_box_size[ k_z ] - __component_size( k_z ) - m_wall_thickness + m_bottom_offset;
-  
+
         // DERIVED VARIABLES
 
         ///////// __component_position helpers
@@ -1181,11 +1181,6 @@ module MakeBox( box )
                         translate( [0, 0, m_component_base_height])
                             AddFillets();
                     }
-		            if (__component_is_bowl())
-		            {
-			            translate( [0, 0, m_component_base_height])
-                            AddFillets(t);
-		            }
                 }
 
                 if ( m_push_base && m_component_base_height > 0 )
@@ -1201,7 +1196,8 @@ module MakeBox( box )
                 else
                 {
                     // fill in the bottom
-                    cube ( [ __component_size( k_x ), __component_size( k_y ), m_component_base_height ] );
+                    translate([0,0,0])
+                    cube ( [ __component_size( k_x ), __component_size( k_y ), m_component_base_height] );
                 }
                 
             }
@@ -2355,11 +2351,22 @@ module MakeBox( box )
             }
         }
 
+        module MakeBowlShape(x,y,h,r)
+        {
+            translate([0,0,m_component_base_height])
+            roundedcube(size = [x, y, h*2], center = false, radius = 7.5, apply_to = "zmin");
+            //roundedcube(size = [x, y, h], center = false, radius = r, apply_to = "zmin");
+        }
+
         module MakeCompartmentShape()
         {
             $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : __component_is_tri() || __component_is_tri2()? 3 : 100;
             
-            if ( __component_is_square() )
+            if (__component_is_bowl() )
+            {
+                MakeBowlShape(__compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height,__component_fillet_radius());
+            }
+            else if ( __component_is_square() )
             {
                 cube( [ __compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height]);
             }
@@ -2379,7 +2386,6 @@ module MakeBox( box )
             }
             else
             {
-
                 dim1 = __component_shape_rotated_90() ? k_y : k_x;
                 dim2 = __component_shape_rotated_90() ? k_x : k_y;
 
@@ -2798,6 +2804,69 @@ module MakeRoundedCubeAll( vecCube, radius, axis = k_z, vecRounded = [ t, t, t, 
         }
     }
 } 
+
+
+
+module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "all") {
+    // Higher definition curves
+    //$fs = 0.01;
+	// If single value, convert to [x, y, z] vector
+	size = (size[0] == undef) ? [size, size, size] : size;
+
+	translate_min = radius;
+	translate_xmax = size[0] - radius;
+	translate_ymax = size[1] - radius;
+	translate_zmax = size[2] - radius;
+
+	diameter = radius * 2;
+
+	module build_point(type = "sphere", rotate = [0, 0, 0]) {
+		if (type == "sphere") {
+			sphere(r = radius);
+		} else if (type == "cylinder") {
+			rotate(a = rotate)
+			cylinder(h = diameter, r = radius, center = true);
+		}
+	}
+
+	obj_translate = (center == false) ?
+		[0, 0, 0] : [
+			-(size[0] / 2),
+			-(size[1] / 2),
+			-(size[2] / 2)
+		];
+
+	translate(v = obj_translate) {
+		hull() {
+			for (translate_x = [translate_min, translate_xmax]) {
+				x_at = (translate_x == translate_min) ? "min" : "max";
+				for (translate_y = [translate_min, translate_ymax]) {
+					y_at = (translate_y == translate_min) ? "min" : "max";
+					for (translate_z = [translate_min, translate_zmax]) {
+						z_at = (translate_z == translate_min) ? "min" : "max";
+
+						translate(v = [translate_x, translate_y, translate_z])
+						if (
+							(apply_to == "all") ||
+							(apply_to == "xmin" && x_at == "min") || (apply_to == "xmax" && x_at == "max") ||
+							(apply_to == "ymin" && y_at == "min") || (apply_to == "ymax" && y_at == "max") ||
+							(apply_to == "zmin" && z_at == "min") || (apply_to == "zmax" && z_at == "max")
+						) {
+							build_point("sphere");
+						} else {
+							rotate = 
+								(apply_to == "xmin" || apply_to == "xmax" || apply_to == "x") ? [0, 90, 0] : (
+								(apply_to == "ymin" || apply_to == "ymax" || apply_to == "y") ? [90, 90, 0] :
+								[0, 0, 0]
+							);
+							build_point("cylinder", rotate);
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 
