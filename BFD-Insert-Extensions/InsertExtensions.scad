@@ -91,8 +91,8 @@ function tripleCardBox(box_name, label, height, stack , label_size = 10) =
             box(box_name, 3, label,label_size, 0, card_width, card_height, height, stack, t);
 function doubleCardBox(box_name, label, height, stack , label_size = 10) = 
             box(box_name, 2, label,label_size, 0, card_width, card_height, height, stack, t);
-function cardBox(box_name, label, height, stack , label_size = 10) = 
-            box(box_name, 1, label,label_size, 90, card_width, card_height, height, stack, t);
+function cardBox(box_name, label, height, stack , label_size = 10,card=0) = 
+            box(box_name, 1, label,label_size, 90, card_sizes[card][0], card_sizes[card][1], height, stack, t);
 function standardBox(box_name, label, height, stack , label_size = 10,shrink_x=0,shrink_y=0) = 
             box(box_name, 1, label,label_size, 90, card_width-shrink_x, card_height-shrink_y, height, stack, f);  
 function halfSizeBox(box_name, label, height, stack ) =
