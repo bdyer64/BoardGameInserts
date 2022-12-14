@@ -66,16 +66,14 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
         
-function bowlCompartment(num,x,y,height,cutout) = 
+function bowlCompartment(num,x,y,height,cutout,pos_x = CENTER, pos_y = CENTER) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   [num,1]],
             [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
-            [POSITION_XY, [CENTER,CENTER]],
+            [POSITION_XY, [pos_x,pos_y]],
             [CMP_SHAPE, BOWL],
             [CMP_FILLET_RADIUS,       height/2],
-            //[CMP_CUTOUT_BOTTOM_B,t],
-            //[CMP_CUTOUT_BOTTOM_PCT,40],
         ]
     ];
  

@@ -3,11 +3,6 @@ include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 $fn = 100;
 
-// determines whether lids are output.
-g_b_print_lid = t;
-
-// determines whether boxes are output.
-g_b_print_box = f; 
 
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
@@ -35,13 +30,801 @@ g_tolerance = 0.15;
 // The larger the value, the bigger the gap between the lid and the box.
 g_tolerance_detents_pos = 0.1;
 
-card_sizes = [[66,91],[72.5,125.5]];
+card_sizes = [[67,92],[73,126]];
 card_width = 68;
 card_height = 91;
 insert_font = "Futura:style=Medium";
 
+function compartmentLabel(label="label",size=5,rotation = 0,position=[0,0],depth=0.5) = 
+ [ LABEL,
+    [
+        [ LBL_TEXT,     label ],
+        [ LBL_SIZE,     size],
+        [ ROTATION,     rotation],
+        [ LBL_FONT,     insert_font],
+        [ POSITION_XY,   position],
+        [ LBL_DEPTH, depth ]
+    ]
+];
+
+function tents() = 
+ [   "Tents",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 37, 7.5] ],
+            boxLid(["Tents"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "Tent" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     0 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,0]]
+                        ]
+                    ], 
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "Tent" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     0 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,0]]
+                        ]
+                    ], 
+                ]
+            ],
+        ]
+];
+
+function bunkhouses() = 
+ [   "Bunkhouses",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 37, 12.5] ],
+            boxLid(["Bunkhouse"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "Bunkhouse" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     -45 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,3]]
+                        ]
+                    ], 
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "Bunkhouse" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     -45 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,3]]
+                        ]
+                    ], 
+                ]
+            ],
+        ]
+];
+
+function houses() = 
+ [   "Houses",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 37, 12.5] ],
+            boxLid(["Houses"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "House" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     0 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,0]]
+                        ]
+                    ], 
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "House" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     0 ],
+                            [ LBL_FONT,     insert_font],
+                            [ POSITION_XY,   [0,0]]
+                        ]
+                    ], 
+                ]
+            ],
+        ]
+];
+function testBuildings() = 
+ [   "Test Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [37, 37, 5] ],
+            boxLid(["Buildings"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                    [ LABEL,
+                        [
+                            [ LBL_TEXT,     "Workshop" ],
+                            [ LBL_SIZE,     5],
+                            [ ROTATION,     90 ],
+                            [ LBL_FONT,     insert_font],
+                            //[ POSITION_XY,   [CENTER,CENTER]]
+                        ]
+                    ], 
+                ]
+            ],  
+            ]
+];
+
+function testHexes() = 
+ [   "Test Hexes",
+        [
+            [ BOX_SIZE_XYZ,                                     [81, 91, 7] ],
+            boxLid(["Board Hexes"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [ POSITION_XY,                          [-5, 0 ] ],
+                    [CMP_CUTOUT_BOTTOM_B,                   t]
+                ]
+            ],  
+            ]
+];
+
+function smallBuildings() = 
+ [   "Small Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 139, 15] ],
+            boxLid(["Small Buildings"], 10, 90, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                    compartmentLabel(label="Gathering",rotation = -90,position=[0,10]),
+                    compartmentLabel(label="Post",rotation = -90),     
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                    compartmentLabel(label="Medical",rotation = 90,position=[0,10]),
+                    compartmentLabel(label="Post",rotation = 90),   
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 13] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                    compartmentLabel(label="Hunters",rotation = -90,position=[0,10]),
+                    compartmentLabel(label="Hut",rotation = -90),   
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                    compartmentLabel(label="Sawmill",rotation = 90),
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 68 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                    compartmentLabel(label="Charcoal",rotation = -90,position=[0,10]),
+                    compartmentLabel(label="Kiln",rotation = -90),   
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 68 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                    compartmentLabel(label="Factory",rotation = 90),
+                ]
+            ],   
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 102 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                    compartmentLabel(label="Workshop",rotation = -90),
+                ]
+            ],  
+        ]
+];
+
+function lawBuildings() = 
+ [   "Law Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 139, 12.5] ],
+            boxLid(["Law Buildings"], 10, 90, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],  
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 68 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 68 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ],   
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 65, 33, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0.5, 102 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,t]],
+                ]
+            ],  
+        ]
+];
+
+function scenerioBuildings() = 
+ [   "Scenerio Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 105, 12.5] ],
+            boxLid(["Scenerio" , "Buildings"], 10, 90, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 65, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0.5, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 65, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0.5, 68 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+        ]
+];
+
+function destroyedBuildings() = 
+ [   "Destroyed Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [71, 71, 12.5] ],
+            boxLid(["Destroyed","Buildings"], 9, 90, 16),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],  
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 8] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 34 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
+                ]
+            ], 
+        ]
+];
+
+function largeBuildings() = 
+ [   "Large Buildings",
+        [
+            [ BOX_SIZE_XYZ,                                     [105, 135, 7.5] ],
+            boxLid(["Large Buildings"], 10, 90, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    compartmentLabel(label="Coal",size=8,rotation = 90,position=[8,6]),
+                    compartmentLabel(label="Thumper",size=8,rotation = 90,position=[8,-6]),   
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    compartmentLabel(label="Hothouse",size=8,rotation = 90,position=[8,0]),
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [68, 0 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],
+                    compartmentLabel(label="Wall",size=8,rotation = 90,position=[8,6]),
+                    compartmentLabel(label="Drill",size=8,rotation = 90,position=[8,-6]), 
+                ]
+            ], 
+           [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 3] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [0, 66 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,t,f,f]],
+                    compartmentLabel(label="Beacon",size=8,rotation = 90,position=[-8,0]),
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [34, 66 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,t,f,f]],
+                    compartmentLabel(label="Infirmary",size=8,rotation = 90,position=[-8,0]),
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 65, 5.5] ],
+                    [CMP_SHAPE,                             SQUARE],   
+                    [ POSITION_XY,                          [68, 66 ] ],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,t,f,f]],
+                    compartmentLabel(label="Coal",size=8,rotation = 90,position=[-8,6]),
+                    compartmentLabel(label="Mine",size=8,rotation = 90,position=[-8,-6]), 
+                ]
+            ],   
+        ]
+];
+
+function boardHexes() = 
+ [   "Board Hexes",
+        [
+            [ BOX_SIZE_XYZ,                                     [193.5, 157, 25.5] ],
+            boxLid(["Board Hexes","Other Cardboard Tokens"], 10, 0, 12),
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 23.5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [ POSITION_XY,                          [-5, 0 ] ],
+                    [CMP_CUTOUT_BOTTOM_B,                   t]
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 23.5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [ POSITION_XY,                          [70.3, 0 ] ],
+                    [CMP_CUTOUT_BOTTOM_B,                   t]
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 23.5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [ POSITION_XY,                          [32.65, 65.25 ] ],
+                    [CMP_CUTOUT_BOTTOM_B,                   t]
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 23.5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [ POSITION_XY,                          [70.3+32.65+5, 65.25 ] ],
+                    [CMP_CUTOUT_BOTTOM_B,                   t]
+                ]
+            ],         
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 15.5, 15.5, 13] ],
+                    [CMP_SHAPE,                             ROUND],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 25, 137.5] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,t,f,f]],   
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 15.5, 15.5, 15.5] ],
+                    [CMP_SHAPE,                             SQUARE],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 69, 0] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],    
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 15, 15, 18] ],
+                    [CMP_SHAPE,                             SQUARE],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 106.5, 138] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,t,f,f]],    
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 21, 21, 18] ],
+                    [CMP_SHAPE,                             ROUND],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 0, 73.5] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],    
+                ]
+            ], 
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 21, 21, 13] ],
+                    [CMP_SHAPE,                             ROUND],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 0, 95.5] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],    
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 21.5, 21.5, 13] ],
+                    [CMP_SHAPE,                             SQUARE],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 0, 118] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,t,f]],    
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 27, 27, 10.5] ],
+                    [CMP_SHAPE,                             HEX],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 164, 45] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],    
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 30.5, 16, 10.5] ],
+                    [CMP_SHAPE,                             SQUARE],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 159, 23] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],    
+                ]
+            ],  
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 21, 21, 21] ],
+                    [CMP_SHAPE,                             ROUND],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 168.5, 0] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],   
+                ]
+            ],    
+            [ BOX_COMPONENT,
+                [
+                    
+                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 21, 21, 18.5] ],
+                    [CMP_SHAPE,                             ROUND],
+                    [CMP_SHAPE_VERTICAL_B,                  t],    
+                    [CMP_PADDING_XY,                        [2,2]],
+                    [ POSITION_XY,                          [ 146, 0] ],   
+                    [CMP_CUTOUT_TYPE,                       EXTERIOR],
+                    [CMP_CUTOUT_SIDES_4B,                   [t,f,f,f]],   
+                ]
+            ],   
+        ]
+   ];
+
+function housingHolder() = 
+[   "Housing Holder",
+    [
+        [ BOX_SIZE_XYZ,                                     [151, 75.5, 3] ],
+        [ BOX_NO_LID_B,t],
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 37.5, 71.5, 1] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [0, 0 ] ],
+            ]
+        ], 
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 15, 71.5, 2] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [38.5, 0 ] ],
+                [CMP_CUTOUT_BOTTOM_B,t],
+                [CMP_CUTOUT_BOTTOM_PCT,100],
+            ]
+        ],   
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 37.5, 71.5, 1] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [CENTER, 0 ] ],
+            ]
+        ],
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 15, 71.5, 2] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [93.5, 0 ] ],
+                [CMP_CUTOUT_BOTTOM_B,t],
+                [CMP_CUTOUT_BOTTOM_PCT,100],
+            ]
+        ],   
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 37.5, 71.5, 1] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [109.5, 0 ] ],
+            ]
+        ],
+    ]
+];
+
+function resinResources( label, label_size, label_rotation, x, y,height, stack, padding = 2) =
+    [   "Resin Resources",
+        [
+            [ BOX_SIZE_XYZ, [149,77,15 ]], 
+            boxLid(["Resin","Resources"], 12, 0, 12),
+            bowlCompartment(1,59,73,13,pos_x = 0, pos_y = 0), 
+            bowlCompartment(1,40,40,13,pos_x = 60, pos_y = 0),
+            bowlCompartment(1,40,32,13,pos_x = 60, pos_y = 41),
+            bowlCompartment(1,44,73,13,pos_x = 101, pos_y = 0),        
+        ]
+    ];
+
 // Focus on one box
-g_isolated_print_box = "Society"; 
+g_isolated_print_box = "Resin Resources"; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 
 data =
 [
@@ -51,6 +834,35 @@ data =
     cardBox("Morning",["Morning"],22,"",20,card=1),
     // Society and Social Dispute
     cardBox("Society",["Society","Social Dispute"],18,"",8,card=1),
+    // Dusk
+    cardBox("Dusk",["Dusk"],39,"",20,card=1),
+    // Scenerios
+    cardBox("Scenerios",["Scenerios"],25,"",18,card=1),
+    // Weather
+    cardBox("Weather",["Weather"],8,"",14,card=0),
+    // Citizens
+    cardBox("Citizens",["Citizens"],20,"",14,card=0),
+    // Technologies
+    cardBox("Technologies",["Technologies"],11,"",10,card=0),
+    // Expeditions
+    cardBox("Expeditions",["Expeditions"],24,"",10,card=0),
+    // Hope And Discontent
+    box( "Hope And Discontent", 1, ["Hope &","Discontent"], 8, 0, 60, 60, 31, "", f),
+    // Trees
+    bowl("Resin Trees", 1, ["Resin","Trees"],15, 90, 73, 96, 25, ""),
+    boardHexes(),
+    testHexes(),
+    testBuildings(),
+    smallBuildings(),
+    largeBuildings(),
+    tents(),
+    bunkhouses(),
+    houses(),
+    lawBuildings(),
+    destroyedBuildings(),
+    scenerioBuildings(),
+    housingHolder(),
+    resinResources(),
 ];
 
 MakeAll();
