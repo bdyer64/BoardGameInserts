@@ -809,22 +809,39 @@ function housingHolder() =
     ]
 ];
 
+function housingHolder() = 
+[   "Map Border",
+    [
+        [ BOX_SIZE_XYZ,                                     [304, 64, 28] ],
+        [ BOX_NO_LID_B,t],
+        [ BOX_COMPONENT,
+            [
+                
+                [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 300, 60, 26] ],
+                [CMP_SHAPE,                             SQUARE],   
+                [ POSITION_XY,                          [0, 0 ] ],
+            ]
+        ], 
+    ],
+];
+
 function resinResources( label, label_size, label_rotation, x, y,height, stack, padding = 2) =
     [   "Resin Resources",
         [
             [ BOX_SIZE_XYZ, [149,77,15 ]], 
             boxLid(["Resin","Resources"], 12, 0, 12),
-            bowlCompartment(1,59,73,13,pos_x = 0, pos_y = 0), 
-            bowlCompartment(1,40,40,13,pos_x = 60, pos_y = 0),
-            bowlCompartment(1,40,32,13,pos_x = 60, pos_y = 41),
-            bowlCompartment(1,44,73,13,pos_x = 101, pos_y = 0),        
+            bowlCompartment(1,59,73,16,pos_x = 0, pos_y = 0), 
+            bowlCompartment(1,40,40,16,pos_x = 60, pos_y = 0),
+            bowlCompartment(1,40,32,16,pos_x = 60, pos_y = 41),
+            bowlCompartment(1,44,73,16,pos_x = 101, pos_y = 0),        
         ]
     ];
 
 // Focus on one box
-g_isolated_print_box = "Resin Resources"; 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_isolated_print_box = "Map Border"; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 
 data =
 [
@@ -850,6 +867,9 @@ data =
     box( "Hope And Discontent", 1, ["Hope &","Discontent"], 8, 0, 60, 60, 31, "", f),
     // Trees
     bowl("Resin Trees", 1, ["Resin","Trees"],15, 90, 73, 96, 25, ""),
+    bowl("Bowl Test", 1, ["Testing"],15, 90, 50, 50, 15, ""),
+    box( "Wooden Markers", 1, ["Wooden","Markers"], 8, 0, 76, 50, 20, "", f),
+    bowl("Stress Markers", 1, ["Wooden Coal/","Stress Markers"], 7, 0, 76, 47, 20, ""),
     boardHexes(),
     testHexes(),
     testBuildings(),
