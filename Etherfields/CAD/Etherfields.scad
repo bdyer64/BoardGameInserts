@@ -3,12 +3,6 @@ include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 $fn = 100;
 
-// determines whether lids are output.
-g_b_print_lid = false;
-
-// determines whether boxes are output.
-g_b_print_box = t; 
-
 // Used to visualize how all of the boxes fit together. 
 //g_b_visualization = true;          
         
@@ -503,8 +497,9 @@ function otherSigns() =
         ],
 ];
   
-// Focus on one box
-g_isolated_print_box = "Markers Box 2"; 
+g_isolated_print_box = "Promos"; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 
 data =
 [

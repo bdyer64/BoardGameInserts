@@ -184,51 +184,6 @@ function houses() =
             ],
         ]
 ];
-function testBuildings() = 
- [   "Test Buildings",
-        [
-            [ BOX_SIZE_XYZ,                                     [37, 37, 5] ],
-            boxLid(["Buildings"], 10, 0, 12),
-            [ BOX_COMPONENT,
-                [
-                    
-                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
-                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 33, 33, 3] ],
-                    [CMP_SHAPE,                             SQUARE],   
-                    [ POSITION_XY,                          [0, 0 ] ],
-                    [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],
-                    [ LABEL,
-                        [
-                            [ LBL_TEXT,     "Workshop" ],
-                            [ LBL_SIZE,     5],
-                            [ ROTATION,     90 ],
-                            [ LBL_FONT,     insert_font],
-                            //[ POSITION_XY,   [CENTER,CENTER]]
-                        ]
-                    ], 
-                ]
-            ],  
-            ]
-];
-
-function testHexes() = 
- [   "Test Hexes",
-        [
-            [ BOX_SIZE_XYZ,                                     [81, 91, 7] ],
-            boxLid(["Board Hexes"], 10, 0, 12),
-            [ BOX_COMPONENT,
-                [
-                    
-                    [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
-                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 87, 87, 5] ],
-                    [CMP_SHAPE,                             HEX],
-                    [CMP_SHAPE_VERTICAL_B,                  t],    
-                    [ POSITION_XY,                          [-5, 0 ] ],
-                    [CMP_CUTOUT_BOTTOM_B,                   t]
-                ]
-            ],  
-            ]
-];
 
 function smallBuildings() = 
  [   "Small Buildings",
@@ -850,7 +805,7 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Wooden Citizens"; 
+g_isolated_print_box = "Wooden Automatons"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 
@@ -872,6 +827,7 @@ data =
     bowl("Stress Markers", 1, ["Wooden Coal/","Stress Markers"], 7, 0, 76, 47, 20, ""),
     bowl("Wooden Trees", 1, ["Wooden","Trees"], 12, 90, 67, 75, 41, "",radius=20),
     box( "Wooden Citizens", 1, ["Wooden Citizens"], 8, 0, 131, 51, 20, "", f),
+    box( "Wooden Automatons", 1, ["Wooden Automatons"], 8, 0, 88, 54.5, 23.5, "", f),
     boardHexes(),
     testHexes(),
     testBuildings(),
