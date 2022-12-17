@@ -53,6 +53,7 @@ DIV_TAB_CYCLE = "div_tab_cycle";
 DIV_TAB_CYCLE_START = "div_tab_cycle_start";
 
 DIV_TAB_TEXT = "div_tab_text";
+DIV_TAB_TEXT_INVERTED = "div_tab_text_inverted";
 DIV_TAB_TEXT_SIZE = "DIV_TAB_TEXT_size";
 DIV_TAB_TEXT_FONT = "DIV_TAB_TEXT_font";
 DIV_TAB_TEXT_SPACING = "DIV_TAB_TEXT_spacing";
@@ -154,6 +155,8 @@ HEX = "hex";
 HEX2 = "hex2";
 OCT = "oct";
 OCT2 = "oct2";
+TRI = "triangle";
+TRI2 = "triangle2";
 ROUND = "round";
 FILLET = "fillet";
 BOWL = "bowl";
@@ -206,6 +209,9 @@ g_detent_dist_from_corner = 1.5;
 
 // default = g_wall_thickness
 g_lid_thickness = g_wall_thickness; 
+
+// allow compartments to carve into bottom when needed
+g_min_bottom_thickness = g_wall_thickness;
 
 // give each compartment a different color. Useful for development
 g_b_colorize = true;
@@ -304,6 +310,7 @@ function __div_tab_cycle_start( div ) = __value( div, DIV_TAB_CYCLE_START, defau
 function __div_total_height( div ) = __div_tab_size( div )[k_y] + __div_frame_size( div )[k_y];
 
 function __div_tab_text ( div ) = __value( div, DIV_TAB_TEXT, default = ["001","002", "003" ] );
+function __div_tab_text_inverted ( div ) = __value( div, DIV_TAB_TEXT_INVERTED, default = false );
 function __div_tab_text_size ( div ) = __value( div, DIV_TAB_TEXT_SIZE, default = 7 );
 function __div_tab_text_font ( div ) = __value( div, DIV_TAB_TEXT_FONT, default = "Stencil Std:style=Bold" );
 function __div_tab_text_spacing ( div ) = __value( div, DIV_TAB_TEXT_SPACING, default = 1.1 );
@@ -444,6 +451,7 @@ module MakeDividers( div )
 
     tab_text = __div_tab_text( div );
 
+    tab_text_inverted = __div_tab_text_inverted( div );
     font_size = __div_tab_text_size( div );
     font = __div_tab_text_font( div );
     font_spacing = __div_tab_text_spacing( div );
@@ -472,56 +480,103 @@ module MakeDividers( div )
             MakeDivider(title = tab_text[idx], tab_offset = tab_offset );
     }
 
+    module Make2dDividerLabel( title, width, offset )
+    {
+        resize([ width,0,0], auto=true )
+            offset( r = offset )
+                text(text = title, 
+                    font = font, 
+                    size = font_size, 
+                    valign = "center",
+                    halign = "center", 
+                    spacing = font_spacing,
+                    $fn = fn);
+    }
+
+    module MakeDividerLabelFrame( label, width, offset = 3, thickness = 5 )
+    {
+        linear_extrude( thickness )
+            MirrorAboutPoint( [ 1,0,0],[0,0, thickness / 2])
+                RotateAboutPoint( __label_rotation( label ), [0,0,1], [0,0,0] )
+                    offset( r = offset )
+                        intersection()
+                        {
+                            hull()
+                            {
+                                translate( [ -200,0,0])
+                                    Make2dDividerLabel( label, width, offset );
+
+                                translate( [ 200,0,0])
+                                    Make2dDividerLabel( label, width, offset );
+                            }
+                            hull()
+                            {
+                                translate( [ -0,-200,0])
+                                    Make2dDividerLabel( label, width, offset );
+
+                                translate( [ 0,200,0])
+                                    Make2dDividerLabel( label, width, offset );
+                            }         
+                        }    
+    }
+
     module MakeDivider( title, tab_offset  )
     {
-
+        offset = 3;
         column_height = height - tab_height/2;
 
         gap_size = ( width - ( ( 2 + num_columns ) * divider_column ) ) / ( num_columns + 1 );
 
         difference()
         {
-            MakeRoundedCubeAxis( [ width, height, depth ], 4, k_z);
+            MakeRoundedCubeAxis( [ width, height, depth ], 4,[t,t,f,f], k_z);
 
             if ( num_columns != -1 )
             for (c = [ 0 : num_columns ] ) 
             {
                 translate( [ divider_column + (divider_column + gap_size) * c, divider_bottom, 0])
-                    MakeRoundedCubeAxis( [ gap_size, height - divider_bottom - divider_top, depth ], 4, k_z);
+                    MakeRoundedCubeAxis( [ gap_size, height - divider_bottom - divider_top, depth ], 4,[t,t,t,t], k_z);
             }
 
         }
 
+        height_overlap = tab_radius;
+        title_pos = [ tab_offset, height - height_overlap, 0];
+        // words
+        text_pos = title_pos + [ tab_width/2, height_overlap + tab_height/2, depth/2 ];
+        text_width = len(title) > number_of_letters_before_scale_to_fit ? tab_width * 0.8 : 0;
+        
         // TAB
         difference()
         {
-            height_overlap = tab_radius;
-            title_pos = [ tab_offset, height - height_overlap, 0];
-
             // tab shape
             translate( title_pos )
             {
-                MakeRoundedCubeAxis( [ tab_width, tab_height + height_overlap, depth], 4, k_z ); 
+                MakeRoundedCubeAxis( [ tab_width, tab_height + height_overlap, depth], 4, [f,f,t,t],k_z ); 
             }
 
-            // words
-            text_pos = title_pos + [ tab_width/2, font_size * 2, 0 ];
-
-            text_width = len(title) > number_of_letters_before_scale_to_fit ? tab_width * 0.8 : 0;
-
-            translate( text_pos)
-                resize([ text_width,0, 0 ], auto=[ true, true, false])
-                    linear_extrude( depth )
-                        text(text = title, 
-                            font = font, 
-                            size = font_size, 
-                            valign = "top",
-                            halign = "center", 
-                            spacing = font_spacing,
-                            $fn = fn);
+            if (tab_text_inverted)
+            {
+                translate( text_pos)
+                    resize([ text_width == 0 ? 0 : text_width + offset*2,0, 0 ], auto=[ true, true, false])
+                        MakeDividerLabelFrame(title, text_width, offset );
+            }
+            else
+            {
+                translate( text_pos)
+                    resize([ text_width,0, 0 ], auto=[ true, true, false])
+                        linear_extrude( depth/2 )             
+                            Make2dDividerLabel(title,text_width,0);
+            }
         }
-
         
+        if (tab_text_inverted)
+        {
+            translate( text_pos)
+                    resize([ text_width,0, 0 ], auto=[ true, true, false])
+                        linear_extrude( depth/2 )             
+                            Make2dDividerLabel(title,text_width,0);
+        }
     }
 }
 
@@ -536,6 +591,7 @@ module MakeBox( box )
     m_box_is_stackable = __value( box, BOX_STACKABLE_B, default = false );
 
     m_wall_thickness = g_b_fit_test ? 0.5 : __value( box, "wall_thickness", default = g_wall_thickness ); // needs work to change if no lid
+    m_bottom_offset = g_wall_thickness - g_min_bottom_thickness;
 
     m_lid = __value( box, BOX_LID, default = [] );
 
@@ -736,10 +792,12 @@ module MakeBox( box )
         function __component_is_hex() = __component_shape() == HEX;
         function __component_is_hex2() = __component_shape() == HEX2;
         function __component_is_oct() = __component_shape() == OCT;
-        function __component_is_oct2() = __component_shape() == OCT2;        
+        function __component_is_oct2() = __component_shape() == OCT2;  
+        function __component_is_tri() = __component_shape() == TRI;
+        function __component_is_tri2() = __component_shape() == TRI2;      
         function __component_is_round() = __component_shape() == ROUND;
         function __component_is_square() = __component_shape() == SQUARE;
-        function __component_is_fillet() = __component_shape() == FILLET || __component_shape() == BOWL;
+        function __component_is_fillet() = __component_shape() == FILLET; //|| __component_shape() == BOWL;
 	    function __component_is_bowl() = __component_shape() == BOWL;
         function __component_fillet_radius() = __value( component, CMP_FILLET_RADIUS, default = min( __compartment_size( k_z ), 10) );
 
@@ -748,8 +806,8 @@ module MakeBox( box )
     
         function __partition_height_scale( D ) = D == __Y2() ? __req_lower_partitions() ? 0.5 : 1.00 : 1.00;
 
-        m_component_base_height = m_box_size[ k_z ] - __component_size( k_z ) - m_wall_thickness;
-  
+        m_component_base_height = m_box_size[ k_z ] - __component_size( k_z ) - m_wall_thickness + m_bottom_offset;
+
         // DERIVED VARIABLES
 
         ///////// __component_position helpers
@@ -827,7 +885,7 @@ module MakeBox( box )
         {
             ContainWithinBox()
                 RotateAboutPoint( __component_rotation(), [0,0,1], [__component_position( k_x ) + __component_size( k_x )/2, __component_position( k_y )+ __component_size( k_y )/2, 0] ) 
-                    translate( [ __component_position( k_x ), __component_position( k_y ), m_wall_thickness ] )
+                    translate( [ __component_position( k_x ), __component_position( k_y ), m_wall_thickness - m_bottom_offset ] )
                         Shear( __component_shear( k_x ), __component_shear( k_y ), __component_size( k_z ) )
                             children();
         }
@@ -1123,17 +1181,11 @@ module MakeBox( box )
                         translate( [0, 0, m_component_base_height])
                             AddFillets();
                     }
-		            if (__component_is_bowl())
-		            {
-			            translate( [0, 0, m_component_base_height])
-                            AddFillets(t);
-		            }
                 }
 
                 if ( m_push_base && m_component_base_height > 0 )
                 {
                     frac = 0.4;
-
                     InEachCompartment()
                         translate( [ (__compartment_size( k_x) * (1-frac))/2, (__compartment_size( k_y) * (1-frac))/2, 0 ])
                             resize( [ 0, 0, m_component_base_height ], auto=false )  // fit it to the base
@@ -1144,7 +1196,8 @@ module MakeBox( box )
                 else
                 {
                     // fill in the bottom
-                    cube ( [ __component_size( k_x ), __component_size( k_y ), m_component_base_height ] );
+                    translate([0,0,0])
+                    cube ( [ __component_size( k_x ), __component_size( k_y ), m_component_base_height] );
                 }
                 
             }
@@ -1982,7 +2035,6 @@ module MakeBox( box )
 
         module MakeSideCutouts( side, margin = false )
         {
-            echo("Make Side Cutouts");
             function __cutout_z() = m_is_lid ? m_lid_wall_height + m_lid_thickness : 
                                     m_box_size[ k_z ]  * m_cutout_height_pct; 
             function __padding( D ) = m_is_lid ? 0 : __component_padding( D );
@@ -2122,10 +2174,6 @@ module MakeBox( box )
             shape = __round_bottom() ? [ t,t,t,t] : 
                 m_actually_cutout_the_bottom || margin ? shape_square : shape_standard[ side ];
             
-
-            echo("shape");
-            echo(shape);
-            echo(size[side]);
             translate( pos[ side ] )
                 if ( __round_bottom() ) {
                     if ( side == k_back || side == k_front )
@@ -2272,37 +2320,72 @@ module MakeBox( box )
         {
             compartment_z_min = m_wall_thickness;
             compartment_internal_z = __compartment_size( k_z ) - compartment_z_min;
-
-            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 , 0 ];
+            trans_y_offset = __component_is_tri() ? -r/4 : __component_is_tri2() ? r/4 : 0;
+            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 + trans_y_offset, 0 ];
 
             translate( cylinder_translation )
             {
-                angle = __component_is_hex() ? 30 : __component_is_oct() ? 22.5 : 0;
+                angle = __component_is_hex() ? 30 : __component_is_oct() ? 22.5 : __component_is_tri() ? -30 : __component_is_tri2() ? 30 : 0;
 
                 rotate( a=angle, v=[0, 0, 1] )
                     cylinder(h, r, r, center = false );                      
             }
-                
+
+        }
+
+        module MakeVerticalOvalShape(h,x,y)
+        {
+            compartment_z_min = m_wall_thickness;
+            compartment_internal_z = __compartment_size( k_z ) - compartment_z_min;
+
+            trans_y_offset =  0;
+            cylinder_translation = [ __compartment_size( k_x )/2 , __compartment_size(k_y)/2 + trans_y_offset, 0 ];
+
+            translate( cylinder_translation )
+            {
+                angle = 0;
+
+                rotate( a=angle, v=[0, 0, 1] )
+                    scale([x,y,1])
+                        cylinder(h, 1, 1, center = false );                      
+            }
+        }
+
+        module MakeBowlShape(x,y,h,r)
+        {
+            translate([0,0,m_component_base_height])
+            roundedcube(size = [x, y, h*2], center = false, radius = r, apply_to = "zmin");
+            //roundedcube(size = [x, y, h], center = false, radius = r, apply_to = "zmin");
         }
 
         module MakeCompartmentShape()
         {
-            $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : 100;
-
-            if ( __component_is_square() )
+            $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : __component_is_tri() || __component_is_tri2()? 3 : 100;
+            
+            if (__component_is_bowl() )
+            {
+                MakeBowlShape(__compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height,__component_fillet_radius());
+            }
+            else if ( __component_is_square() )
             {
                 cube( [ __compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height]);
             }
             else if ( __component_shape_vertical() )
             {
-                r = __compartment_largest_dimension()/2;
-                x = __component_is_hex()  ? r * sin( 360/ $fn ) : r;
+                if (__component_is_round())
+                {
+                    MakeVerticalOvalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = __compartment_size( k_x )/2, y = __compartment_size( k_y )/2);
+                }
+                else
+                {
+                    r = __component_is_tri() || __component_is_tri2() ? __compartment_largest_dimension()/sqrt(3): __compartment_largest_dimension()/2;
+                    x = __component_is_hex()  ? r * sin( 360/ $fn ) : r;
 
-                MakeVerticalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = x, r = r);
+                    MakeVerticalShape(h = __compartment_size( k_z ) + m_component_base_height + epsilon, x = x, r = r);
+                }
             }
             else
             {
-
                 dim1 = __component_shape_rotated_90() ? k_y : k_x;
                 dim2 = __component_shape_rotated_90() ? k_x : k_y;
 
@@ -2721,6 +2804,69 @@ module MakeRoundedCubeAll( vecCube, radius, axis = k_z, vecRounded = [ t, t, t, 
         }
     }
 } 
+
+
+
+module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "all") {
+    // Higher definition curves
+    //$fs = 0.01;
+	// If single value, convert to [x, y, z] vector
+	size = (size[0] == undef) ? [size, size, size] : size;
+
+	translate_min = radius;
+	translate_xmax = size[0] - radius;
+	translate_ymax = size[1] - radius;
+	translate_zmax = size[2] - radius;
+
+	diameter = radius * 2;
+
+	module build_point(type = "sphere", rotate = [0, 0, 0]) {
+		if (type == "sphere") {
+			sphere(r = radius);
+		} else if (type == "cylinder") {
+			rotate(a = rotate)
+			cylinder(h = diameter, r = radius, center = true);
+		}
+	}
+
+	obj_translate = (center == false) ?
+		[0, 0, 0] : [
+			-(size[0] / 2),
+			-(size[1] / 2),
+			-(size[2] / 2)
+		];
+
+	translate(v = obj_translate) {
+		hull() {
+			for (translate_x = [translate_min, translate_xmax]) {
+				x_at = (translate_x == translate_min) ? "min" : "max";
+				for (translate_y = [translate_min, translate_ymax]) {
+					y_at = (translate_y == translate_min) ? "min" : "max";
+					for (translate_z = [translate_min, translate_zmax]) {
+						z_at = (translate_z == translate_min) ? "min" : "max";
+
+						translate(v = [translate_x, translate_y, translate_z])
+						if (
+							(apply_to == "all") ||
+							(apply_to == "xmin" && x_at == "min") || (apply_to == "xmax" && x_at == "max") ||
+							(apply_to == "ymin" && y_at == "min") || (apply_to == "ymax" && y_at == "max") ||
+							(apply_to == "zmin" && z_at == "min") || (apply_to == "zmax" && z_at == "max")
+						) {
+							build_point("sphere");
+						} else {
+							rotate = 
+								(apply_to == "xmin" || apply_to == "xmax" || apply_to == "x") ? [0, 90, 0] : (
+								(apply_to == "ymin" || apply_to == "ymax" || apply_to == "y") ? [90, 90, 0] :
+								[0, 0, 0]
+							);
+							build_point("cylinder", rotate);
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 
