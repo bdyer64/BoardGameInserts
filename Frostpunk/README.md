@@ -16,18 +16,24 @@ You can either cut the generator holder from the original insert like I did or y
 
 ## Layer 2
 
-Note the trimming needed to make the Large Buildings box fit.
+Layer 2 only adds 2 boxes. Note the trimming needed to make the Large Buildings box fit.
 
-![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer2.png)
+![Layer 2](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer2.png)
 
 ## Layer 3
 
 I used a couple of spacers to hold everything in place and then placed the bags for the hope and discontent markeres in one and the spare cardboard token that you don't need if you have the Frostlander Expansion in the other. Didn't seem like it was worth printing boxes for these but feel free to design some yourself.
 
-![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer3.png)
+![Layer 3](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer3.png)
 
 ## Layer 4
 
 The boards fit with no lid lift, you have to play around with them a little bit but trust me they fit in there.
 
-![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer4.png)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer4.png)
+
+## Building Setup
+
+Building setup is made way easier with this insert. The Small Buildings, Large Buildings and Shelter Buildings are all stored so they can just be pulled out of the box and set on the board. The Law Buildings are all stored in one box and you can select the ones you need for the Laws you drew and use the box as the holder. The Shelter Buildings have a little base that they sit on to keep them in place, see the picture below.
+
+![Buildings](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Buildings.png)
