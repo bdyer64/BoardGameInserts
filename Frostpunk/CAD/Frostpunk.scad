@@ -805,9 +805,9 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Wooden Automatons"; 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_isolated_print_box = "Spacer 1"; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 
 data =
 [
@@ -827,7 +827,8 @@ data =
     bowl("Stress Markers", 1, ["Wooden Coal/","Stress Markers"], 7, 0, 76, 47, 20, ""),
     bowl("Wooden Trees", 1, ["Wooden","Trees"], 12, 90, 67, 75, 41, "",radius=20),
     box( "Wooden Citizens", 1, ["Wooden Citizens"], 8, 0, 131, 51, 20, "", f),
-    box( "Wooden Automatons", 1, ["Wooden Automatons"], 8, 0, 88, 54.5, 23.5, "", f),
+    box( "Wooden Automatons", 1, ["Wooden","Automatons"], 8, 0, 88, 54.5, 23.5, "", f),
+    spacer("Spacer 1", 105, 55, 22),
     boardHexes(),
     testHexes(),
     testBuildings(),

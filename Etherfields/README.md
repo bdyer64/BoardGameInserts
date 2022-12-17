@@ -1,5 +1,9 @@
 # Etherfields Insert
 
+If you find anything here useful a small donation would be appreciated, but of course not expected. I do this to help the board game community, not to make a living. 
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=8DHN9MQWWW8UJ)
+
 An insert for Etherfields. This insert will hold all the base content except the boss mini along with all the cards from all the expansions. It will not hold all the Scripts books (or the special plastic maps), but you only need one at a time anyway so you can swap the ones in that you need as you play through the campaigns. I put all the boss minis and the script books from the expansion campaigns in the stretch goals box.
 
 I have replaced all the included dividers with printed dividers that are low profile to save a lot of space. 
