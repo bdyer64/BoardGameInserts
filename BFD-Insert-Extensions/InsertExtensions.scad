@@ -66,19 +66,19 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
         
-function bowlCompartment(num,x,y,height,cutout,pos_x = CENTER, pos_y = CENTER) = 
+function bowlCompartment(num,x,y,height,cutout,pos_x = CENTER, pos_y = CENTER,r=7.5) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   [num,1]],
             [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
             [POSITION_XY, [pos_x,pos_y]],
             [CMP_SHAPE, BOWL],
-            [CMP_FILLET_RADIUS,       height/2],
+            [CMP_FILLET_RADIUS,       r],
         ]
     ];
  
-function bowlBox(box_name, label, height, stack ) = 
-            bowl(box_name, 1, label,10, 90, card_width, card_height, height, stack);
+function bowlBox(box_name, label, height, stack , r = 7.5) = 
+            bowl(box_name, 1, label,10, 90, card_width, card_height, height, stack,radius=r);
 function singleSpacer(spacer_name,height) = 
     spacer(spacer_name,((card_width+3) * 1), card_height+3,height);
 function doubleSpacer(spacer_name,height) = 
@@ -115,7 +115,7 @@ function box( box_name, num_compartments, label, label_size, label_rotation, x, 
         ]
     ];
     
-function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2) =
+function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2,radius=7.5) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
@@ -124,7 +124,7 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
                   height + g_wall_thickness] ], 
             boxLid(label, label_size, label_rotation, 12),
             bottomLabel(stack,y),
-            bowlCompartment(num_compartments,x,y,height),        
+            bowlCompartment(num_compartments,x,y,height,r=radius),        
         ]
     ];
 function divider( divider_name, label, tab_height,card = 0) = 

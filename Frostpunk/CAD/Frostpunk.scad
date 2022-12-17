@@ -826,7 +826,7 @@ function housingHolder() =
     ],
 ];
 
-function resinResources( label, label_size, label_rotation, x, y,height, stack, padding = 2) =
+function resinResources() =
     [   "Resin Resources",
         [
             [ BOX_SIZE_XYZ, [149,77,15 ]], 
@@ -837,39 +837,41 @@ function resinResources( label, label_size, label_rotation, x, y,height, stack, 
             bowlCompartment(1,44,73,16,pos_x = 101, pos_y = 0),        
         ]
     ];
+    
+function woodenResources() =
+    [   "Wooden Resources",
+        [
+            [ BOX_SIZE_XYZ, [118,77,27 ]], 
+            boxLid(["Wooden","Resources"], 12, 0, 12),
+            bowlCompartment(1,56,73,25,pos_x = 0, pos_y = 0,r=12), 
+            bowlCompartment(1,57,42,25,pos_x = 57, pos_y = 0,r=12),
+            bowlCompartment(1,57,30,25,pos_x = 57, pos_y = 43,r=12),      
+        ]
+    ];
 
 // Focus on one box
-g_isolated_print_box = "Map Border"; 
+g_isolated_print_box = "Wooden Citizens"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 
 data =
 [
-    // Law cards
     cardBox("Laws",["Laws"],32,"",20,card=1),
-    // Morning cards
     cardBox("Morning",["Morning"],22,"",20,card=1),
-    // Society and Social Dispute
     cardBox("Society",["Society","Social Dispute"],18,"",8,card=1),
-    // Dusk
     cardBox("Dusk",["Dusk"],39,"",20,card=1),
-    // Scenerios
     cardBox("Scenerios",["Scenerios"],25,"",18,card=1),
-    // Weather
     cardBox("Weather",["Weather"],8,"",14,card=0),
-    // Citizens
     cardBox("Citizens",["Citizens"],20,"",14,card=0),
-    // Technologies
     cardBox("Technologies",["Technologies"],11,"",10,card=0),
-    // Expeditions
     cardBox("Expeditions",["Expeditions"],24,"",10,card=0),
-    // Hope And Discontent
     box( "Hope And Discontent", 1, ["Hope &","Discontent"], 8, 0, 60, 60, 31, "", f),
-    // Trees
     bowl("Resin Trees", 1, ["Resin","Trees"],15, 90, 73, 96, 25, ""),
     bowl("Bowl Test", 1, ["Testing"],15, 90, 50, 50, 15, ""),
     box( "Wooden Markers", 1, ["Wooden","Markers"], 8, 0, 76, 50, 20, "", f),
     bowl("Stress Markers", 1, ["Wooden Coal/","Stress Markers"], 7, 0, 76, 47, 20, ""),
+    bowl("Wooden Trees", 1, ["Wooden","Trees"], 12, 90, 67, 75, 41, "",radius=20),
+    box( "Wooden Citizens", 1, ["Wooden Citizens"], 8, 0, 131, 51, 20, "", f),
     boardHexes(),
     testHexes(),
     testBuildings(),
@@ -883,6 +885,7 @@ data =
     scenerioBuildings(),
     housingHolder(),
     resinResources(),
+    woodenResources(),
 ];
 
 MakeAll();

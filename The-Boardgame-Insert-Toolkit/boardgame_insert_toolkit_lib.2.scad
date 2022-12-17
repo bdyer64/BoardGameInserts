@@ -2354,7 +2354,7 @@ module MakeBox( box )
         module MakeBowlShape(x,y,h,r)
         {
             translate([0,0,m_component_base_height])
-            roundedcube(size = [x, y, h*2], center = false, radius = 7.5, apply_to = "zmin");
+            roundedcube(size = [x, y, h*2], center = false, radius = r, apply_to = "zmin");
             //roundedcube(size = [x, y, h], center = false, radius = r, apply_to = "zmin");
         }
 
