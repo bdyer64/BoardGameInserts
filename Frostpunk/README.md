@@ -10,24 +10,24 @@ To pack this into the box there are four layers with most of the content being i
 
 ## Layer 1
 
-Insert image here.
-
 You can either cut the generator holder from the original insert like I did or you can come up with your own solution using foam or bubble wrap of whatever. The cutout from the original seems to work pretty good. The dreadnought is kept in it original tray but you will need to trim a little bit of one corner to fit the large buildings box (see Layers 2).
+
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer1.png)
 
 ## Layer 2
 
 Note the trimming needed to make the Large Buildings box fit.
 
-Insert image here.
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer2.png)
 
 ## Layer 3
 
 I used a couple of spacers to hold everything in place and then placed the bags for the hope and discontent markeres in one and the spare cardboard token that you don't need if you have the Frostlander Expansion in the other. Didn't seem like it was worth printing boxes for these but feel free to design some yourself.
 
-Insert image here.
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer3.png)
 
 ## Layer 4
 
 The boards fit with no lid lift, you have to play around with them a little bit but trust me they fit in there.
 
-Insert image here.
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer4.png)
