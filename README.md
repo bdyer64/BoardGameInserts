@@ -12,6 +12,6 @@ If you stumble across this feel free to take anything here and do what you will 
 
 If you have a game you want an insert for let me know, if I have it maybe I will design one. I mostly have nothing better to do when I am not playing games or reading rules.
 
-If you find anything here useful a small donation would be appreciated, but of course not expected. 
+If you find anything here useful a small donation would be appreciated, but of course not expected. I do this to help the board game community, not to make a living. 
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=8DHN9MQWWW8UJ)
