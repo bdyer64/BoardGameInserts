@@ -805,7 +805,7 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Spacer 1"; 
+g_isolated_print_box = "Spacer 2"; 
 g_b_print_lid = true;
 g_b_print_box = false; 
 
@@ -829,6 +829,7 @@ data =
     box( "Wooden Citizens", 1, ["Wooden Citizens"], 8, 0, 131, 51, 20, "", f),
     box( "Wooden Automatons", 1, ["Wooden","Automatons"], 8, 0, 88, 54.5, 23.5, "", f),
     spacer("Spacer 1", 105, 55, 22),
+    spacer("Spacer 2", 101, 45, 34.5),
     boardHexes(),
     testHexes(),
     testBuildings(),
