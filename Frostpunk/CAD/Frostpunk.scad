@@ -764,16 +764,16 @@ function housingHolder() =
     ]
 ];
 
-function housingHolder() = 
+function mapBorder() = 
 [   "Map Border",
     [
-        [ BOX_SIZE_XYZ,                                     [304, 64, 28] ],
+        [ BOX_SIZE_XYZ,                                     [304, 68, 28] ],
         [ BOX_NO_LID_B,t],
         [ BOX_COMPONENT,
             [
                 
                 [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
-                [CMP_COMPARTMENT_SIZE_XYZ,              [ 300, 60, 26] ],
+                [CMP_COMPARTMENT_SIZE_XYZ,              [ 300, 64, 26] ],
                 [CMP_SHAPE,                             SQUARE],   
                 [ POSITION_XY,                          [0, 0 ] ],
             ]
@@ -805,9 +805,9 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Spacer 2"; 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_isolated_print_box = "Map Border"; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 
 data =
 [
@@ -844,6 +844,7 @@ data =
     housingHolder(),
     resinResources(),
     woodenResources(),
+    mapBorder(),
 ];
 
 MakeAll();
