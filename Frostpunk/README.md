@@ -34,7 +34,7 @@ I used a couple of spacers to hold everything in place and then placed the bags 
 
 The boards fit with no lid lift, you have to play around with them a little bit but trust me they fit in there.
 
-The the tray for the map borders isn't strictly needed and if you don't have at least a 300mmx300mm printer bed you won'tbe able to print it. 
+The tray for the map borders isn't strictly needed and if you don't have at least a 300mmx300mm printer bed you won'tbe able to print it. 
 
 ![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer4-1.png)
 ![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/Frostpunk/images/Layer4-2.png)
