@@ -14,7 +14,7 @@ The minis rattle around a bit in the boxes so if you are worried use some foam o
 
 The inserts accomodate sleeved cards for the most part. It will not fit all the secrets cards sleeved, I sleeve these as they are put into play, otherwise they are left unsleeved. The square tile cards are not sleeved, not even sure if sleeve for these cards exist.
 
-Printing parameters will depend on your printer, but I use a layer height of 0.2 mm, 4 layers bottom and top, a wall count of 4 and 30% infill. The boxes tend to pull up and warp on the corners so play around with our printer setting and first layer to make them stick. You can see in the pictures that I didn't total succeed in eliminationg all warping. Most of the time it is just aesthetic and doesn't effect the function. 
+Printing parameters will depend on your printer, but I use a layer height of 0.2 mm, 4 layers bottom and top, a wall count of 4 and 30% infill. The boxes tend to pull up and warp on the corners so play around with our printer setting and first layer to make them stick. You can see in the pictures that I didn't total succeed in eliminating all warping. Most of the time it is just aesthetic and doesn't effect the function. 
 
 To pack this into the box there are four layers with most of the content being in the first layer.
 
