@@ -1890,7 +1890,7 @@ module MakeBox( box )
                     if ( m_lid_inset )
                     {
                         // main structure of lid minus center
-                        difference( tolerance = g_tolerance )
+                        difference()
                         {
                             MakeLidBase_Inset( tolerance = g_tolerance, tolerance_detent_pos = g_tolerance_detent_pos );
 

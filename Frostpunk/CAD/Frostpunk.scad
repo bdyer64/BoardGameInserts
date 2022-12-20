@@ -35,18 +35,6 @@ card_width = 68;
 card_height = 91;
 insert_font = "Futura:style=Medium";
 
-function compartmentLabel(label="label",size=5,rotation = 0,position=[0,0],depth=0.5) = 
- [ LABEL,
-    [
-        [ LBL_TEXT,     label ],
-        [ LBL_SIZE,     size],
-        [ ROTATION,     rotation],
-        [ LBL_FONT,     insert_font],
-        [ POSITION_XY,   position],
-        [ LBL_DEPTH, depth ]
-    ]
-];
-
 function tents() = 
  [   "Tents",
         [
@@ -805,8 +793,8 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Map Border"; 
-g_b_print_lid = false;
+g_isolated_print_box = "Wooden Citizens"; 
+g_b_print_lid = true;
 g_b_print_box = true; 
 
 data =
@@ -831,8 +819,6 @@ data =
     spacer("Spacer 1", 105, 55, 22),
     spacer("Spacer 2", 101, 45, 34.5),
     boardHexes(),
-    testHexes(),
-    testBuildings(),
     smallBuildings(),
     largeBuildings(),
     tents(),
