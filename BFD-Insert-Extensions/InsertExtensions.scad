@@ -95,7 +95,7 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
     
-function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabel,position=[CENTER,CENTER]) = 
+function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels,position=[CENTER,CENTER]) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   num],
@@ -109,7 +109,8 @@ function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f
             [CMP_CUTOUT_HEIGHT_PCT,         33],    
             [CMP_PADDING_HEIGHT_ADJUST_XY, [ 0, 0] ],
             [CMP_PADDING_XY, padding ],
-            compartmentLabel
+            for (i = [0:len(compartmentLabels)-1])
+                compartmentLabels[i]
         ]
     ];
         
