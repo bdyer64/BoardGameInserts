@@ -113,9 +113,22 @@ function monsterBox5() =
     gridBox( "Monster Box 5", [3,3], ["Monster Box 5"], 7, 90, 52, 74, 17, "", t , padding = [1,1],compLabel=[monsterBox5CompLabel1,monsterBox5CompLabel2],positioned_labels=t,label_data=monsterBox5LabelData);
     
 // Focus on one box
-g_isolated_print_box = "Monster Box 5"; 
+g_isolated_print_box = "Testing"; 
 g_b_print_lid = true;
-g_b_print_box = false; 
+g_b_print_box = true; 
+
+testCompartmentsPosition =[[0,0],[21,0],[0,21],[21,31]];
+testCompartmentsSize = [[20,20,15],[25,30,10],[20,25,10],[25,15,15]];
+compartmentLabels1 = compartmentLabel(label=[["1"]],size=6,rotation = 0,position=[0,6],depth=0.5);
+compartmentLabels2 = compartmentLabel(label=[["2"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
+compartmentLabels3 = compartmentLabel(label=[["3"]],size=6,rotation = 0,position=[0,6],depth=0.5);
+compartmentLabels4 = compartmentLabel(label=[["4"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
+compartmentLabels5 = compartmentLabel(label=[["5"]],size=6,rotation = 0,position=[0,6],depth=0.5);
+compartmentLabels6 = compartmentLabel(label=[["6"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
+compartmentLabels7 = compartmentLabel(label=[["7"]],size=6,rotation = 0,position=[-6,0],depth=0.5);
+compartmentLabels8 = compartmentLabel(label=[["8"]],size=6,rotation = 0,position=[6,0],depth=0.5);
+compartmentTestLabels=[[compartmentLabels1,compartmentLabels2],[compartmentLabels3,compartmentLabels4],[compartmentLabels5,compartmentLabels6],[compartmentLabels7,compartmentLabels8]];
+lidLabels = [[[10,10],[-10,10],[10,-10,0],[-10,-10]],["One","Two","Three","Four"]];
 
 data =
 [    
@@ -124,6 +137,7 @@ data =
     monsterBox3(),
     monsterBox4(),
     monsterBox5(),
+    freeFormBox( "Testing", testCompartmentsPosition, testCompartmentsSize, 50, 50, 17, stack="22",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentTestLabels,positioned_labels=true,label_data=lidLabels,label_size=4,label_rotation=0),
 ];
 
 MakeAll();
