@@ -644,11 +644,11 @@ function boardHexes() =
                 [
                     
                     [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
-                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 27, 27, 10.5] ],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 28, 28, 10.5] ],
                     [CMP_SHAPE,                             HEX],
                     [CMP_SHAPE_VERTICAL_B,                  t],    
                     [CMP_PADDING_XY,                        [2,2]],
-                    [ POSITION_XY,                          [ 164, 45] ],   
+                    [ POSITION_XY,                          [ 163, 45] ],   
                     [CMP_CUTOUT_TYPE,                       EXTERIOR],
                     [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],    
                 ]
@@ -793,8 +793,8 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Wooden Citizens"; 
-g_b_print_lid = true;
+g_isolated_print_box = "Board Hexes"; 
+g_b_print_lid = false;
 g_b_print_box = true; 
 
 data =
