@@ -24,7 +24,7 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.2;
+g_tolerance = 0.15;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
@@ -71,8 +71,23 @@ monsterBox2LabelData = [[[53,-75],[53,0],[53,75],[0,-75],[0,0],[0,75],[-44,-75],
 monsterBox3CompLabel1 = compartmentLabel(label=[["Wind Demon","Spitting Drake","Sun Demon"],["Savvas Lavaflow","Savvas Icestorm","Robotic"],["Algox","Polar Bear","Rending Drake"]],size=7,rotation = 90,position=[0,18],depth=0.5);
 monsterBox3CompLabel2 = compartmentLabel(label=[["","",""],["","","Boltshooter"],["Snowspeaker","",""]],size=7,rotation = 90,position=[0,-18],depth=0.5);
 
-monsterBox3LabelData = [[[53,-75],[53,0],[53,75],[0,-75],[0,0],[0,75],[-44,-75],[-62,-75],[-53,0],[-53,75]],["Algox Snowspeaker","Savvas Lavaflow","Wind Demon","Polar Bear","Savvas Icestorm","Spitting Drake","Rending Drake", "Seven Two","Robotic Boltshooter","Sun Demon"]];
+monsterBox3LabelData = [[[44,-75],[62,-75],[53,0],[53,75],[0,-75],[0,0],[0,75],[-53,-75],[-45,-0],[-61,0],[-53,75]],["Algox","Snowspeaker","Savvas Lavaflow","Wind Demon","Polar Bear","Savvas Icestorm","Spitting Drake","Rending Drake", "Robotic","Boltshooter","Sun Demon"]];
 
+// ***** Monster Box 4 Labels ****
+
+monsterBox4CompLabel1 = compartmentLabel(label=[["Harrower","Living Bones","Lurker"],["Lurker","Lurker","Ice Wraith"],["Hound","Living Doom","Lurker Soldier"]],size=6,rotation = 90,position=[0,18],depth=0.5);
+
+monsterBox4CompLabel2 = compartmentLabel(label=[["Infester","","Mindsnipper"],["Wavethrower","Clawcrusher",""],["","",""]],size=6,rotation = 90,position=[0,-18],depth=0.5);
+
+monsterBox4LabelData = [[[53,-75],[61,0],[45,0],[61,75],[45,75],[0,-75],[8,0],[-8,0],[0,75],[-53,-75],[-53,0],[-45,75],[-61,75]],["Hound","Lurker","Waverthrower","Harrower","Infester","Living Doom","Lurker","Clawcrusher","Living Bones","Lurker Soldier","Ice Wraith","Lurker","Mindsnipper"]];
+
+// ***** Monster Box 5 Labels ****
+
+monsterBox5CompLabel1 = compartmentLabel(label=[["Harrower","Living Bones","Lurker"],["Lurker","Lurker","Ice Wraith"],["Hound","Living Doom","Lurker Soldier"]],size=6,rotation = 90,position=[0,18],depth=0.5);
+
+monsterBox5CompLabel2 = compartmentLabel(label=[["Infester","","Mindsnipper"],["Wavethrower","Clawcrusher",""],["","",""]],size=6,rotation = 90,position=[0,-18],depth=0.5);
+
+monsterBox5LabelData = [[[53,-75],[61,0],[45,0],[61,75],[45,75],[0,-75],[8,0],[-8,0],[0,75],[-53,-75],[-53,0],[-45,75],[-61,75]],["Hound","Lurker","Waverthrower","Harrower","Infester","Living Doom","Lurker","Clawcrusher","Living Bones","Lurker Soldier","Ice Wraith","Lurker","Mindsnipper"]];
 
 function monsterBox1() =
     [   "Monster Box 1",
@@ -91,10 +106,14 @@ function monsterBox2() =
 function monsterBox3() = 
     gridBox( "Monster Box 3", [3,3], ["Monster Box 3"], 7, 90, 52, 74, 13, "", t , padding = [1,1],compLabel=[monsterBox3CompLabel1,monsterBox3CompLabel2],positioned_labels=t,label_data=monsterBox3LabelData);
     
-function testHalfBox() = 
-    gridBox( "Test Half Box", [1,2], ["Test Half Box"], 7, 90, 52, 36.5, 21, "", f , padding = [1,1]);
+function monsterBox4() = 
+    gridBox( "Monster Box 4", [3,3], ["Monster Box 4"], 7, 90, 52, 74, 17, "", t , padding = [1,1],compLabel=[monsterBox4CompLabel1,monsterBox4CompLabel2],positioned_labels=t,label_data=monsterBox4LabelData);
+    
+function monsterBox5() = 
+    gridBox( "Monster Box 5", [3,3], ["Monster Box 5"], 7, 90, 52, 74, 17, "", t , padding = [1,1],compLabel=[monsterBox5CompLabel1,monsterBox5CompLabel2],positioned_labels=t,label_data=monsterBox5LabelData);
+    
 // Focus on one box
-g_isolated_print_box = "Monster Box 3"; 
+g_isolated_print_box = "Monster Box 5"; 
 g_b_print_lid = true;
 g_b_print_box = false; 
 
@@ -103,9 +122,8 @@ data =
     monsterBox1(),
     monsterBox2(),
     monsterBox3(),
-    testHalfBox(),
-    
-   
+    monsterBox4(),
+    monsterBox5(),
 ];
 
 MakeAll();
