@@ -83,11 +83,11 @@ monsterBox4LabelData = [[[53,-75],[61,0],[45,0],[61,75],[45,75],[0,-75],[8,0],[-
 
 // ***** Monster Box 5 Labels ****
 
-monsterBox5CompLabel1 = compartmentLabel(label=[["Harrower","Living Bones","Lurker"],["Lurker","Lurker","Ice Wraith"],["Hound","Living Doom","Lurker Soldier"]],size=6,rotation = 90,position=[0,18],depth=0.5);
+monsterBox5CompLabel1 = compartmentLabel(label=[["Night Demon","Frost Demon","Flame Demon"],["Algox","Burrowing","Algox Archer"],["Chaos Demon","Ancient Artillery","Abael Herder"]],size=6,rotation = 90,position=[0,18],depth=0.5);
 
-monsterBox5CompLabel2 = compartmentLabel(label=[["Infester","","Mindsnipper"],["Wavethrower","Clawcrusher",""],["","",""]],size=6,rotation = 90,position=[0,-18],depth=0.5);
+monsterBox5CompLabel2 = compartmentLabel(label=[["","",""],["Icespeaker","Blade",""],["","",""]],size=6,rotation = 90,position=[0,-18],depth=0.5);
 
-monsterBox5LabelData = [[[53,-75],[61,0],[45,0],[61,75],[45,75],[0,-75],[8,0],[-8,0],[0,75],[-53,-75],[-53,0],[-45,75],[-61,75]],["Hound","Lurker","Waverthrower","Harrower","Infester","Living Doom","Lurker","Clawcrusher","Living Bones","Lurker Soldier","Ice Wraith","Lurker","Mindsnipper"]];
+monsterBox5LabelData = [[[53,-75],[61,0],[45,0],[53,75],[8,-75],[-8,-75],[8,0],[-8,0],[0,75],[-53,-75],[-53,0],[-53,75]],["Chaos Demon","Algox","Icespeaker","Night Demon","Ancient","Artillery","Burrowing","Blade","Frost Demon","Abael Herder","Algox Archer","Flame Demon"]];
 
 function monsterBox1() =
     [   "Monster Box 1",
