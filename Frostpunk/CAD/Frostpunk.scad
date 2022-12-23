@@ -35,18 +35,6 @@ card_width = 68;
 card_height = 91;
 insert_font = "Futura:style=Medium";
 
-function compartmentLabel(label="label",size=5,rotation = 0,position=[0,0],depth=0.5) = 
- [ LABEL,
-    [
-        [ LBL_TEXT,     label ],
-        [ LBL_SIZE,     size],
-        [ ROTATION,     rotation],
-        [ LBL_FONT,     insert_font],
-        [ POSITION_XY,   position],
-        [ LBL_DEPTH, depth ]
-    ]
-];
-
 function tents() = 
  [   "Tents",
         [
@@ -656,11 +644,11 @@ function boardHexes() =
                 [
                     
                     [CMP_NUM_COMPARTMENTS_XY,               [1,1]],
-                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 27, 27, 10.5] ],
+                    [CMP_COMPARTMENT_SIZE_XYZ,              [ 28, 28, 10.5] ],
                     [CMP_SHAPE,                             HEX],
                     [CMP_SHAPE_VERTICAL_B,                  t],    
                     [CMP_PADDING_XY,                        [2,2]],
-                    [ POSITION_XY,                          [ 164, 45] ],   
+                    [ POSITION_XY,                          [ 163, 45] ],   
                     [CMP_CUTOUT_TYPE,                       EXTERIOR],
                     [CMP_CUTOUT_SIDES_4B,                   [f,f,f,t]],    
                 ]
@@ -805,7 +793,7 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Map Border"; 
+g_isolated_print_box = "Board Hexes"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 
@@ -831,8 +819,6 @@ data =
     spacer("Spacer 1", 105, 55, 22),
     spacer("Spacer 2", 101, 45, 34.5),
     boardHexes(),
-    testHexes(),
-    testBuildings(),
     smallBuildings(),
     largeBuildings(),
     tents(),
