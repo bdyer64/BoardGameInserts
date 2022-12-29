@@ -1,12 +1,12 @@
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
 
-function boxLid( label, label_size, label_rotation,label_gap) =
+function boxLid( label, label_size, label_rotation,label_gap,inset = f) =
     [ BOX_LID,
         [
             [ LID_PATTERN_RADIUS,           6],        
             [ LID_PATTERN_THICKNESS,        0.8 ],      
-            [ LID_INSET_B, f ],
+            [ LID_INSET_B, inset ],
             [ LID_TABS_4B, [ t,t,t,t]],
             [ LID_FIT_UNDER_B, f],
             [ LID_LABELS_INVERT_B, t],

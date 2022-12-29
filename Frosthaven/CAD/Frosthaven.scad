@@ -112,23 +112,32 @@ function monsterBox4() =
 function monsterBox5() = 
     gridBox( "Monster Box 5", [3,3], ["Monster Box 5"], 7, 90, 52, 74, 17, "", t , padding = [1,1],compLabel=[monsterBox5CompLabel1,monsterBox5CompLabel2],positioned_labels=t,label_data=monsterBox5LabelData);
     
+// Large Card Box stuff
+
+cw = card_sizes[1][0];
+ch = card_sizes[1][1];
+largeCardsCompartmentSizes =[[cw,49,ch],[cw,32,ch],[cw,16,ch],[cw,16,ch],[cw,40,ch],[cw,32,ch],[cw,33,ch],[cw,8,ch],];
+largeCardsCompartmentPositions = [[0,0],[0,50],[0,83],[0,100],[68,0],[68,41],[68,74],[68,108]];
+
+compartmentLabelsWinter = compartmentLabel(label=[["Winter"]],size=10,rotation = 0,position=[0,8],depth=0.5);
+compartmentLabelsOutposts = compartmentLabel(label=[["Outposts"]],size=10,rotation = 0,position=[0,-8],depth=0.5);
+compartmentLabelsBuildings = compartmentLabel(label=[["Buildings"]],size=10,rotation = 0,position=[0,0],depth=0.5);
+compartmentLabelsRandomRoom = compartmentLabel(label=[["Random Rooms"]],size=6,rotation = 0,position=[0,0],depth=0.5);
+compartmentLabelsRandomSetup = compartmentLabel(label=[["Random Setups"]],size=6,rotation = 0,position=[0,0],depth=0.5);
+compartmentLabelsQuests = compartmentLabel(label=[["Quests"]],size=5,rotation = 0,position=[0,0],depth=0.5);
+compartmentLabelsSummer = compartmentLabel(label=[["Summer"]],size=10,rotation = 0,position=[0,8],depth=0.5);
+compartmentLabelsRoad = compartmentLabel(label=[["Road"]],size=10,rotation = 0,position=[0,-8],depth=0.5);
+
+compartmentLargeCardsLabels=[[compartmentLabelsWinter,compartmentLabelsOutposts],[compartmentLabelsBuildings],[compartmentLabelsRandomRoom],[compartmentLabelsRandomSetup],[compartmentLabelsSummer,compartmentLabelsOutposts],[compartmentLabelsWinter,compartmentLabelsRoad],[compartmentLabelsSummer,compartmentLabelsRoad],[compartmentLabelsQuests]];
+largeCardLidLabels = [[[-34.5,28.5],[-34.5,42.5],[-34.5,-6],[-34.5,-31],[-34.5,-48],[34.5,33],[34.5,47],[34.5,-3],[34.5,9],[34.5,-36],[34.5,-25],[34.5,-51]],["Winter","Outposts","Buildings","Rand Rooms","Rand Setups","Summer","Outposts","Winter","Road Events","Summer","Road Events","Quests"]];
+
+function largeCardBox() = 
+     freeFormBox( "Large Cards", largeCardsCompartmentPositions, largeCardsCompartmentSizes, 139, 120 , 94, stack="",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentLargeCardsLabels,positioned_labels=true,label_data=largeCardLidLabels,label_size=7,label_rotation=180);
+
 // Focus on one box
-g_isolated_print_box = "Testing"; 
+g_isolated_print_box = "stacking"; 
 g_b_print_lid = true;
 g_b_print_box = true; 
-
-testCompartmentsPosition =[[0,0],[21,0],[0,21],[21,31]];
-testCompartmentsSize = [[20,20,15],[25,30,10],[20,25,10],[25,15,15]];
-compartmentLabels1 = compartmentLabel(label=[["1"]],size=6,rotation = 0,position=[0,6],depth=0.5);
-compartmentLabels2 = compartmentLabel(label=[["2"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
-compartmentLabels3 = compartmentLabel(label=[["3"]],size=6,rotation = 0,position=[0,6],depth=0.5);
-compartmentLabels4 = compartmentLabel(label=[["4"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
-compartmentLabels5 = compartmentLabel(label=[["5"]],size=6,rotation = 0,position=[0,6],depth=0.5);
-compartmentLabels6 = compartmentLabel(label=[["6"]],size=6,rotation = 0,position=[0,-6],depth=0.5);
-compartmentLabels7 = compartmentLabel(label=[["7"]],size=6,rotation = 0,position=[-6,0],depth=0.5);
-compartmentLabels8 = compartmentLabel(label=[["8"]],size=6,rotation = 0,position=[6,0],depth=0.5);
-compartmentTestLabels=[[compartmentLabels1,compartmentLabels2],[compartmentLabels3,compartmentLabels4],[compartmentLabels5,compartmentLabels6],[compartmentLabels7,compartmentLabels8]];
-lidLabels = [[[10,10],[-10,10],[10,-10,0],[-10,-10]],["One","Two","Three","Four"]];
 
 data =
 [    
@@ -137,7 +146,27 @@ data =
     monsterBox3(),
     monsterBox4(),
     monsterBox5(),
-    freeFormBox( "Testing", testCompartmentsPosition, testCompartmentsSize, 50, 50, 17, stack="22",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentTestLabels,positioned_labels=true,label_data=lidLabels,label_size=4,label_rotation=0),
+    largeCardBox(),
+    [   "stacking",
+        [
+            [ BOX_SIZE_XYZ,                                     [45, 45, 15.0] ],
+            [ BOX_STACKABLE_B, t],
+            [ BOX_LID,
+                [
+                    [ LID_SOLID_B, t],
+                    [ LID_INSET_B, t],
+                    [ LID_TABS_4B, [ f,f,t,f]],
+                    [ LID_FIT_UNDER_B, f],
+                ]
+            ],
+            //boxLid( ["Test"], 8, 90,2,inset = t),
+            [ BOX_COMPONENT,
+                [
+                    [CMP_COMPARTMENT_SIZE_XYZ,  [ 42, 42, 13.0] ],
+                ]
+            ],                            
+        ]
+    ],
 ];
 
 MakeAll();
