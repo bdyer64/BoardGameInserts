@@ -497,7 +497,7 @@ function otherSigns() =
         ],
 ];
   
-g_isolated_print_box = "Promos"; 
+g_isolated_print_box = "Markers Box 1"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 

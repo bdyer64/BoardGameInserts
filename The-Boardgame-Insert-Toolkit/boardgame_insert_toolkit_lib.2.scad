@@ -597,10 +597,11 @@ module MakeBox( box )
 
     m_lid_fit_under = __value( m_lid, LID_FIT_UNDER_B, default = true );
     m_lid_solid = __value( m_lid, LID_SOLID_B, default = false );
-    m_lid_inset = m_box_is_stackable || __value( m_lid, LID_INSET_B, default = false ); 
+    m_lid_inset = __value( m_lid, LID_INSET_B, default = false ); 
 
     // the part of the lid that overlaps the box
     m_lid_wall_height = __value( m_lid, LID_HEIGHT, default = m_lid_inset ? 2.0 : 4.0 );
+    m_stack_lid_wall_height = __value( m_lid, LID_HEIGHT, default = 2.0);
     m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;    
 
     m_lid_thickness = m_wall_thickness;
@@ -619,7 +620,7 @@ module MakeBox( box )
     function __lid_notch_depth() = m_wall_thickness / 2;
 
 
-    function __lid_external_size( D )= D == k_z ? m_lid_thickness + m_lid_wall_height : 
+    function __lid_external_size( D, stack_bottom = f)= D == k_z ? m_lid_thickness + (stack_bottom ? m_stack_lid_wall_height : m_lid_wall_height) : 
                                                 m_box_size[ D ];
 
     m_has_solid_lid = m_lid_solid || g_b_vis_actual;
@@ -956,19 +957,19 @@ module MakeBox( box )
                 }
 
                 // bottom of the box
-                if ( m_lid_inset && m_box_is_stackable )
+                if (m_box_is_stackable )
                 {
                     difference()
                     {
-                        cube( [ m_box_size[ k_x ], m_box_size[ k_y ], __lid_external_size(k_z) ]);
+                        cube( [ m_box_size[ k_x ], m_box_size[ k_y ], __lid_external_size(k_z,t) ]);
 
-                        MirrorAboutPoint( v=[0,0,1], pt=[0,0,__lid_external_size(k_z)/2])
-                            MakeLidBase_Inset( tolerance = g_tolerance, tolerance_detent_pos = g_tolerance_detent_pos, omit_detents = !m_lid_inset );
+                        MirrorAboutPoint( v=[0,0,1], pt=[0,0,__lid_external_size(k_z,t)/2])
+                            MakeLidBase_Inset( tolerance = g_tolerance, tolerance_detent_pos = g_tolerance_detent_pos, omit_detents = f );
 
                     }            
                 }
                 
-                if ( m_lid_fit_under && m_box_has_lid )
+                if ( m_lid_fit_under && m_box_has_lid && !m_box_is_stackable)
                 {
                     if ( m_lid_inset )
                         translate( [ 0, 0, - __lid_external_size( k_z) ] ) // move it down
@@ -995,26 +996,26 @@ module MakeBox( box )
             difference() 
                 {
                     // main __element
-                    cube([__lid_external_size( k_x ), __lid_external_size( k_y ), __lid_external_size( k_z )]);
+                    cube([__lid_external_size( k_x ), __lid_external_size( k_y ), __lid_external_size( k_z , t)]);
                     
                     // lid exterior lip
             
-                    translate( [ 0, 0, __lid_external_size( k_z )/2 ])
+                    translate( [ 0, 0, __lid_external_size( k_z, t )/2 ])
                     {
-                        cube([ __lid_external_size( k_x ), __lid_notch_depth() + tolerance, __lid_external_size( k_z )/1]);   
-                        cube([ __lid_notch_depth() + tolerance, __lid_external_size( k_y ), __lid_external_size( k_z )/1]);   
+                        cube([ __lid_external_size( k_x ), __lid_notch_depth() + tolerance, __lid_external_size( k_z, t )/1]);   
+                        cube([ __lid_notch_depth() + tolerance, __lid_external_size( k_y ), __lid_external_size( k_z, t )/1]);   
 
                         MirrorAboutPoint( v=[0,1,0], pt= [__lid_external_size( k_x )/2, __lid_external_size( k_y )/2, m_lid_wall_height/2 ] )
                             MirrorAboutPoint( v=[1,0,0], pt= [__lid_external_size( k_x )/2, __lid_external_size( k_y )/2, m_lid_wall_height/2 ] )
                             {
-                                cube([ __lid_external_size( k_x ), __lid_notch_depth() + tolerance, __lid_external_size( k_z )/1]);   
-                                cube([ __lid_notch_depth() + tolerance, __lid_external_size( k_y ), __lid_external_size( k_z )/1]);   
+                                cube([ __lid_external_size( k_x ), __lid_notch_depth() + tolerance, __lid_external_size( k_z,t )/1]);   
+                                cube([ __lid_notch_depth() + tolerance, __lid_external_size( k_y ), __lid_external_size( k_z,t )/1]);   
                             }
                     }
 
                     difference()
                     {
-                        MakeLidEdges( extra_depth = tolerance, extra_height = __lid_external_size( k_z ) );
+                        MakeLidEdges( extra_depth = tolerance, extra_height = __lid_external_size( k_z ,t) );
 
                         translate( [ 0, 0, 0 ] )
                             MirrorAboutPoint( v=[0,0,1], pt= [__lid_external_size( k_x )/2, __lid_external_size( k_y )/2, 0] )
@@ -1031,11 +1032,10 @@ module MakeBox( box )
                     //detents
                     if ( !omit_detents )
                     {
-                        detent_height = ( __lid_external_size( k_z ) + __lid_notch_depth() )/2 + tolerance_detent_pos;
+                        detent_height = ( __lid_external_size( k_z,t ) + __lid_notch_depth() )/2 + tolerance_detent_pos;
                         translate([ 0, 0, detent_height ]) // lower because tolerance
                                 MakeDetents( mod = -tolerance, offset = tolerance ); 
                     }                             
-
         }
 
         module MakeLidBase_Cap( tolerance = 0, tolerance_detent_pos = 0, omit_detents = false )

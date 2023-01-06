@@ -1,13 +1,13 @@
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
 
-function boxLid( label, label_size, label_rotation,label_gap,inset = f) =
+function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t]) =
     [ BOX_LID,
         [
             [ LID_PATTERN_RADIUS,           6],        
             [ LID_PATTERN_THICKNESS,        0.8 ],      
             [ LID_INSET_B, inset ],
-            [ LID_TABS_4B, [ t,t,t,t]],
+            [ LID_TABS_4B, tabs],
             [ LID_FIT_UNDER_B, f],
             [ LID_LABELS_INVERT_B, t],
             for (i = [0:len(label)-1]) 
@@ -24,13 +24,13 @@ function boxLid( label, label_size, label_rotation,label_gap,inset = f) =
         ],
     ];
     
-function boxLidPositionedLabels( label_data, label_size, label_rotation) =
+function boxLidPositionedLabels( label_data, label_size, label_rotation,inset = f,tabs=[t,t,t,t]) =
     [ BOX_LID,
         [
             [ LID_PATTERN_RADIUS,           8],        
             [ LID_PATTERN_THICKNESS,        0.8 ],      
-            [ LID_INSET_B, f ],
-            [ LID_TABS_4B, [ t,t,t,t]],
+            [ LID_INSET_B, inset ],
+            [ LID_TABS_4B, tabs],
             [ LID_FIT_UNDER_B, f],
             [ LID_LABELS_INVERT_B, t],
             for (i = [0:len(label_data[1])-1]) 
@@ -95,13 +95,13 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
     
-function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER]) = 
+function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER],cutout_pct = 40) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   num],
             [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
             [CMP_CUTOUT_BOTTOM_B,cutout_bottom],
-            [CMP_CUTOUT_BOTTOM_PCT,40],
+            [CMP_CUTOUT_BOTTOM_PCT,cutout_pct],
             [POSITION_XY, position],
             [CMP_CUTOUT_SIDES_4B,       cutout_sides], // all sides
             [CMP_CUTOUT_DEPTH_PCT,          20],
@@ -152,7 +152,7 @@ function verticleCardBox(box_name, label, length, num_rows, divider_space=0,stac
 
 
 // This function creates a single row of compartments. Here for backward compatibility with 
-// earlier insert    
+// earlier inserts
 function box( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack, cutout , padding = 2,cutout_sides = [f,f,f,f]) =
     [   box_name,
         [
@@ -166,49 +166,82 @@ function box( box_name, num_compartments, label, label_size, label_rotation, x, 
         ]
     ];
 
+ compartmentLabelsBlank = compartmentLabel(label=[[""]],size=10,rotation = 0,position=[0,0],depth=0.5);
 // This function takes an x,y array and creates a grid of compartments
-function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack, cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel,positioned_labels=false,label_data) =
+function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack="", cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel,positioned_labels=false,label_data,stackable = f,lid_inset = f,lid_tabs = [t,t,t,t]) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
                 [(x * num_compartments[0]) + (num_compartments[0] - 1) * padding[0] + g_wall_thickness * 2, 
                  (y * num_compartments[1]) + (num_compartments[1] - 1) * padding[1] + g_wall_thickness * 2, 
                   height + g_wall_thickness] ],
+            [ BOX_STACKABLE_B, stackable],
             if (positioned_labels)
-                boxLidPositionedLabels( label_data, label_size, label_rotation)
+                boxLidPositionedLabels( label_data, label_size, label_rotation, inset = lid_inset,tabs = lid_tabs)
             else
-                boxLid(label, label_size, label_rotation, 12),
+                boxLid(label, label_size, label_rotation, 12, inset = lid_inset,tabs = lid_tabs),
             bottomLabel(stack,y),
             squareCompartmentGrid(num_compartments,x,y,height,cutout,cutout_sides,padding,compLabel),        
         ]
     ];
     
 function freeFormBox( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
-                        cutout_bottom = f, cutout_sides=[f,f,f,f],
-                        compLabel,positioned_labels=false,label_data=["Default"],label_size=10,label_rotation=0) =
+                        cutout_bottom = f, bottom_cutout_pct = 40, cutout_sides=[f,f,f,f],
+                        compLabel=[],positioned_labels=false,label_data=["Default"],label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t]) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, [width, length, height] ],
+            [ BOX_STACKABLE_B, stackable],
             if (positioned_labels)
-                boxLidPositionedLabels( label_data, label_size, label_rotation)
+                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs)
             else
-                boxLid(label_data, label_size, label_rotation, 12),
+                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs),
             bottomLabel(stack,length),
             for (i = [0:len(compartmentsPositions)-1])
-                squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
-                                        position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
-                                        cutout_bottom=cutout_bottom,cutout_sides=cutout_sides,compartmentLabels=compLabel[i]),        
+                if (len(compLabel) != 0)
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom,cutout_sides=cutout_sides,compartmentLabels=compLabel[i],cutout_pct = bottom_cutout_pct)  
+                else
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom,cutout_sides=cutout_sides,compartmentLabels=[[compartmentLabelsBlank]],cutout_pct = bottom_cutout_pct), 
+        ]
+    ];
+
+function freeFormBox2( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
+                        cutout_bottom = [f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f], bottom_cutout_pct = 40, cutout_sides=[f,f,f,f],
+                        compLabel=[],positioned_labels=false,label_data=["Default"],label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t]) =
+    [   box_name,
+        [
+            [ BOX_SIZE_XYZ, [width, length, height] ],
+            [ BOX_STACKABLE_B, stackable],
+            if (positioned_labels)
+                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs)
+            else
+                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs),
+            bottomLabel(stack,length),
+            for (i = [0:len(compartmentsPositions)-1])
+                if (len(compLabel) != 0)
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides,compartmentLabels=compLabel[i],cutout_pct = bottom_cutout_pct)  
+                else
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides,compartmentLabels=[[compartmentLabelsBlank]],cutout_pct = bottom_cutout_pct), 
         ]
     ];
     
-function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2,radius=7.5) =
+function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2,radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f]) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
                 [(x * num_compartments) + (num_compartments-1) * padding +g_wall_thickness * 2, 
                   y + 2 * g_wall_thickness, 
                   height + g_wall_thickness] ], 
-            boxLid(label, label_size, label_rotation, 12),
+            [ BOX_STACKABLE_B, stackable],
+            boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs),
             bottomLabel(stack,y),
             bowlCompartment(num_compartments,x,y,height,r=radius),        
         ]
@@ -237,28 +270,32 @@ function divider( divider_name, label, tab_height,card = 0) =
 
         ]
     ];
+function rc(cardSize,rotate = false) = 
+        rotate ? [cardSize[1],cardSize[0]] : cardSize;
     
-function marker( marker_name, label, tab_height, card = 0) = 
+function marker( marker_name, label, tab_height, card = 0,sideways = false) = 
      [ marker_name,
         [
             [ TYPE,                     DIVIDERS ],
 
             [ DIV_TAB_TEXT,             [label]],
             [ DIV_TAB_TEXT_INVERTED,    true],
-
             [ DIV_TAB_TEXT_SIZE,        20],
             [ DIV_THICKNESS,            0.75],
             [ DIV_TAB_TEXT_CHAR_THRESHOLD, 3],
-
-            [ DIV_TAB_SIZE_XY,          [card_sizes[card][0]-2, tab_height]],
             [ DIV_TAB_CYCLE,            2],
             [ DIV_TAB_CYCLE_START,      1],
             [ DIV_TAB_TEXT_FONT,        insert_font],
 
             [ DIV_FRAME_NUM_COLUMNS,    -1],
-            [ DIV_FRAME_SIZE_XY,        [card_sizes[card][0]-2, card_sizes[card][1]-tab_height]],
             [ DIV_FRAME_COLUMN,         15],
-
+            
+            //[ DIV_FRAME_SIZE_XY,        [card_sizes[card][0]-2, card_sizes[card][1]-tab_height]],
+            //[ DIV_TAB_SIZE_XY,          [card_sizes[card][0]-2, tab_height]],
+            
+            echo (rc(card_sizes[card])),
+            [ DIV_FRAME_SIZE_XY,        [rc(card_sizes[card],sideways)[0]-2, rc(card_sizes[card],sideways)[1]-tab_height]],
+            [ DIV_TAB_SIZE_XY,          [rc(card_sizes[card],sideways)[0]-2, tab_height]],
 
         ]
     ];
