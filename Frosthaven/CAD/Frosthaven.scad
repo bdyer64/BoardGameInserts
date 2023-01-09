@@ -113,6 +113,12 @@ function monsterBox4() =
 function monsterBox5() = 
     gridBox( "Monster Box 5", [3,3], ["Monster Box 5"], 7, 90, 52, 74, 17, "", t , padding = [1,1],compLabel=[monsterBox5CompLabel1,monsterBox5CompLabel2],positioned_labels=t,label_data=monsterBox5LabelData);
     
+function minisBox()  = 
+    gridBox( "Minis Box", [2,1], ["Minis"], 20, 0, 106, 90, 58, "", f , padding = [0,0],positioned_labels=f,cutout_sides = [t,t,t,t]);
+    
+function envelopesBox()  = 
+    gridBox( "Envelopes Box", [1,1], ["Envelopes"], 20, 0, 158, 78, 50, "", t , padding = [0,0],positioned_labels=f);
+    
 // Large Card Box stuff
 
 cw = card_sizes[1][0];
@@ -218,26 +224,62 @@ monsterStatsLidLabels = [[[-53.25,-20],[-53.25,0],[-53.25,20],[51.75,-20],[51.75
 function monsterStatsBox() = 
      freeFormBox( "Monster Stats", monsterStatsCompartmentPositions, monsterStatsCompartmentSizes, 213.5, 106.5 , 20, stack="",cutout_bottom=t,cutout_sides=[f,f,f,f],compLabel = compartmentMonsterStatsLabels,positioned_labels=true,label_data=monsterStatsLidLabels,label_size=12,label_rotation=180,bottom_cutout_pct = 60);
  
+ // Bosses
+
+bossCompartmentSizes = [[50,72,20],[70,91,20]];
+bossCompartmentPositions = [[0,12.5],[51,0]];
+ 
+function bossBox() = 
+     freeFormBox2( "Boss Box", bossCompartmentPositions, bossCompartmentSizes, 125, 95, 22, stack="",cutout_bottom=[t,f],cutout_sides=[f,f,f,f],compLabel = [],positioned_labels=false,lid_tabs=[f,f,f,f],bottom_cutout_pct = 50,label_data=["Bosses"],label_size=17);
+     
+// Player Attack Decks
+
+function playerAttackDecks() = 
+    gridBox( "Player Attack", [1,2], ["Player Attack","Modifier Decks"], 10, 90, 50, 72, 24, "", t , padding = [2,2],positioned_labels=f);
+
+    
+// Print 4
+function smallUnavailableMarker() = marker("Small Unavailable Marker","Unavailable",30,card = 2,sideways = true);
+
+// Print 1
+function smallCompletedMarker() = marker("Small Completed Marker","Completed",30,card = 2,sideways = true);
+
+// Print 5
+function largeUnavailableMarker() = marker("Large Unavailable Marker","Unavailable",30,card = 1,sideways = false);
+
+// Print 4
+function largeRemovedMarker() = marker("Large Removed Marker","Removed",30,card = 1,sideways = false);
 
 // Focus on one box
-g_isolated_print_box = "Obstacle Box 4"; 
+g_isolated_print_box = "Large Cards"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
-g_b_fit_test = f;
-g_b_visualization = t;
-g_b_vis_actual = f;
+//g_b_fit_test = f;
+//g_b_visualization = f;
+//g_b_vis_actual = f;
 
 data =
-[    
+[ 
+    // 169 grams
     monsterBox1(),
+    // 145 grams
     monsterBox2(),
+    // 136 grams
     monsterBox3(),
+    // 147 grams
     monsterBox4(),
+    // 147 grams
     monsterBox5(),
+    // 
     largeCardBox(),
+    // 
     smallCardBox(),
-    marker("Unavailable Marker","Unavailable",30,card = 2,sideways = true),
-    marker("Completed Marker","Completed",30,card = 2,sideways = true),
+    //
+    smallUnavailableMarker(),
+    // 
+    smallCompletedMarker(),
+    largeUnavailableMarker(),
+    largeRemovedMarker(),
     obstacleBox1(),
     obstacleBox2(),
     obstacleBox3(),
@@ -250,6 +292,12 @@ data =
     bowl("Status Tokens Middle", 5, [""],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=true,stackable=true),
     bowl("Status Tokens Top", 5, ["Status Tokens"],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=false,stackable=true),
     monsterStatsBox(),
+    minisBox(),
+    envelopesBox(),
+    bossBox(),
+    playerAttackDecks(),
+    bowl("Damage Tokens Bottom", 3, [""],10, 0, 30, 57, 12, "",padding = 1,radius=8,lid_inset=true),
+    bowl("Damage Tokens Top", 3, ["Damage Tokens"],8, 0, 30, 57, 12, "",padding = 1,radius=8,lid_inset=false,stackable = t),
 ];
 
 MakeAll();

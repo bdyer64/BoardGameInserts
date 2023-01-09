@@ -168,7 +168,7 @@ function box( box_name, num_compartments, label, label_size, label_rotation, x, 
 
  compartmentLabelsBlank = compartmentLabel(label=[[""]],size=10,rotation = 0,position=[0,0],depth=0.5);
 // This function takes an x,y array and creates a grid of compartments
-function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack="", cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel,positioned_labels=false,label_data,stackable = f,lid_inset = f,lid_tabs = [t,t,t,t]) =
+function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack="", cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel=compartmentLabelsBlank,positioned_labels=false,label_data,stackable = f,lid_inset = f,lid_tabs = [t,t,t,t]) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
