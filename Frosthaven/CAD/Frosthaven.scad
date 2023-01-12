@@ -25,7 +25,7 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.15;
+g_tolerance = 0.05;
 g_detent_thickness = 0.25;
 
 // This adjusts the position of the lid detents downward. 
@@ -119,6 +119,12 @@ function minisBox()  =
 function envelopesBox()  = 
     gridBox( "Envelopes Box", [1,1], ["Envelopes"], 20, 0, 158, 78, 50, "", t , padding = [0,0],positioned_labels=f);
     
+function plasticBasesBox()  = 
+    gridBox( "Plastic Bases Box", [1,1], ["Plastic Bases"], 10, 0, 90, 64, 26, "", f , padding = [1,1],positioned_labels=f);
+    
+function monsterTest()  = 
+    gridBox( "Monster Test", [1,1], ["Monstern Test"], 10, 0, 73, 51, 21, "", t , padding = [1,1],positioned_labels=f);
+    
 // Large Card Box stuff
 
 cw = card_sizes[1][0];
@@ -136,7 +142,7 @@ compartmentLabelsSummer = compartmentLabel(label=[["Summer"]],size=10,rotation =
 compartmentLabelsRoad = compartmentLabel(label=[["Road"]],size=10,rotation = 0,position=[0,-8],depth=0.5);
 
 compartmentLargeCardsLabels=[[compartmentLabelsWinter,compartmentLabelsOutposts],[compartmentLabelsBuildings],[compartmentLabelsRandomRoom],[compartmentLabelsRandomSetup],[compartmentLabelsSummer,compartmentLabelsOutposts],[compartmentLabelsWinter,compartmentLabelsRoad],[compartmentLabelsSummer,compartmentLabelsRoad],[compartmentLabelsQuests]];
-largeCardLidLabels = [[[-69.5,10.5],[-69.5,22.5],[-69.5,34.5],[-69.5,-22],[-69.5,-42.5],[0,12.75],[0,24.75],[0,36.75],[0,-32.25],[0,-18.25],[69.5,39],[69.5,13],[69.5,-31],[69.5,-19]],["Winter","Outpost","Events","Buildings","Quests","Summer","Outpost","Events","Winter","Road Events","Rand Rooms","Rand Setups","Summer","Road Events"]];
+largeCardLidLabels = [[[-69.5,8.5],[-69.5,20.5],[-69.5,32.5],[-69.5,-24],[-69.5,-42.5],[0,10.75],[0,22.75],[0,34.75],[0,-34.25],[0,-20.25],[69.5,35],[69.5,11],[69.5,-33],[69.5,-21]],["Winter","Outpost","Events","Buildings","Quests","Summer","Outpost","Events","Winter","Road Events","Rand Rooms","Rand Setups","Summer","Road Events"]];
 
 function largeCardBox() = 
      freeFormBox( "Large Cards", largeCardsCompartmentPositions, largeCardsCompartmentSizes, 207, 103 , 94, stack="",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentLargeCardsLabels,positioned_labels=true,label_data=largeCardLidLabels,label_size=7,label_rotation=180);
@@ -167,7 +173,7 @@ ompartmentLabelsSmallAttack  = compartmentLabel(label=[["Attack Decks"]],size=8,
 compartmentLabelsSmallTemporary  = compartmentLabel(label=[["Conditional"]],size=9,rotation = 0,position=[0,6],depth=0.5);
 
 compartmentSmallCardsLabels=[[compartmentLabelsSmallCraft,compartmentLabelsSmallItems],[compartmentLabelsSmallPurchase,compartmentLabelsSmallItems],[compartmentLabelsSmallPotions],[compartmentLabelsSmallRandom,compartmentLabelsSmallItems],[compartmentLabelsSmallBattle,compartmentLabelsSmallGoals],[compartmentLabelsSmallLoot,compartmentLabelsSmallCards],[compartmentLabelsSmallChallenge,compartmentLabelsSmallCards],[compartmentLabelsSmallTown,compartmentLabelsSmallGuard],[compartmentLabelsSmallMonstAlly,ompartmentLabelsSmallAttack],[compartmentLabelsSmallTemporary,compartmentLabelsSmallModifier],[compartmentLabelsSmallBlank]];
-smallCardLidLabels = [[[-38,70.25],[-38,84.25],[38,68.25],[38,82.25],[-38,9.25],[38,6.75],[38,20.75],[-38,-43],[-38,-29],[38,-29.75],[38,-15.75],[-38,-80],[-38,-68],[38,-68],[38,-56],[-38,-110],[-38,-98],[38,-101.25],[38,-89.25]],["Craftable","Items","Purchasable","Items","Potions","Random","Items","Battle","Goals","Loot","Cards","Challenge","Cards","Town","Guard","Monst/Ally","Attack Decks","Conditional","Modifiers"]];
+smallCardLidLabels = [[[-38,68.25],[-38,82.25],[38,66.25],[38,80.25],[-38,7.25],[38,4.75],[38,18.75],[-38,-45],[-38,-31],[38,-31.75],[38,-17.75],[-38,-80],[-38,-68],[38,-70],[38,-58],[-38,-110],[-38,-98],[38,-103.25],[38,-91.25]],["Craftable","Items","Purchasable","Items","Potions","Random","Items","Battle","Goals","Loot","Cards","Challenge","Cards","Town","Guard","Monst/Ally","Attack Decks","Conditional","Modifiers"]];
 
 function smallCardBox() = 
      freeFormBox( "Small Cards", smallCardsCompartmentPositions, smallCardsCompartmentSizes, 152, 240 , scw+2, stack="",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentSmallCardsLabels,positioned_labels=true,label_data=smallCardLidLabels,label_size=8,label_rotation=180);
@@ -250,8 +256,19 @@ function largeUnavailableMarker() = marker("Large Unavailable Marker","Unavailab
 // Print 4
 function largeRemovedMarker() = marker("Large Removed Marker","Removed",30,card = 1,sideways = false);
 
+function statusTokensBottom() =     bowl("Status Tokens Bottom", 5, [""],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=true);
+
+function statusTokensMiddle() = bowl("Status Tokens Middle", 5, [""],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=true,stackable=true);
+    
+function statusTokensTop() = bowl("Status Tokens Top", 5, ["Status Tokens"],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=false,stackable=true);
+
+
+function damageTokensBottom() = bowl("Damage Tokens Bottom", 2, [""],10, 0, 45, 57, 12, "",padding = 1,radius=8,lid_inset=true);
+    
+function damageTokensTop() = bowl("Damage Tokens Top", 2, ["Damage Tokens"],8, 0, 45, 57, 12, "",padding = 1,radius=8,lid_inset=false,stackable = t);
+
 // Focus on one box
-g_isolated_print_box = "Large Cards"; 
+g_isolated_print_box = "Monster Test"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 //g_b_fit_test = f;
@@ -270,34 +287,52 @@ data =
     monsterBox4(),
     // 147 grams
     monsterBox5(),
-    // 
+    // 244 grams
     largeCardBox(),
     // 
     smallCardBox(),
-    //
+    // 12 grams
     smallUnavailableMarker(),
-    // 
+    // 3 grams
     smallCompletedMarker(),
+    // 25 grams
     largeUnavailableMarker(),
+    // 20 grams
     largeRemovedMarker(),
+    // 65 grams
     obstacleBox1(),
+    // 65 grams
     obstacleBox2(),
+    // 69 grams
     obstacleBox3(),
+    // 82 grams
     obstacleBox4(),
+    // 316 total for four boxes
     player1Box("Player 1"),
     player1Box("Player 2"),
     player1Box("Player 3"),
     player1Box("Player 4"),
-    bowl("Status Tokens Bottom", 5, [""],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=true),
-    bowl("Status Tokens Middle", 5, [""],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=true,stackable=true),
-    bowl("Status Tokens Top", 5, ["Status Tokens"],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=false,stackable=true),
+    // 40 grams
+    statusTokensBottom(),
+    // 39 grams
+    statusTokensMiddle(),
+    // 44 grams
+    statusTokensTop(),
+    // 72 grams
     monsterStatsBox(),
+    // 125 grams
     minisBox(),
+    // 94 grams
     envelopesBox(),
+    // 64 grams
     bossBox(),
+    // 
     playerAttackDecks(),
-    bowl("Damage Tokens Bottom", 3, [""],10, 0, 30, 57, 12, "",padding = 1,radius=8,lid_inset=true),
-    bowl("Damage Tokens Top", 3, ["Damage Tokens"],8, 0, 30, 57, 12, "",padding = 1,radius=8,lid_inset=false,stackable = t),
+    damageTokensBottom(),
+    damageTokensTop(),
+    plasticBasesBox(),
+    monsterTest(),
+
 ];
 
 MakeAll();
