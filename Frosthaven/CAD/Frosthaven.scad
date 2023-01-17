@@ -263,12 +263,14 @@ function statusTokensMiddle() = bowl("Status Tokens Middle", 5, [""],10, 0, 28.8
 function statusTokensTop() = bowl("Status Tokens Top", 5, ["Status Tokens"],10, 0, 28.8, 49, 11, "",padding = 1,radius=8,lid_inset=false,stackable=true);
 
 
+function statusTokensTest() =     bowl("Status Tokens Test", 1, [""],10, 0, 30.6, 33, 18, "",padding = 1,radius=8,lid_inset=false);
+
 function damageTokensBottom() = bowl("Damage Tokens Bottom", 2, [""],10, 0, 45, 57, 12, "",padding = 1,radius=8,lid_inset=true);
     
 function damageTokensTop() = bowl("Damage Tokens Top", 2, ["Damage Tokens"],8, 0, 45, 57, 12, "",padding = 1,radius=8,lid_inset=false,stackable = t);
 
 // Focus on one box
-g_isolated_print_box = "Monster Test"; 
+g_isolated_print_box = "Status Tokens Test"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
 //g_b_fit_test = f;
@@ -331,7 +333,7 @@ data =
     damageTokensBottom(),
     damageTokensTop(),
     plasticBasesBox(),
-    monsterTest(),
+    statusTokensTest(),
 
 ];
 

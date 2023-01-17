@@ -340,11 +340,11 @@ function lawBuildings() =
         ]
 ];
 
-function scenerioBuildings() = 
- [   "Scenerio Buildings",
+function scenarioBuildings() = 
+ [   "Scenario Buildings",
         [
             [ BOX_SIZE_XYZ,                                     [71, 105, 12.5] ],
-            boxLid(["Scenerio" , "Buildings"], 10, 90, 12),
+            boxLid(["Scenario" , "Buildings"], 10, 90, 12),
             [ BOX_COMPONENT,
                 [
                     
@@ -793,9 +793,9 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Board Hexes"; 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_isolated_print_box = "Scenario Buildings"; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 
 data =
 [
@@ -803,7 +803,7 @@ data =
     cardBox("Morning",["Morning"],22,"",20,card=1),
     cardBox("Society",["Society","Social Dispute"],18,"",8,card=1),
     cardBox("Dusk",["Dusk"],39,"",20,card=1),
-    cardBox("Scenerios",["Scenerios"],25,"",18,card=1),
+    cardBox("Scenarios",["Scenarios"],25,"",18,card=1),
     cardBox("Weather",["Weather"],8,"",14,card=0),
     cardBox("Citizens",["Citizens"],20,"",14,card=0),
     cardBox("Technologies",["Technologies"],11,"",10,card=0),
@@ -826,10 +826,10 @@ data =
     houses(),
     lawBuildings(),
     destroyedBuildings(),
-    scenerioBuildings(),
+    scenarioBuildings(),
     housingHolder(),
     resinResources(),
-    woodenResources(),
+    woodanResources(),
     mapBorder(),
 ];
 
