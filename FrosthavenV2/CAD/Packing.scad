@@ -113,7 +113,7 @@ echo(str("stands box x:",standsX," y:",standsY," z:",standsZ));
 module standsBox() { cube([standsX,standsY,standsZ]); };
 
 layer1 = true;
-layer2 = true;
+layer2 = false;
 layer3 = false;
 
 //color("red",0.10) box();
