@@ -51,8 +51,8 @@ The monster boxes are also ripped of from an aftermarket insert, but I improved 
 
 Each box is labeled on the bottom of the compartment:
 
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox1.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox2.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox1.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox2.jpg)
 
 As well as on the lid:
 
@@ -84,13 +84,13 @@ The Small Cards Box holds all the small cards that aren't stored elsewhere. All 
 
 The Large Cards Box holds all the large cards that aren't player/character specific. All the compartments are labelled. There are printed dividers to replace the ones that came with the game since they stick up too far. There are dividers to file Unvailable and Removed cards behind. Cards in front of the Unavailable dividier are Available. 
 
-![Large Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
+![Large Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/LargeCardsBox.jpg)
 
 ## Other Boxes
 
 The rest of the boxes should be fairly apparent how to pack them, but here are a bunch of pictires to help out.
 
-### Status Toeksn
+### Status Tokens
 
 ![Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens1.jpg)
 ![Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens2.jpg)
