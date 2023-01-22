@@ -66,13 +66,13 @@ This will make it really easy to find the monsters you need for any given scener
 
 There are 4 player boxes that should have plenty of room to store your current ability cards, current modifier cards, all your currently unavailable cards and all the cardboard tokens associated with each character. You can also fit the dials, character board and character status sheets in the box. 
 
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox0.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox1.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox2.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox3.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox4.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox5.jpg)
-![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox6.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox0.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox1.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox2.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox3.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox4.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox5.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox6.jpg)
 
 ## Small Cards Box
 
