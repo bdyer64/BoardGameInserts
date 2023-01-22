@@ -88,7 +88,7 @@ The Large Cards Box holds all the large cards that aren't player/character speci
 
 ## Other Boxes
 
-The rest of the boxes should be fairly apparent how to pack them, but here are a bunch of pictires to help out.
+For the rest of the boxes it should be fairly apparent how to pack them, but here are a bunch of pictures to help out.
 
 ### Status Tokens
 
