@@ -9,6 +9,7 @@ A custom insert because that iceberg box is just ridiculous and I will never car
 This insert fits the base game content plus the Resource Expansion, The Frostlander Expansion and the Dreadnought mini in the base box. With this you can carry around Frostpunk with 2 boxes, the base box and either the Miniatures Expansion or the Timber CIty Expansion depending on whether you like wood or resin. And of course the playmat if you have that.
 
 All the card boxes fit sleeved cards, both the regular sized ones and the tarot sized ones.
+I used Mayday Premium (63.5mm X 88mm) for the normal size cards and Arcane Tinmen matte sleeves (70mm x 120mm) for the tarot sized cards. YMMV if you use different sleeves that are a bit bigger. You can try scaling up the STLs in your slicer if you have an issue but no guarantee things still fit as shown above.
 
 Printing parameters will depend on your printer, but I use a layer height of 0.2 mm, 4 layers bottom and top, a wall count of 4 and 30% infill. The boxes tend to pull up and warp on the corners so play around with our printer setting and first layer to make them stick. You can see in the pictures that I didn't total succeed in eliminationg all warping. Most of the time it is just aesthetic and doesn't effect the function. 
 
