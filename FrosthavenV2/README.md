@@ -1,4 +1,4 @@
-# Frostpunk Insert
+# Frosthaven Insert
 
 If you find anything here useful a small donation would be appreciated, but of course not expected. I do this to help the board game community, not to make a living. 
 
@@ -18,11 +18,11 @@ To pack this into the box there are three layers of printed boxes and then a las
 
 ## Layer 2
 
-![Layer 2](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/PackingLayer2.png)
+![Layer 2](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer2.png)
 
 ## Layer 3
 
-![Layer 3](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/PackingLayer3.png)
+![Layer 3](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer3.png)
 
 ## Layer 4
 
@@ -36,14 +36,14 @@ The obstacle box is a shameless ripoff of one of the aftermarket inserts you can
 
 The box is designed to with one box being the lid for the next until you get to the top where there is a proper lid. 
 
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox0.png)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/ObstacleBox0.jpg)
 
 I didn't put any labels in the obstacle box because there really is no sensible way to label everything. The pictures below show how all the obstacles and other cardboard tokens fit into the box.
 
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox1.jpg)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox2.jpg)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox3.jpg)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox4.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/ObstacleBox1.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/ObstacleBox2.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/ObstacleBox3.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/ObstacleBox4.jpg)
 
 ## Monster Boxes
 
