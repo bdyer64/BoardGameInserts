@@ -14,7 +14,7 @@ To pack this into the box there are three layers of printed boxes and then a las
 
 ## Layer 1
 
-![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/PackingLayer1.png)
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer1.png)
 
 ## Layer 2
 
@@ -40,10 +40,10 @@ The box is designed to with one box being the lid for the next until you get to 
 
 I didn't put any labels in the obstacle box because there really is no sensible way to label everything. The pictures below show how all the obstacles and other cardboard tokens fit into the box.
 
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox1.png)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox2.png)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox3.png)
-![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox4.png)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox1.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox2.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox3.jpg)
+![Obstacle Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/ObstacleBox4.jpg)
 
 ## Monster Boxes
 
