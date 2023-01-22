@@ -1,7 +1,7 @@
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
 
-function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t]) =
+function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t],lid_label_thickness=2) =
     [ BOX_LID,
         [
             [ LID_PATTERN_RADIUS,           6],        
@@ -10,6 +10,7 @@ function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t
             [ LID_TABS_4B, tabs],
             [ LID_FIT_UNDER_B, f],
             [ LID_LABELS_INVERT_B, t],
+            [ LID_LABELS_BG_THICKNESS, lid_label_thickness],
             for (i = [0:len(label)-1]) 
                 [ LABEL,
                     [
@@ -24,7 +25,7 @@ function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t
         ],
     ];
     
-function boxLidPositionedLabels( label_data, label_size, label_rotation,inset = f,tabs=[t,t,t,t]) =
+function boxLidPositionedLabels( label_data, label_size, label_rotation,inset = f,tabs=[t,t,t,t],lid_label_thickness=2) =
     [ BOX_LID,
         [
             [ LID_PATTERN_RADIUS,           8],        
@@ -33,6 +34,7 @@ function boxLidPositionedLabels( label_data, label_size, label_rotation,inset = 
             [ LID_TABS_4B, tabs],
             [ LID_FIT_UNDER_B, f],
             [ LID_LABELS_INVERT_B, t],
+            [ LID_LABELS_BG_THICKNESS, lid_label_thickness],
             for (i = [0:len(label_data[1])-1]) 
                 [ LABEL,
                     [
@@ -181,7 +183,7 @@ function box( box_name, num_compartments, label, label_size, label_rotation, x, 
 
  compartmentLabelsBlank = compartmentLabel(label=[[""]],size=10,rotation = 0,position=[0,0],depth=0.5);
 // This function takes an x,y array and creates a grid of compartments
-function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack="", cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel=compartmentLabelsBlank,positioned_labels=false,label_data,stackable = f,lid_inset = f,lid_tabs = [t,t,t,t],thin_bottom = f) =
+function gridBox( box_name, num_compartments, label, label_size, label_rotation, x, y, height, stack="", cutout , padding = [2,2],cutout_sides = [f,f,f,f],compLabel=compartmentLabelsBlank,positioned_labels=false,label_data,stackable = f,lid_inset = f,lid_tabs = [t,t,t,t],thin_bottom = f,lid_label_thick = 2) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
@@ -190,9 +192,9 @@ function gridBox( box_name, num_compartments, label, label_size, label_rotation,
                   height + g_wall_thickness - (thin_bottom ? 1 : 0)] ],
             [ BOX_STACKABLE_B, stackable],
             if (positioned_labels)
-                boxLidPositionedLabels( label_data, label_size, label_rotation, inset = lid_inset,tabs = lid_tabs)
+                boxLidPositionedLabels( label_data, label_size, label_rotation, inset = lid_inset,tabs = lid_tabs,lid_label_thickness=lid_label_thick)
             else
-                boxLid(label, label_size, label_rotation, 12, inset = lid_inset,tabs = lid_tabs),
+                boxLid(label, label_size, label_rotation, 12, inset = lid_inset,tabs = lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,y),
             squareCompartmentGrid(num_compartments,x,y,height,cutout,cutout_sides,padding,compLabel),        
         ]
@@ -201,15 +203,15 @@ function gridBox( box_name, num_compartments, label, label_size, label_rotation,
 function freeFormBox( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
                         cutout_bottom = f, bottom_cutout_pct = 40, cutout_sides=[f,f,f,f],
                         compLabel=[],positioned_labels=false,label_data=["Default"],label_size=10,
-                        label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33) =
+                        label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33,lid_label_thick=2) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, [width, length, height] ],
             [ BOX_STACKABLE_B, stackable],
             if (positioned_labels)
-                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs)
+                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs,lid_label_thickness=lid_label_thick)
             else
-                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs),
+                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,length),
             for (i = [0:len(compartmentsPositions)-1])
                 if (len(compLabel) != 0)
@@ -226,15 +228,15 @@ function freeFormBox( box_name, compartmentsPositions ,compartmentsSizes, width,
 function freeFormBox2( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
                         cutout_bottom = [f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f], bottom_cutout_pct = 40, 
                         cutout_sides=[f,f,f,f], compLabel=[],positioned_labels=false,label_data=["Default"],
-                        label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33) =
+                        label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33,lid_label_thick=2) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, [width, length, height] ],
             [ BOX_STACKABLE_B, stackable],
             if (positioned_labels)
-                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs)
+                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs,lid_label_thickness=lid_label_thick)
             else
-                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs),
+                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,length),
             for (i = [0:len(compartmentsPositions)-1])
                 if (len(compLabel) != 0)
@@ -250,7 +252,7 @@ function freeFormBox2( box_name, compartmentsPositions ,compartmentsSizes, width
         ]
     ];
     
-function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2,radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f]) =
+function bowl( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = 2,radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, 
@@ -258,7 +260,7 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
                   y + 2 * g_wall_thickness, 
                   height + g_wall_thickness] ], 
             [ BOX_STACKABLE_B, stackable],
-            boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs),
+            boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,y),
             bowlCompartment(num_compartments,x,y,height,r=radius),        
         ]
@@ -266,7 +268,7 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
     
     
 // combine this with grid box, they are essentially the same
-function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f]) =
+function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2) =
     [   box_name,
         [
         [ BOX_SIZE_XYZ, 
@@ -274,7 +276,7 @@ function bowlGrid( box_name, num_compartments, label, label_size, label_rotation
                  (y * num_compartments[1]) + (num_compartments[1] - 1) * padding[1] + g_wall_thickness * 2, 
                   height + g_wall_thickness] ],
             [ BOX_STACKABLE_B, stackable],
-            boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs),
+            boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,y),
             bowlGridCompartment(num_compartments,x,y,height,r=radius,padding=padding),        
         ]
