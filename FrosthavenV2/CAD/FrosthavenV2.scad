@@ -53,9 +53,9 @@ include <EnvelopeBox.scad>;
 include <PlasticBases.scad>;
 
 // Focus on one box
-g_isolated_print_box = "Plastic Bases Box"; 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_isolated_print_box = "Monster Box 5"; 
+g_b_print_lid = true;
+g_b_print_box = false; 
      
 data =
 [ 
