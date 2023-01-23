@@ -51,79 +51,79 @@ The monster boxes are also ripped of from an aftermarket insert, but I improved 
 
 Each box is labeled on the bottom of the compartment:
 
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox1.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox2.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox1.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox2.jpg)
 
 As well as on the lid:
 
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox3.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox3.jpg)
 
 This will make it really easy to find the monsters you need for any given scenerio. There are 5 monster boxes and they just stack on top of each other in the box. The one monster box is a little different. It's middle row contains the various monsters that share cards with other monsters of that type (scouts, archers, etc).
 
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox4.jpg)
+![Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterBox4.jpg)
 
 ## Player Boxes
 
 There are 4 player boxes that should have plenty of room to store your current ability cards, current modifier cards, all your currently unavailable cards and all the cardboard tokens associated with each character. You can also fit the dials, character board and character status sheets in the box. 
 
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox0.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox1.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox2.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox3.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox4.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox5.jpg)
-[Monster Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayeryBox6.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox0.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox1.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox2.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox3.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox4.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox5.jpg)
+![Player Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlayerBox6.jpg)
 
 ## Small Cards Box
 
 The Small Cards Box holds all the small cards that aren't stored elsewhere. All the compartments are labelled except for the little compartment at the back left, this is for the Radmon Scenario cards. There are printed dividers to replace ones that come with the game since they stick up too far. File all the unavailable Itmes, Portions and Town Guard Cards behind the Unavailable divider. Everything in front of the Unavailable marker is Available. There is a Completed divider to file the completed challenges behind. 
 
-[Small Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
+![Small Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
 
 ## Large Cards Box
 
 The Large Cards Box holds all the large cards that aren't player/character specific. All the compartments are labelled. There are printed dividers to replace the ones that came with the game since they stick up too far. There are dividers to file Unvailable and Removed cards behind. Cards in front of the Unavailable dividier are Available. 
 
-[Large Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
+![Large Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/LargeCardsBox.jpg)
 
 ## Other Boxes
 
-The rest of the boxes should be fairly apparent how to pack them, but here are a bunch of pictires to help out.
+For the rest of the boxes it should be fairly apparent how to pack them, but here are a bunch of pictures to help out.
 
-### Status Toeksn
+### Status Tokens
 
-[Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens1.jpg)
-[Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens2.jpg)
+![Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens1.jpg)
+![Status Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/StatusTokens2.jpg)
 
 ### Damage Tokens
 
-[Damage Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/DamageTokens1.jpg)
-[Damage Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/DamageTokens2.jpg)
+![Damage Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/DamageTokens1.jpg)
+![Damage Tokens](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/DamageTokens2.jpg)
 
 ### Monster Stat Cards
 
 The cards in the bottom of this box are the Monster and Ally attack modifier decks.
 
-[Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats1.jpg)
-[Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats2.jpg)
-[Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats3.jpg)
-[Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats4.jpg)
+![Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats1.jpg)
+![Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats2.jpg)
+![Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats3.jpg)
+![Monster Stat Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MonsterStats4.jpg)
 
 ### Plastic Bases
 
-[Plastic Bases](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlasticBases.jpg)
+![Plastic Bases](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PlasticBases.jpg)
 
 ### Bosses
 
-[Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses1.jpg)
-[Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses2.jpg)
-[Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses3.jpg)
-[Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses4.jpg)
+![Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses1.jpg)
+![Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses2.jpg)
+![Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses3.jpg)
+![Bosses](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Bosses4.jpg)
 
 ### Minis Box
 
-[Minis Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MinisBox.jpg)
+![Minis Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/MinisBox.jpg)
 
 ### Envelopes Box
 
-[Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
+![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
