@@ -4,7 +4,7 @@ If you find anything here useful a small donation would be appreciated, but of c
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=8DHN9MQWWW8UJ)
 
-A custom insert that includes Player Boxes and also allows you to fit everything back in the box. The original insert is fine but has some issues and doesn't allow you to organize monsters and other tokens in a way that makes sense (to me anyway). The couple aftermarket inserts are nice but neither of the ones I have seen allow you to also fit all the map tiles back into the box. Which isn't ideal if you aren't currently playing and want to store it away. 
+A custom insert that includes Player Boxes and also allows you to fit everything back in the box. The original insert is fine but has some issues and doesn't allow you to organize monsters and other tokens in a way that makes setup and teardown easy (to me anyway). The couple aftermarket inserts are nice but neither of the ones I have seen allow you to also fit all the map tiles back into the box. Which isn't ideal if you aren't currently playing and want to store it away. 
 
 All the card boxes fit sleeved cards. I used Mayday premium for both card sizes. If you use some other sleeves YMMV. You are free to modify anything here to fit the way you like.
 
@@ -15,6 +15,10 @@ To pack this into the box there are three layers of printed boxes and then a las
 ## Layer 1
 
 ![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer1.png)
+
+The character boxes are a bit of a tight fit, but they work fine all along the one edge. The 5 monster boxes are just stacked on top of each other. The one downside of this packing is that the boxes can be a little difficult to get out of the box. If you grab the large card box by the cutouts in its side and take it out first though the rest are pretty easy to get out.
+
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer1.jpg)
 
 ## Layer 2
 
@@ -127,3 +131,7 @@ The cards in the bottom of this box are the Monster and Ally attack modifier dec
 ### Envelopes Box
 
 ![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
+
+### Other Card Boxes
+
+![Other Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/OtherCards.jpg)
