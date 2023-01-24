@@ -23,16 +23,19 @@ The character boxes are a bit of a tight fit, but they work fine all along the o
 ## Layer 2
 
 ![Layer 2](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer2.png)
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer2.jpg)
 
 ## Layer 3
 
 ![Layer 3](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer3.png)
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer3.jpg)
 
 ## Layer 4
 
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-1.png)
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-2.png)
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-3.png)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-1.jpg)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-2.jgp)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-3.jpg)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-4.jpg)
 
 ## Obstacle Boxes
 
@@ -130,8 +133,12 @@ The cards in the bottom of this box are the Monster and Ally attack modifier dec
 
 ### Envelopes Box
 
+In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be OK. I might try a box that the envelopes slide in from the side, but for now this works.
+
 ![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
 
 ### Other Card Boxes
+
+Various other cards fit into these 3 boxes. The boxes were printed bigger than the size of the cards so they fit into the box without sliding around. It takes slightly more plastic but I think it's worth it.
 
 ![Other Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/OtherCards.jpg)
