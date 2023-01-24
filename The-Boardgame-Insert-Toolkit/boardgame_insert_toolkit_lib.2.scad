@@ -604,7 +604,7 @@ module MakeBox( box )
     m_stack_lid_wall_height = __value( m_lid, LID_HEIGHT, default = 2.0);
     m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;    
 
-    m_lid_thickness = m_wall_thickness;
+    m_lid_thickness = g_lid_thickness;
 
     m_box_has_lid = !__value( box, BOX_NO_LID_B, default = false );
 

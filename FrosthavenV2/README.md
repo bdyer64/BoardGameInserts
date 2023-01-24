@@ -4,7 +4,7 @@ If you find anything here useful a small donation would be appreciated, but of c
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=8DHN9MQWWW8UJ)
 
-A custom insert that includes Player Boxes and also allows you to fit everything back in the box. The original insert is fine but has some issues and doesn't allow you to organize monsters and other tokens in a way that makes sense (to me anyway). The couple aftermarket inserts are nice but neither of the ones I have seen allow you to also fit all the map tiles back into the box. Which isn't ideal if you aren't currently playing and want to store it away. 
+A custom insert that includes Player Boxes and also allows you to fit everything back in the box. The original insert is fine but has some issues and doesn't allow you to organize monsters and other tokens in a way that makes setup and teardown easy (to me anyway). The couple aftermarket inserts are nice but neither of the ones I have seen allow you to also fit all the map tiles back into the box. Which isn't ideal if you aren't currently playing and want to store it away. 
 
 All the card boxes fit sleeved cards. I used Mayday premium for both card sizes. If you use some other sleeves YMMV. You are free to modify anything here to fit the way you like.
 
@@ -16,19 +16,26 @@ To pack this into the box there are three layers of printed boxes and then a las
 
 ![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer1.png)
 
+The character boxes are a bit of a tight fit, but they work fine all along the one edge. The 5 monster boxes are just stacked on top of each other. The one downside of this packing is that the boxes can be a little difficult to get out of the box. If you grab the large card box by the cutouts in its side and take it out first though the rest are pretty easy to get out.
+
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer1.jpg)
+
 ## Layer 2
 
 ![Layer 2](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer2.png)
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer2.jpg)
 
 ## Layer 3
 
 ![Layer 3](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/PackingLayer3.png)
+![Layer 1](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer3.jpg)
 
 ## Layer 4
 
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-1.png)
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-2.png)
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-3.png)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-1.jpg)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-2.jgp)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-3.jpg)
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4-4.jpg)
 
 ## Obstacle Boxes
 
@@ -126,4 +133,12 @@ The cards in the bottom of this box are the Monster and Ally attack modifier dec
 
 ### Envelopes Box
 
+In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be OK. I might try a box that the envelopes slide in from the side, but for now this works.
+
 ![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
+
+### Other Card Boxes
+
+Various other cards fit into these 3 boxes. The boxes were printed bigger than the size of the cards so they fit into the box without sliding around. It takes slightly more plastic but I think it's worth it.
+
+![Other Cards](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/OtherCards.jpg)
