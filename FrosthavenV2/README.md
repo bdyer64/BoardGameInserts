@@ -12,7 +12,7 @@ Printing parameters will depend on your printer, but I use a layer height of 0.2
 
 You will need at least a 300 mm printer to print many of the boxes in this project. One could certainly remix it to split some of the boxes into two boxes so you can print it on a smaller printer. All the CAD files are here so have at it. I may get to it some day, but I have about 10 other inserts I want to design, so probably not,
 
-To pack this into the box there are three layers of printed boxes and then a last layer of the board, rules, map tiles, etc. I have provided CAD produced images of each layer as well as a picture of my print fitted into the box. 
+To pack this into the box there are three layers of printed boxes and then a few layers of the board, rules, map tiles, etc. I have provided CAD produced images of each layer as well as a picture of my print fitted into the box. 
 
 ## Layer 1
 
