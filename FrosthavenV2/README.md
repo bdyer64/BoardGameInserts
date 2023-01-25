@@ -38,19 +38,19 @@ Put the map board in...
 
 Put the spiral bound books in...
 
-![Layer 5](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer5.jgp)
+![Layer 5](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer5.jpg)
 
 Put the rulebook, setup guide, alchemy chart, stickers, etc in. Jam the sealed puzzle book and elements board in here somewhere too...
 
-![Layer 6](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer6.jpg)
+![Layer 6](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer6.jpg)
 
 Put the map tiles in. This is a bit of a puzzle and depending on how mucn time you spend optimizing it you mmay have a few mm of lid lift. Nothing too bad though.
 
-![Layer 7](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer7.jpg)
+![Layer 7](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer7.jpg)
 
 Put the scenario flowcharts on top...
 
-![Layer 8](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer8.jpg)
+![Layer 8](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/Layer8.jpg)
 
 ## Obstacle Boxes
 
