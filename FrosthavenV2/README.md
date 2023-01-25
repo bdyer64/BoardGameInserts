@@ -99,7 +99,7 @@ There are 4 player boxes that should have plenty of room to store your current a
 
 ## Small Cards Box
 
-The Small Cards Box holds all the small cards that aren't stored elsewhere. All the compartments are labelled except for the little compartment at the back left, this is for the Radmon Scenario cards. There are printed dividers to replace ones that come with the game since they stick up too far. File all the unavailable Itmes, Portions and Town Guard Cards behind the Unavailable divider. Everything in front of the Unavailable marker is Available. There is a Completed divider to file the completed challenges behind. 
+The Small Cards Box holds all the small cards that aren't stored elsewhere. All the compartments are labelled except for the little compartment at the back left, this is for the Random Scenario cards. There are printed dividers to replace ones that come with the game since they stick up too far. File all the unavailable Items, Portions and Town Guard Cards behind the Unavailable divider. Everything in front of the Unavailable marker is Available. There is a Completed divider to file the completed challenges behind. 
 
 ![Small Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
 
@@ -149,7 +149,7 @@ The cards in the bottom of this box are the Monster and Ally attack modifier dec
 
 ### Envelopes Box
 
-In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be OK. I might try a box that the envelopes slide in from the side, but for now this works.
+In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be fine. I might try a box that the envelopes slide in from the side, but for now this works.
 
 ![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
 
