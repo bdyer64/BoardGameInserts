@@ -3,4 +3,4 @@
 g_lid_thickness = 1;
 
 function envelopesBox()  = 
-    gridBox( "Envelopes Box", [1,1], ["Envelopes"], 20, 0, 158, 77.5, 44, "", t , padding = [0,0],positioned_labels=f,thin_bottom=t,lid_label_thick=1);
+    gridBox( "Envelopes Box", [1,1], ["Envelopes"], 20, 0, 158, 77.5, 44, "", t , padding = [0,0],positioned_labels=f,thin_bottom=t);
