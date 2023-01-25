@@ -34,7 +34,7 @@ The character boxes are a bit of a tight fit, but they work fine all along the o
 
 Put the map board in...
 
-![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4.jpg
+![Layer 4](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/images/Layer4.jpg)
 )
 
 Put the spiral bound books in...
