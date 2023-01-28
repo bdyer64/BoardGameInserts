@@ -1,10 +1,10 @@
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
 
-function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t],lid_label_thickness=2) =
+function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t],lid_label_thickness=2,lid_radius=6) =
     [ BOX_LID,
         [
-            [ LID_PATTERN_RADIUS,           6],        
+            [ LID_PATTERN_RADIUS,           lid_radius],        
             [ LID_PATTERN_THICKNESS,        0.8 ],      
             [ LID_INSET_B, inset ],
             [ LID_TABS_4B, tabs],
@@ -134,6 +134,18 @@ function bowlGridCompartment(num,x,y,height,cutout,pos_x = CENTER, pos_y = CENTE
             [CMP_NUM_COMPARTMENTS_XY,   num],
             [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
             [POSITION_XY, [pos_x,pos_y]],
+            [CMP_SHAPE, BOWL],
+            [CMP_FILLET_RADIUS,       r],
+            [CMP_PADDING_XY, padding ],
+        ]
+    ];
+
+function bowlGridCompartment2(num,x,y,height,cutout,position=[CENTER,CENTER],r=7.5,padding=[1,1]) = 
+    [ BOX_COMPONENT,
+        [
+            [CMP_NUM_COMPARTMENTS_XY,   num],
+            [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
+            [POSITION_XY, position],
             [CMP_SHAPE, BOWL],
             [CMP_FILLET_RADIUS,       r],
             [CMP_PADDING_XY, padding ],
