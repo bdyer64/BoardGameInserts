@@ -10,7 +10,9 @@ All the card boxes fit sleeved cards. I used Mayday premium for both card sizes.
 
 Printing parameters will depend on your printer, but I use a layer height of 0.2 mm, 4 layers bottom and top, a wall count of 4 and 20% infill. The boxes tend to pull up and warp on the corners so play around with our printer setting and first layer to make them stick. You can see in the pictures that I didn't total succeed in eliminationg all warping. Most of the time it is just aesthetic and doesn't effect the function. 
 
-To pack this into the box there are three layers of printed boxes and then a last layer of the board, rules, map tiles, etc. I have provided CAD produced images of each layer as well as a picture of my print fitted into the box. 
+You will need at least a 300 mm printer to print many of the boxes in this project. One could certainly remix it to split some of the boxes into two boxes so you can print it on a smaller printer. All the CAD files are here so have at it. I may get to it some day, but I have about 10 other inserts I want to design, so probably not,
+
+To pack this into the box there are three layers of printed boxes and then a few layers of the board, rules, map tiles, etc. I have provided CAD produced images of each layer as well as a picture of my print fitted into the box. 
 
 ## Layer 1
 
@@ -99,7 +101,7 @@ There are 4 player boxes that should have plenty of room to store your current a
 
 ## Small Cards Box
 
-The Small Cards Box holds all the small cards that aren't stored elsewhere. All the compartments are labelled except for the little compartment at the back left, this is for the Radmon Scenario cards. There are printed dividers to replace ones that come with the game since they stick up too far. File all the unavailable Itmes, Portions and Town Guard Cards behind the Unavailable divider. Everything in front of the Unavailable marker is Available. There is a Completed divider to file the completed challenges behind. 
+The Small Cards Box holds all the small cards that aren't stored elsewhere. All the compartments are labelled except for the little compartment at the back left, this is for the Random Scenario cards. There are printed dividers to replace ones that come with the game since they stick up too far. File all the unavailable Items, Portions and Town Guard Cards behind the Unavailable divider. Everything in front of the Unavailable marker is Available. There is a Completed divider to file the completed challenges behind. 
 
 ![Small Card Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/SmallCardsBox.jpg)
 
@@ -149,7 +151,7 @@ The cards in the bottom of this box are the Monster and Ally attack modifier dec
 
 ### Envelopes Box
 
-In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be OK. I might try a box that the envelopes slide in from the side, but for now this works.
+In order to make everything fit I had to make the lid of the envelope box thinner. It's a little flimsier than I would like but it works OK and you don't have to open this box very often so it should be fine. I might try a box that the envelopes slide in from the side, but for now this works.
 
 ![Envelopes Box](https://github.com/bdyer64/BoardGameInserts/blob/main/FrosthavenV2/Images/EnvelopesBox.jpg)
 
