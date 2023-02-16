@@ -25,8 +25,8 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.15;
-g_detent_thickness = 0.25;
+g_tolerance = -0.5;
+g_detent_thickness = 0.4;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
@@ -53,7 +53,7 @@ include <EnvelopeBox.scad>;
 include <PlasticBases.scad>;
 
 // Focus on one box
-g_isolated_print_box = "Envelopes Box"; 
+g_isolated_print_box = "Monster Box 1"; 
 g_b_print_lid = false;
 g_b_print_box = true; 
      

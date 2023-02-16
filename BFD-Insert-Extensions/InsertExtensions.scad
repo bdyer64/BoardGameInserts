@@ -1,10 +1,10 @@
 function label_offset(num_labels,index,label_gap,label_size) = 
     num_labels == 1 ? 0:((num_labels-1)*(label_gap+label_size))*((index/(num_labels-1))-0.5)*-1;
 
-function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t],lid_label_thickness=2) =
+function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t,t,t],lid_label_thickness=2,lid_radius=6) =
     [ BOX_LID,
         [
-            [ LID_PATTERN_RADIUS,           6],        
+            [ LID_PATTERN_RADIUS,           lid_radius],        
             [ LID_PATTERN_THICKNESS,        0.8 ],      
             [ LID_INSET_B, inset ],
             [ LID_TABS_4B, tabs],
@@ -139,6 +139,18 @@ function bowlGridCompartment(num,x,y,height,cutout,pos_x = CENTER, pos_y = CENTE
             [CMP_PADDING_XY, padding ],
         ]
     ];
+
+function bowlGridCompartment2(num,x,y,height,cutout,position=[CENTER,CENTER],r=7.5,padding=[1,1]) = 
+    [ BOX_COMPONENT,
+        [
+            [CMP_NUM_COMPARTMENTS_XY,   num],
+            [CMP_COMPARTMENT_SIZE_XYZ,  [ x, y, height] ],
+            [POSITION_XY, position],
+            [CMP_SHAPE, BOWL],
+            [CMP_FILLET_RADIUS,       r],
+            [CMP_PADDING_XY, padding ],
+        ]
+    ];
  
 function bowlBox(box_name, label, height, stack , r = 7.5) = 
             bowl(box_name, 1, label,10, 90, card_width, card_height, height, stack,radius=r);
@@ -268,13 +280,13 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
     
     
 // combine this with grid box, they are essentially the same
-function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2) =
+function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2,thin_bottom = false) =
     [   box_name,
         [
         [ BOX_SIZE_XYZ, 
                 [(x * num_compartments[0]) + (num_compartments[0] - 1) * padding[0] + g_wall_thickness * 2, 
                  (y * num_compartments[1]) + (num_compartments[1] - 1) * padding[1] + g_wall_thickness * 2, 
-                  height + g_wall_thickness] ],
+                  height + g_wall_thickness - (thin_bottom ? 1 : 0)] ],
             [ BOX_STACKABLE_B, stackable],
             boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,y),

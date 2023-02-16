@@ -8,10 +8,10 @@ monsterBox1CompLabelTop1 = compartmentLabel(label=[["FOREST IMP"],["ALGOX"],["AL
 monsterBox1CompLabelTop2 = compartmentLabel(label=[[""],["SCOUT"],["GUARD"]],size=7,rotation = 90,position=[0,-18],depth=1);
 
 monsterBox1CompLabelMiddle1 = compartmentLabel(label=[["SNOW"],["BLACK"],["VERMLING"],["ABAEL"],["VERMLING"],["CITY"]],size=6.5,rotation = 0,position=[0,5],depth=1);
-monsterBox1CompLabelMiddle2 = compartmentLabel(label=[["IMP"],["IMP"],["SCOUT"],["SCOUT"],["PRIEST"],["GUARD"]],size=6.5,rotation = 0,position=[0,-5],depth=0.5);
+monsterBox1CompLabelMiddle2 = compartmentLabel(label=[["IMP"],["IMP"],["SCOUT"],["SCOUT"],["PRIEST"],["GUARD"]],size=6.5,rotation = 0,position=[0,-5],depth=1);
 
-monsterBox1CompLabelBottom1 = compartmentLabel(label=[["STELL"],["SHRIKE FIEND"],["ALGOX PRIEST"]],size=7,rotation = 90,position=[0,18],depth=0.5);
-monsterBox1CompLabelBottom2 = compartmentLabel(label=[["AUTOMATON"],[""],[""]],size=7,rotation = 90,position=[0,-18],depth=0.5);
+monsterBox1CompLabelBottom1 = compartmentLabel(label=[["STEEL"],["SHRIKE FIEND"],["ALGOX PRIEST"]],size=7,rotation = 90,position=[0,18],depth=1);
+monsterBox1CompLabelBottom2 = compartmentLabel(label=[["AUTOMATON"],[""],[""]],size=7,rotation = 90,position=[0,-18],depth=1);
 
 // ***** Monster Box 2 Labels ****
 
