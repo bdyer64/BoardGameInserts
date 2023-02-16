@@ -34,9 +34,9 @@ g_tolerance_detents_pos = 0.1;
 
 
 // Focus on one box
-g_isolated_print_box = "Overflow"; 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_isolated_print_box = "Cherry Bombs"; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 
 // arge ingredient boxes x:121 y:164 z:17
 function largeIngredientBox(label = "") =
@@ -100,12 +100,37 @@ function witches() =
 function overflow() =
     [   "Overflow",
         [
-            [ BOX_SIZE_XYZ, [89,86,15]],
-            boxLid(["OVERFLOW","BOWLS"], 12, 0, 12,lid_radius = 8),
+            [ BOX_SIZE_XYZ, [89,89,15]],
+            boxLid(["OVERFLOW","BOWLS"], 10, 0, 12,lid_radius = 8),
             squareCompartmentGrid([1,1],85,85,11.5,t,padding=[1,1],position=[CENTER,CENTER]), 
         ]
     ];
+    
+// cherry bombs x:14.5 y:43 z:69
+function cherryBombs() = 
+    bowlGrid( "Cherry Bombs", [1,1], ["Cherry","Bombs"], 9, 0 ,65 , 39, 10.5, "",radius=7.5,lid_label_thick=1); 
+    
+// ssence cards x:61 y:92 z:10
+function essenceCards() = gridBox( "Essence", [1,1], ["Essence","Cards"], 10, 0, 88, 57, 6,cutout=true,thin_bottom=true);
 
+// fortune cards x:61 y:92 z:17
+function fortuneCards() = gridBox( "Fortune", [1,1], ["Fortune","Teller Cards"], 10, 0, 88, 57, 14,cutout=true,thin_bottom=true);
+
+// rubies x:51 y:89 z:18
+function rubies() = 
+    bowlGrid( "Rubies", [1,1], ["Rubies"], 12, 0 ,85 , 47, 14, "",radius=7.5,lid_label_thick=1); 
+
+// pennies x:51 y:77 z:16
+function pennies() = 
+    gridBox( "Pennies", [3,1], ["Witch","Pennies"], 12, 0 ,23 , 47, 13, "",lid_label_thick=1,thin_bottom = true,padding = [1,1]); 
+
+// alchemist x:51 y:77 z:24
+function misc() = 
+    gridBox( "Misc", [2,2], ["Misc"], 12, 90 ,23 , 36, 20, "",lid_label_thick=1,thin_bottom = false,padding = [1,1]); 
+  
+
+
+  
 data =
 [ 
     largeIngredientBox("TOADSTOOLS"),
@@ -120,6 +145,14 @@ data =
     charts(),
     witches(),
     overflow(),
+    cherryBombs(),
+    essenceCards(),
+    fortuneCards(),
+    rubies(),
+    pennies(),
+    misc(),
+    //   spacer x:29 y:164 z:17
+    spacer("Spacer",29,164,17),
 ];
 
 //echo(data);

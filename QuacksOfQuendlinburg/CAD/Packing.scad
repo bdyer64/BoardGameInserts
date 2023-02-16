@@ -29,15 +29,15 @@ echo(str("boards2 x:",boards2X," y:",boards2Y," z:",boards2Z));
 module boards2() { cube([boards2X,boards2Y,boards2Z]); };
 
 // Thin bottom
-fortuneCardsX = 58;
-fortuneCardsY = 89;
+fortuneCardsX = 61;
+fortuneCardsY = 92;
 fortuneCardsZ = 17;
 echo(str("fortune cards x:",fortuneCardsX," y:",fortuneCardsY," z:",fortuneCardsZ));
 module fortuneCards() { cube([fortuneCardsX,fortuneCardsY,fortuneCardsZ]); };
 
 // Thin bottom
-essenceCardsX = 58;
-essenceCardsY = 89;
+essenceCardsX = 61;
+essenceCardsY = 92;
 essenceCardsZ = 10;
 echo(str("essence cards x:",essenceCardsX," y:",essenceCardsY," z:",essenceCardsZ));
 module essenceCards() { cube([essenceCardsX,essenceCardsY,essenceCardsZ]); };
@@ -49,7 +49,7 @@ echo(str("rubies x:",rubiesX," y:",rubiesY," z:",rubiesZ));
 module rubies() { cube([rubiesX,rubiesY,rubiesZ]); };
 
 overflowX = 89;
-overflowY = 86;
+overflowY = 89;
 overflowZ = sIngredientZ;
 echo(str("overflow x:",overflowX," y:",overflowY," z:",overflowZ));
 module overflow() { cube([overflowX,overflowY,overflowZ]); };
@@ -76,7 +76,7 @@ echo(str("patient charts x:",patientChartX," y:",patientChartY," z:",patientChar
 module charts() { cube([patientChartX,patientChartY,patientChartZ]); };
 
 penniesX = lIngredientZ*3;
-penniesY = 77;
+penniesY = 74;
 penniesZ = 16;
 echo(str("pennies x:",penniesX," y:",penniesY," z:",penniesZ));
 module pennies() { cube([penniesX,penniesY,penniesZ]); };
@@ -90,8 +90,14 @@ module alchemist() { cube([alchemistX,alchemistY,alchemistZ]); };
 cherryBX = playerZ;
 cherryBY = lIngredientY - playerX;
 cherryBZ = playerY;
-echo(str("cherry bombs x:",cherryBX," y:",cherryBY," z:",cherryBY));
+echo(str("cherry bombs x:",cherryBX," y:",cherryBY," z:",cherryBZ));
 module cherryB() { cube([cherryBX,cherryBY,cherryBZ]); };
+
+spacerX = lIngredientX - fortuneCardsY;
+spacerY = lIngredientY;
+spacerZ = fortuneCardsZ;
+echo(str("spacer x:",spacerX," y:",spacerY," z:",spacerZ));
+module spacer() { cube([spacerX,spacerY,spacerZ]); };
 
 layer1 = true;
 layer2 = true;
@@ -129,6 +135,7 @@ if (layer3) {
     translate([lIngredientX+fortuneCardsY,overflowY,lIngredientZ*2]) rotate([0,0,90]) color("white") fortuneCards();
     //translate([lIngredientX+cardsX,0,lIngredientZ*2]) color("Crimson") rubies();
     translate([lIngredientX,0,lIngredientZ*2]) color("Gold") overflow();
+    translate([lIngredientX+fortuneCardsY,0,lIngredientZ*2]) color("Pink") spacer();
 }
 
 if (layer4) {

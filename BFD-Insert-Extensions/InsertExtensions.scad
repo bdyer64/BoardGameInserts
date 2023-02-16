@@ -280,13 +280,13 @@ function bowl( box_name, num_compartments, label, label_size, label_rotation, x,
     
     
 // combine this with grid box, they are essentially the same
-function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2) =
+function bowlGrid( box_name, num_compartments, label, label_size, label_rotation, x, y,height, stack, padding = [1,1],radius=7.5,stackable=false,lid_inset=false,lid_tabs=[f,f,f,f],lid_label_thick = 2,thin_bottom = false) =
     [   box_name,
         [
         [ BOX_SIZE_XYZ, 
                 [(x * num_compartments[0]) + (num_compartments[0] - 1) * padding[0] + g_wall_thickness * 2, 
                  (y * num_compartments[1]) + (num_compartments[1] - 1) * padding[1] + g_wall_thickness * 2, 
-                  height + g_wall_thickness] ],
+                  height + g_wall_thickness - (thin_bottom ? 1 : 0)] ],
             [ BOX_STACKABLE_B, stackable],
             boxLid(label, label_size, label_rotation, 12,inset=lid_inset,tabs=lid_tabs,lid_label_thickness=lid_label_thick),
             bottomLabel(stack,y),
