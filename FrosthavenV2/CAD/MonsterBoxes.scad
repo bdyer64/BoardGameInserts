@@ -15,10 +15,10 @@ monsterBox1CompLabelBottom2 = compartmentLabel(label=[["AUTOMATON"],[""],[""]],s
 
 // ***** Monster Box 2 Labels ****
 
-monsterBox2CompLabel1 = compartmentLabel(label=[["OOZE","PIRANHA PIG","RUINED"],["FROZEN","LIVING SPIRIT","LIGHTENING"],["DEEP TERROR","EARTH","FLAMING"]],size=7,rotation = 90,position=[0,18],depth=1);
+monsterBox2CompLabel1 = compartmentLabel(label=[["OOZE","PIRANHA PIG","RUINED"],["FROZEN","LIVING SPIRIT","LIGHTNING"],["DEEP TERROR","EARTH","FLAMING"]],size=7,rotation = 90,position=[0,18],depth=1);
 monsterBox2CompLabel2 = compartmentLabel(label=[["","","MACHINE"],["CORPSE","","EEL"],["","DEMON","BLADESPINNER"]],size=7,rotation = 90,position=[0,-18],depth=1);
 
-monsterBox2LabelData = [[[57.7,-74],[46.3,-74],[57.8,0],[46.2,0],[52,74],[6.2,-74],[-5.8,-74],[6.2,0],[-5.8,0],[6.2,74],[-5.8,74],[-46.2,-74],[-57.8,-74],[-46.2,0],[-57.8,0],[-46.2,74],[-57.8,74]],["DEEP","TERROR","FROZEN","CORPSE","OOZE","EARTH","DEMON","LIVING","SPIRIT","PIRANHA","PIG","FLAMING", "BLADESPINNER","LIGHTENING","EEL","RUINED","MACHINE"]];
+monsterBox2LabelData = [[[57.7,-74],[46.3,-74],[57.8,0],[46.2,0],[52,74],[6.2,-74],[-5.8,-74],[6.2,0],[-5.8,0],[6.2,74],[-5.8,74],[-46.2,-74],[-57.8,-74],[-46.2,0],[-57.8,0],[-46.2,74],[-57.8,74]],["DEEP","TERROR","FROZEN","CORPSE","OOZE","EARTH","DEMON","LIVING","SPIRIT","PIRANHA","PIG","FLAMING", "BLADESPINNER","LIGHTNING","EEL","RUINED","MACHINE"]];
 
 // ***** Monster Box 3 Labels *****
 
