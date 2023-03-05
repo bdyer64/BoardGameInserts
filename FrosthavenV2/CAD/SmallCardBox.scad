@@ -31,8 +31,11 @@ smallCardLidLabels = [[[-38,36.75],[-38,50.75],[38,34.75],[38,48.75],[-38,-25.75
 function smallCardBox() = 
      freeFormBox( "Small Cards", smallCardsCompartmentPositions, smallCardsCompartmentSizes, 152, 178.5 , scw+2, stack="",cutout_bottom=f,cutout_sides=[t,t,f,f],compLabel = compartmentSmallCardsLabels,positioned_labels=true,label_data=smallCardLidLabels,label_size=8,label_rotation=180);
      
- // Print 4
+ // Print 5
 function smallUnavailableMarker() = marker("Small Unavailable Marker","Unavailable",30,card = 2,sideways = true);
 
 // Print 1
 function smallCompletedMarker() = marker("Small Completed Marker","Completed",30,card = 2,sideways = true);
+
+// Print 1
+function smallBlueprintsMarker() = marker("Small Blueprints Marker","Blueprints",30,card = 2,sideways = true);

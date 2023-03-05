@@ -25,8 +25,8 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = -0.5;
-g_detent_thickness = 0.4;
+g_tolerance = 0.15;
+g_detent_thickness = 0.25;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
@@ -60,10 +60,12 @@ g_b_print_box = false;
 data =
 [ 
     smallCardBox(),
-    // Print 4
+    // Print 6
     smallUnavailableMarker(),
     // Print 1
     smallCompletedMarker(),
+    // Print 1
+    smallBlueprintsMarker(),
     lootCardsBox(),
     modifierCardsBox(),
     battleCardsBox(),
