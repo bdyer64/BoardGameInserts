@@ -202,6 +202,8 @@ g_wall_thickness = 1.5;
 
 // thickness of detent. For a looser snap fit, reduce this. For a tighter snap fit, increase it.  ( recommended 0.05 increments )
 g_detent_thickness = 0.25;
+g_detent_offset = 0;
+g_detent_reverse = false;
 
 g_detent_spacing = 2;
 
@@ -238,6 +240,7 @@ m_corner_width = 6;
 
 m_lid_notch_height = 2.0;
 m_lid_notches = true;
+m_lid_bevel_edges = true;
 
 
 module debug( w = 0.2, l = 100 )
@@ -604,7 +607,7 @@ module MakeBox( box )
     m_stack_lid_wall_height = __value( m_lid, LID_HEIGHT, default = 2.0);
     m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;    
 
-    m_lid_thickness = g_lid_thickness;
+    m_lid_thickness = m_wall_thickness;
 
     m_box_has_lid = !__value( box, BOX_NO_LID_B, default = false );
 
@@ -1029,13 +1032,14 @@ module MakeBox( box )
                                 }
                     }  
                 }
-                    //detents
-                    if ( !omit_detents )
-                    {
-                        detent_height = ( __lid_external_size( k_z,t ) + __lid_notch_depth() )/2 + tolerance_detent_pos;
-                        translate([ 0, 0, detent_height ]) // lower because tolerance
-                                MakeDetents( mod = -tolerance, offset = tolerance ); 
-                    }                             
+                
+                //detents
+                if ( !omit_detents )
+                {
+                    detent_height = ( __lid_external_size( k_z,t ) + __lid_notch_depth() )/2 + tolerance_detent_pos;
+                    translate([ 0, 0, detent_height ]) // lower because tolerance
+                            MakeDetents( mod = -tolerance, offset = tolerance ); 
+                }                             
         }
 
         module MakeLidBase_Cap( tolerance = 0, tolerance_detent_pos = 0, omit_detents = false )
@@ -1044,31 +1048,42 @@ module MakeBox( box )
             {
                     // main __element
                 cube([__lid_external_size( k_x ), __lid_external_size( k_y ), __lid_external_size( k_z )]);
-                    
-                // #TODO: modulize this!
-                translate( [ 0, 0, __lid_external_size( k_z ) - __lid_notch_depth() ] )
-                    hull()
-                    {
-                        translate( [ __lid_notch_depth() , __lid_notch_depth(), 0 ] )
-                            cube([__lid_internal_size( k_x ), __lid_internal_size( k_y ), 1]);
+               
+                if (m_lid_bevel_edges)
+                {
+                    // #TODO: modulize this!
+                    translate( [ 0, 0, __lid_external_size( k_z ) - __lid_notch_depth() ] )
+                        hull()
+                        {
+                            translate( [ __lid_notch_depth() , __lid_notch_depth(), 0 ] )
+                                cube([__lid_internal_size( k_x ), __lid_internal_size( k_y ), 1]);
 
-                        translate( [ 0, 0, __lid_notch_depth() ] )
-                            cube([__lid_external_size( k_x ), __lid_external_size( k_y ), 0.01]);
-                    }
+                            translate( [ 0, 0, __lid_notch_depth() ] )
+                                cube([__lid_external_size( k_x ), __lid_external_size( k_y ), 0.01]);
+                        }
+                }
 
                 // big hollow
                 translate( [ __lid_notch_depth() - tolerance, __lid_notch_depth() - tolerance, 0 ])
                     cube([  __lid_internal_size( k_x ) + 2*tolerance, __lid_internal_size( k_y ) + 2*tolerance,  __lid_external_size( k_z)]);
-            }
+            
 
+                //detents
+                if ( !omit_detents && g_detent_reverse)
+                {
+                    detent_height = ( m_lid_wall_height - __lid_notch_depth() )/2 + m_lid_thickness + tolerance_detent_pos;
+                    translate([ 0, 0, detent_height ]) // lower because tolerance
+                            MakeDetents( mod = 0, offset = -tolerance );      
+                }
+            }
+            
             //detents
-            if ( !omit_detents )
+            if ( !omit_detents && !g_detent_reverse)
             {
                 detent_height = ( m_lid_wall_height - __lid_notch_depth() )/2 + m_lid_thickness + tolerance_detent_pos;
                 translate([ 0, 0, detent_height ]) // lower because tolerance
                         MakeDetents( mod = 0, offset = -tolerance );      
             }
-
         }
 
 
@@ -2671,14 +2686,14 @@ module MakeBox( box )
             {
                 num_detents = 2;
 
-                translate( [0, offset ,0 ])
+                translate( [0, offset ,g_detent_offset ])
                 hull()
                     for ( i = [ 0 : num_detents - 1 ] )
                         translate( [ m_wall_thickness/2 + g_detent_spacing * i + g_detent_dist_from_corner, m_wall_thickness/2, 0] )
                             rotate( 90 )
                                 MakeDetent( mod );
 
-                translate( [offset, 0 ,0 ])
+                translate( [offset, 0 ,g_detent_offset ])
                 hull()
                     for ( i = [ 0 : num_detents - 1 ] )
                         translate( [m_wall_thickness/2, m_wall_thickness/2 + g_detent_spacing * i + g_detent_dist_from_corner, 0] )

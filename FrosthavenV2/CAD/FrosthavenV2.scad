@@ -53,7 +53,7 @@ include <EnvelopeBox.scad>;
 include <PlasticBases.scad>;
 
 // Focus on one box
-g_isolated_print_box = "Monster Box 2"; 
+g_isolated_print_box = "Alex"; 
 g_b_print_lid = true;
 g_b_print_box = false; 
      
@@ -93,6 +93,10 @@ data =
     playerBox("Player 2"),
     playerBox("Player 3"),
     playerBox("Player 4"),
+    playerBox("Bill"),
+    playerBox("Brad"),
+    playerBox("Alex"),
+    playerBox("Ben"),
     minisBox(),
     envelopesBox(),
     plasticBasesBox(),
