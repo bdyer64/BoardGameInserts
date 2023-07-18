@@ -1,3 +1,5 @@
+insert_font = "Futura:style=Medium";
+
 include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>;
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
@@ -33,7 +35,6 @@ g_tolerance_detents_pos = 0.1;
 card_sizes = [[67,92],[73,126]];
 card_width = 68;
 card_height = 91;
-insert_font = "Futura:style=Medium";
 
 function tents() = 
  [   "Tents",
@@ -793,9 +794,9 @@ function woodenResources() =
     ];
 
 // Focus on one box
-g_isolated_print_box = "Scenario Buildings"; 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_isolated_print_box = "Dusk"; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 
 data =
 [
@@ -829,7 +830,7 @@ data =
     scenarioBuildings(),
     housingHolder(),
     resinResources(),
-    woodanResources(),
+    woodenResources(),
     mapBorder(),
 ];
 

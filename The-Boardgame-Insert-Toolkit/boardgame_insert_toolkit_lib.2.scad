@@ -241,6 +241,7 @@ m_corner_width = 6;
 m_lid_notch_height = 2.0;
 m_lid_notches = true;
 m_lid_bevel_edges = true;
+m_lid_overlap = 1;
 
 
 module debug( w = 0.2, l = 100 )
@@ -1063,9 +1064,14 @@ module MakeBox( box )
                         }
                 }
 
+                lid_overlap = __lid_external_size( k_z) * m_lid_overlap;
+                lid_remaining = __lid_external_size( k_z) - lid_overlap;
                 // big hollow
-                translate( [ __lid_notch_depth() - tolerance, __lid_notch_depth() - tolerance, 0 ])
-                    cube([  __lid_internal_size( k_x ) + 2*tolerance, __lid_internal_size( k_y ) + 2*tolerance,  __lid_external_size( k_z)]);
+                translate( [ __lid_notch_depth() - tolerance, __lid_notch_depth() - tolerance, lid_remaining ])
+                    cube([  __lid_internal_size( k_x ) + 2*tolerance, __lid_internal_size( k_y ) + 2*tolerance, lid_overlap]); //BFD
+                    
+                translate( [m_wall_thickness, m_wall_thickness, 0 ])
+                    cube([  __lid_internal_size( k_x )- (2*__lid_notch_depth()) , __lid_internal_size( k_y ) - (2*__lid_notch_depth()), lid_remaining]); //BFD
             
 
                 //detents
@@ -1117,7 +1123,7 @@ module MakeBox( box )
         {
             cube([  m_box_size[ k_x ], 
                     m_box_size[ k_y ], 
-                    m_box_size[ k_z ]]);
+                    m_box_size[ k_z ]]); // BFD
                     
         }
 
