@@ -10,12 +10,10 @@ $fn = 100;
         
 // this is the outer wall thickness. 
 //Default = 1.5mm
-g_wall_thickness = 3.0;
-g_lid_thickness = 3.0;
+g_wall_thickness = 2.0;
+g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;
-g_detent_offset = 5; // Need to make this adjust automatically
-g_detent_dist_from_corner = 5;
-g_detent_reverse = true;
+
 
 // The tolerance value is extra space put between planes of the lid and box that fit together.
 // Increase the tolerance to loosen the fit and decrease it to tighten it.
@@ -32,33 +30,36 @@ g_detent_thickness = 0.25;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
-g_tolerance_detents_pos = 0;
+g_tolerance_detents_pos = 0.1;
 
-m_lid_notches = false;
-m_lid_bevel_edges = false;
-//m_lid_overlap = 0.32;
-
-card_sizes = [[64,89]];
-card_width = 64;
-card_height = 89;
+card_sizes = [[73,74]];
+card_width = 73;
+card_height = 74;
 
 
-function cards() = gridBox( "Demo", [1,1], ["Magic"], 12, 90, 50, 50, 40, "", false,cutout_sides = [t,t,f,f],lid_height = 30);
-
-function deckBox() = gridBox( "Deck", [1,1], ["Magic"], 12, 90, 75, 70, 96, "", false,cutout_sides = [f,f,f,f],lid_height = 57);
-
-function cribbageBox() = gridBox( "Cribbage", [1,1], ["Cribbage"], 12, 0, 106, 68, 36, "", true,cutout_sides = [f,f,f,f],lid_height = 15);
-
+function boxOne() = gridBox( "Box One", [3,1], ["BARRACKS"], 24, 0, 73, 74, 20, stack="", true , padding = [1,1]);
+  
+function boxTwo() = 
+ [   "Box Two",
+        [
+            [ BOX_SIZE_XYZ,                                     [225, 78, 22] ],
+            boxLid(["EMPERORS"], 24, 0, 12),
+            squareCompartmentGrid([1,1],73,74,20,t,padding=[1,1],position=[0,0],cutout_pct = 50), 
+            squareCompartmentGrid([1,1],73,74,20,t,padding=[1,1],position=[73+73+2,0],cutout_pct = 50),
+            squareCompartmentGrid([3,1],16.5,16.5,2,f,cutout_sides = [t,f,f,f],padding=[6.6255,6.625],position=[73+6.625,0],cutout_pct = 50,side_cutout_height_pct = 15),
+            squareCompartmentGrid([3,1],16.5,16.5,2,f,cutout_sides = [f,t,f,f],padding=[6.6255,6.625],position=[73+6.625,57.5],cutout_pct = 50,side_cutout_height_pct = 15)
+        ]
+ ];
 // Focus on one box
-g_isolated_print_box = "Cribbage"; 
-g_b_print_lid = true;
-g_b_print_box = false;   
+g_isolated_print_box = "spacer1"; 
+g_b_print_lid = false;
+g_b_print_box = true;   
   
 data =
 [ 
-    cards(),
-    deckBox(),
-    cribbageBox(),
+    boxOne(),
+    boxTwo(),
+    spacer("spacer1",70,219,24),
 ];
 
 //echo(data);

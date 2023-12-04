@@ -1,4 +1,4 @@
-insert_font = "Futura:style=Medium";
+insert_font = "FanjofeyAH:style=Regular";
 include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>;
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
@@ -10,12 +10,12 @@ $fn = 100;
         
 // this is the outer wall thickness. 
 //Default = 1.5mm
-g_wall_thickness = 3.0;
-g_lid_thickness = 3.0;
-g_min_bottom_thickness = 1.0;
-g_detent_offset = 5; // Need to make this adjust automatically
-g_detent_dist_from_corner = 5;
-g_detent_reverse = true;
+g_wall_thickness = 2.0;
+g_lid_thickness = 2.0;
+g_min_bottom_thickness = 2.0;
+//g_detent_offset = 5; // Need to make this adjust automatically
+//g_detent_dist_from_corner = 5;
+//g_detent_reverse = true;
 
 // The tolerance value is extra space put between planes of the lid and box that fit together.
 // Increase the tolerance to loosen the fit and decrease it to tighten it.
@@ -27,38 +27,31 @@ g_detent_reverse = true;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.15;
-g_detent_thickness = 0.25;
+//g_tolerance = 0.15;
+//g_detent_thickness = 0.25;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
-g_tolerance_detents_pos = 0;
+//g_tolerance_detents_pos = 0;
 
 m_lid_notches = false;
-m_lid_bevel_edges = false;
+m_lid_bevel_edges = true;
 //m_lid_overlap = 0.32;
 
-card_sizes = [[64,89]];
-card_width = 64;
-card_height = 89;
-
-
-function cards() = gridBox( "Demo", [1,1], ["Magic"], 12, 90, 50, 50, 40, "", false,cutout_sides = [t,t,f,f],lid_height = 30);
-
-function deckBox() = gridBox( "Deck", [1,1], ["Magic"], 12, 90, 75, 70, 96, "", false,cutout_sides = [f,f,f,f],lid_height = 57);
-
-function cribbageBox() = gridBox( "Cribbage", [1,1], ["Cribbage"], 12, 0, 106, 68, 36, "", true,cutout_sides = [f,f,f,f],lid_height = 15);
+wotrCompartmentSizes = [[241,171,3],[97,152,77],[97,152,77]];
+wotrCompartmentPositions = [[0,0],[9.5,9.5],[134.5,9.5]];
+box1LabelData = [[[0,14],[0,-14]],["War of the Ring","The Card Game"]];
+function mainBox() = 
+freeFormBox3( "WOTRCardGame", wotrCompartmentPositions, wotrCompartmentSizes, 245,175,79, stack="",cutout_bottom=[f,t,t],cutout_sides=[[f,f,f,f],[t,t,t,t],[t,t,t,t]],compLabel = [],positioned_labels=true,lid_inset = false,stackable=false,lid_tabs=[f,f,f,f],label_data=box1LabelData,label_size=15,side_cutout_height_pct=94,side_cutout_width_pct=80);
 
 // Focus on one box
-g_isolated_print_box = "Cribbage"; 
-g_b_print_lid = true;
-g_b_print_box = false;   
+g_isolated_print_box = "WOTRCardGame"; 
+g_b_print_lid = false;
+g_b_print_box = true;   
   
 data =
 [ 
-    cards(),
-    deckBox(),
-    cribbageBox(),
+    mainBox(),
 ];
 
 //echo(data);

@@ -10,7 +10,7 @@ function boxLid( label, label_size, label_rotation,label_gap,inset = f,tabs=[t,t
             [ LID_HEIGHT, lid_height ],
             [ LID_TABS_4B, tabs],
             [ LID_FIT_UNDER_B, f],
-            [ LID_SOLID_B, t],
+            [ LID_SOLID_B, f],
             [ LID_LABELS_INVERT_B, t],
             [ LID_LABELS_BG_THICKNESS, lid_label_thickness],
             for (i = [0:len(label)-1]) 
@@ -100,7 +100,7 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
     
-function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER],cutout_pct = 50,side_cutout_height_pct = 33) = 
+function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER],cutout_pct = 50,side_cutout_height_pct = 33,side_cutout_width_pct=50) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   num],
@@ -110,7 +110,7 @@ function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f
             [POSITION_XY, position],
             [CMP_CUTOUT_SIDES_4B,       cutout_sides], // all sides
             [CMP_CUTOUT_DEPTH_PCT,          20],
-            [CMP_CUTOUT_WIDTH_PCT,          50],
+            [CMP_CUTOUT_WIDTH_PCT,          side_cutout_width_pct],
             [CMP_CUTOUT_HEIGHT_PCT,         side_cutout_height_pct],    
             [CMP_PADDING_HEIGHT_ADJUST_XY, [ 0, 0] ],
             [CMP_PADDING_XY, padding ],
@@ -264,6 +264,35 @@ function freeFormBox2( box_name, compartmentsPositions ,compartmentsSizes, width
                          position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
                          cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides,compartmentLabels=[[compartmentLabelsBlank]],
                          cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct), 
+        ]
+    ];
+    
+defaultCutoutSides3=[[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f]];
+
+function freeFormBox3( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
+                        cutout_bottom = [f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f], bottom_cutout_pct = 40, 
+                        cutout_sides=defaultCutoutSides3, compLabel=[],positioned_labels=false,label_data=["Default"],
+                        label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33,side_cutout_width_pct=50,lid_label_thick=2,lid_patt_radius=6) =
+    [   box_name,
+        [
+            [ BOX_SIZE_XYZ, [width, length, height] ],
+            [ BOX_STACKABLE_B, stackable],
+            if (positioned_labels)
+                boxLidPositionedLabels( label_data, label_size, label_rotation,inset = lid_inset,tabs =lid_tabs,lid_label_thickness=lid_label_thick)
+            else
+                boxLid(label_data, label_size, label_rotation, 12,inset = lid_inset,tabs = lid_tabs,lid_label_thickness=lid_label_thick,lid_radius=lid_patt_radius),
+            bottomLabel(stack,length),
+            for (i = [0:len(compartmentsPositions)-1])
+                if (len(compLabel) != 0)
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides[i],compartmentLabels=compLabel[i],
+                         cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct)  
+                else
+                    squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
+                         position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
+                         cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides[i],compartmentLabels=[[compartmentLabelsBlank]],
+                         cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct,side_cutout_width_pct=side_cutout_width_pct), 
         ]
     ];
     
