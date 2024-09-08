@@ -41,6 +41,7 @@ TYPE = "type";
 BOX = "box";
 DIVIDERS = "dividers";
 SPACER = "spacer";
+TOKEN = "token";
 
 BOX_LID = "box_lid";
 
@@ -66,6 +67,12 @@ DIV_FRAME_BOTTOM = "div_frame_bottom";
 DIV_FRAME_COLUMN = "div_frame_column";
 DIV_FRAME_RADIUS = "div_frame_radius";
 DIV_FRAME_NUM_COLUMNS = "div_frame_num_columns";
+
+TOKEN_SIZE_XYZ = "token_size";
+TOKEN_INNER_SIZE_XYZ = "token_inner_size";
+TOKEN_SHAPE = "token_shape";
+TOKEN_CUTOUT_BOTTOM_PCT = "tok_cutout_bottom_pct";
+TOKEN_CUTOUT_BOTTOM_B = "tok_cutout_bottom";
 
 // BOX PARAMETERS
 BOX_SIZE_XYZ = "box_size";
@@ -406,6 +413,10 @@ module MakeAll()
         {
             MakeDividers( element );
         }
+        else if (__type( element ) == TOKEN )
+        {
+            MakeToken(element);
+        }
         else
         {
             MakeBox( element );
@@ -430,6 +441,10 @@ module MakeAll()
                            if ( __type( element ) == DIVIDERS )
                             {
                                 MakeDividers( element );
+                            }
+                            else if (__type( element ) == TOKEN )
+                            {
+                                MakeToken(element);
                             }
                             else
                             {
@@ -606,8 +621,7 @@ module MakeBox( box )
     // the part of the lid that overlaps the box
     m_lid_wall_height = __value( m_lid, LID_HEIGHT, default = m_lid_inset ? 2.0 : 4.0 );
     m_stack_lid_wall_height = __value( m_lid, LID_HEIGHT, default = 2.0);
-    m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;    
-
+    m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;   
     m_lid_thickness = m_wall_thickness;
 
     m_box_has_lid = !__value( box, BOX_NO_LID_B, default = false );
@@ -956,7 +970,7 @@ module MakeBox( box )
                     notch_pos_z =  m_box_size[ k_z ] - m_lid_wall_height + __lid_notch_depth();                    
 
                     if ( m_lid_notches )
-                     translate([ 0, 0, notch_pos_z]) 
+                        translate([ 0, 0, notch_pos_z]) 
                             MakeLidCornerNotches();                              
                 }
 
@@ -982,6 +996,10 @@ module MakeBox( box )
                     {
                         translate( [ 0, 0, - m_lid_thickness ] )
                                 MakeLidBase_Cap( omit_detents = false );
+                        notch_pos_z =  __lid_notch_depth() + m_lid_wall_height; 
+                        if ( m_lid_notches )
+                            translate([ 0, 0, notch_pos_z]) 
+                                MakeLidCornerNotches(); 
                     }
  
                 }     
@@ -2047,7 +2065,6 @@ module MakeBox( box )
                                     Helper_MakeLabel( label, x, y );
                             }
                         }
-
                     }
                 }
             } 
@@ -2057,9 +2074,9 @@ module MakeBox( box )
         module MakeSideCutouts( side, margin = false )
         {
             function __cutout_z() = m_is_lid ? m_lid_wall_height + m_lid_thickness : 
-                                    m_box_size[ k_z ]  * m_cutout_height_pct; 
+                                    m_box_size[ k_z ]  * m_cutout_height_pct + (m_lid_inset ? m_lid_wall_height +3 : 0);
             function __padding( D ) = m_is_lid ? 0 : __component_padding( D );
-            function __size( D ) = m_is_lid ? __lid_external_size( D ) : __compartment_size( D );
+            function __size( D ) = m_is_lid ? __lid_external_sisze( D ) : __compartment_size( D );
             function __finger_cutouts_bottom() = m_is_lid ?__lid_external_size( k_z ) - __cutout_z() : 
                                                  (m_box_size[ k_z ] * (1-m_cutout_height_pct)) - m_wall_thickness;
             function __round_bottom() = __finger_cutouts_bottom() > m_box_size[ k_z ] - __size( k_z );
@@ -2597,6 +2614,21 @@ module MakeBox( box )
                         cube([ __notch_length( k_x ), __lid_notch_depth(), m_lid_notch_height ]);
                         cube([__lid_notch_depth(), __notch_length( k_y ), m_lid_notch_height]);
                     }
+                    
+                    
+                    hull()
+                    {
+                        
+                        cube([ __notch_length( k_x ), __lid_notch_depth(), 0.01]);
+                        translate([0,0,__lid_notch_depth()])
+                            cube([ __notch_length( k_x ), 0.01, 0.01]); 
+                    }
+                    hull()
+                    {
+                        cube([__lid_notch_depth(), __notch_length( k_y ),0.01]);
+                        translate([0,0,__lid_notch_depth()])
+                            cube([0.01, __notch_length( k_y ),0.01]);
+                    }
                 }
             }
 
@@ -2779,6 +2811,54 @@ module MakeRoundedCubeAxis( vec3, radius, vecRounded = [ t, t, t, t ], axis = k_
             translate( pos[ axis ][ idx ])
                  rotate(rot[ axis ])   
                     cylinder(r=radii[ idx ], h=h, $fn = fn);
+        }
+    }
+}
+
+module MakeToken (token )
+{
+    m_token_shape = __value( token, TOKEN_SHAPE, default = ROUND);
+    m_token_size = __value( token, TOKEN_SIZE_XYZ, default = [20,20,5]);
+    m_token_inner_size = __value( token, TOKEN_INNER_SIZE_XYZ, default = [18,18,3]);
+    m_token_cutout_bottom = __value( token, TOKEN_CUTOUT_BOTTOM_B, default = true);
+    m_token_cutout_bottom_pct = __value( token, TOKEN_CUTOUT_BOTTOM_PCT, default = 80);
+    
+    if (m_token_shape == ROUND)
+    {
+        difference()
+        {
+            resize([m_token_size[0],m_token_size[1]])cylinder(d=1,h=m_token_size[2]);
+            translate([0,0,m_token_size[2]-m_token_inner_size[2]])
+                resize([m_token_inner_size[0],
+                        m_token_inner_size[1]])
+                    cylinder(d=1,h=m_token_inner_size[2]);
+            if (m_token_cutout_bottom)
+            {
+                resize([m_token_inner_size[0]*(m_token_cutout_bottom_pct/100),
+                        m_token_inner_size[1]*(m_token_cutout_bottom_pct/100)])
+                    cylinder(d=1,h=m_token_size[2]);
+            }
+        }
+    }
+    else
+    {
+        difference()
+        {
+            cube([m_token_size[0],m_token_size[1],m_token_size[2]]);
+            translate([(m_token_size[0]-m_token_inner_size[0])/2,
+                       (m_token_size[0]-m_token_inner_size[0])/2,
+                       m_token_size[2]-m_token_inner_size[2]])
+                cube([m_token_inner_size[0],
+                      m_token_inner_size[1],m_token_inner_size[2]]);
+            if (m_token_cutout_bottom)
+            {
+                cutout_x = m_token_inner_size[0]*(m_token_cutout_bottom_pct/100);
+                cutout_y = m_token_inner_size[1]*(m_token_cutout_bottom_pct/100);
+                translate([(m_token_size[0]-cutout_x)/2,
+                        (m_token_size[0]-cutout_y)/2,
+                        0])
+                    cube([cutout_x,cutout_y,m_token_size[2]]);
+            }
         }
     }
 }

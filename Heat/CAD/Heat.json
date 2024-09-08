@@ -1,0 +1,20 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "New set 1": {
+            "borderWidth": "[8, 8]",
+            "card_height": "92",
+            "card_width": "61",
+            "g_b_print_box": "true",
+            "g_b_print_lid": "false",
+            "g_lid_thickness": "2",
+            "g_min_bottom_thickness": "1",
+            "g_tolerance": "0.14999999999999999",
+            "g_tolerance_detents_pos": "0.10000000000000001",
+            "g_wall_thickness": "2",
+            "holderSize": "[285, 285, 61]",
+            "insert_font": "Libre Baskerville:style=Regular",
+            "mapSize": "[265, 265, 38]"
+        }
+    }
+}
