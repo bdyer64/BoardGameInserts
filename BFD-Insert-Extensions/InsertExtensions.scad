@@ -421,16 +421,27 @@ function marker( marker_name, label, tab_height, card = 0,sideways = false) =
 function cornerHolder(name="Default",size,borderWidth,recess) = freeFormBox4(name,[[borderWidth]],[[size[0]-borderWidth[0],size[1]-borderWidth[1],recess]], size[0], size[1],size[2],lid=false);
 
 function mapHolder(name,holderSize,mapSize,borderWidth) = freeFormBox4(name,[borderWidth],[[mapSize[0],mapSize[1],mapSize[2]]], holderSize[0], holderSize[1],holderSize[2],cutout_sides=[[t,t,t,t]],side_cutout_height_pct=100,cutout_bottom=[t],bottom_cutout_pct = 50,side_cutout_width_pct=50,lid=false);
-
-function tokenHolder(name,shape,size,inner_size,cutout_bottom,cutout_bottom_pct) =
+    
+ function tokenHolder(name,shape = ROUND,
+                       size,wall_width,base_width,base_height,
+                       cutout_bottom = true,shape_file="",shape_scale=1,stackable=f,
+                       angle = 45) =
     [name,
         [
             [ TOKEN_SIZE_XYZ, size],
-            [ TOKEN_INNER_SIZE_XYZ, inner_size],
-            [ TOKEN_CUTOUT_BOTTOM_PCT, cutout_bottom_pct],
+            [ TOKEN_WALL_WIDTH, wall_width],
+            [ TOKEN_BASE_WIDTH, base_width],
+            [ TOKEN_BASE_HEIGHT, base_height],
+            [ TOKEN_SCALE, shape_scale],
             [ TOKEN_CUTOUT_BOTTOM_B, cutout_bottom],
             [ TOKEN_SHAPE, shape],
+            [ TOKEN_STACKABLE_B, stackable],
+            [ TOKEN_DONUT_ANGLE, angle],
+            [ CUSTOM_SHAPE_FILE, shape_file],
             [ TYPE, TOKEN]
                           
         ]
     ];
+    
+    
+    

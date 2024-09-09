@@ -8,7 +8,8 @@ VERSION = "2.45";
 COPYRIGHT_INFO = "\tThe Boardgame Insert Toolkit\n\thttps://github.com/IdoMagal/The-Boardgame-Insert-Toolkit\n\n\tCopyright 2020 Ido Magal\n\tCreative Commons - Attribution - Non-Commercial - Share Alike.\n\thttps://creativecommons.org/licenses/by-nc-sa/4.0/legalcode";
 
 fn = $preview ? 10 : 100;
-
+fa = $preview ? 59 : 1;
+$fa = fa;
 $fn = fn;
 
 // constants
@@ -69,10 +70,16 @@ DIV_FRAME_RADIUS = "div_frame_radius";
 DIV_FRAME_NUM_COLUMNS = "div_frame_num_columns";
 
 TOKEN_SIZE_XYZ = "token_size";
-TOKEN_INNER_SIZE_XYZ = "token_inner_size";
 TOKEN_SHAPE = "token_shape";
 TOKEN_CUTOUT_BOTTOM_PCT = "tok_cutout_bottom_pct";
 TOKEN_CUTOUT_BOTTOM_B = "tok_cutout_bottom";
+TOKEN_SCALE = "token_scale";
+TOKEN_WALL_WIDTH = "token_wall_width";
+TOKEN_BASE_WIDTH = "token_base_width";
+TOKEN_BASE_HEIGHT = "token_base_height";
+TOKEN_STACKABLE_B = "token_stackable";
+TOKEN_DONUT_ANGLE = "token_donut_angle";
+CUSTOM_SHAPE_FILE = "custom_shape_file";
 
 // BOX PARAMETERS
 BOX_SIZE_XYZ = "box_size";
@@ -167,6 +174,9 @@ TRI2 = "triangle2";
 ROUND = "round";
 FILLET = "fillet";
 BOWL = "bowl";
+CUSTOM = "custom";
+DONUT = "donut";
+TEARDROP = "teardrop";
 
 INTERIOR = "interior";
 EXTERIOR = "exterior";
@@ -2815,49 +2825,211 @@ module MakeRoundedCubeAxis( vec3, radius, vecRounded = [ t, t, t, t ], axis = k_
     }
 }
 
+
+module fast_shell(thickness,height)
+{
+    local_fn=20;
+    echo("in fast shell");
+    if (thickness < 0)
+    {
+        linear_extrude(height=height)
+            intersection() {     
+                children();
+                minkowski($fn=local_fn) 
+                {
+                    difference () {
+                        translate([-150/2, -150/2 ]) 
+                            square([150, 150]);
+                        children();
+                    }
+                    circle(r=-thickness,$fn=local_fn);
+                }
+            }
+    } else
+    {
+        linear_extrude(height=height)
+            difference() {
+                minkowski($fn=local_fn) 
+                {
+                    children();
+                    circle(r = thickness,$fn=local_fn);
+                }
+                children();
+            }
+    }
+    echo("exit fast shell");
+}
+
+module raindrop2D(radius, length, center = true){
+    l = length - radius;
+    x = (radius * radius)/l;
+    y = (radius/l) * sqrt((l * l) -(radius * radius));
+	if(!center){
+		translate([radius, radius, 0]){
+			circle(r = radius,$fn=100);
+			//linear_extrude(height = thick)
+			polygon(points=[[x, y],
+                            [x, -y],
+                            [l, 0]], paths=[[0,1,2]]);
+		}
+	}else if(center){
+        translate([0, 0, 0]){
+            circle(r = radius,$fn=100);
+                //linear_extrude(height = thick)
+                polygon(points=[[x, y],
+                                [x, -y],
+                                [l, 0]], paths=[[0,1,2]]);
+        }
+	}	
+}
+
+module fastTokenHolderFromShape(holder_height,token_height,wall_width,base_width,cutout_bottom=true)
+{
+    translate([0,0,0])
+        fast_shell(wall_width,holder_height)
+            children();
+            
+    fast_shell(-base_width,holder_height-token_height)
+        children();
+}
+
+module pie_slice(r=10.0, a=30) {
+  polygon(points=[
+    [0, 0],
+    for(theta=0; theta<a; theta=theta+$fa)
+      [r*cos(theta), r*sin(theta)],
+    [r*cos(a), r*sin(a)]
+  ]);
+}
+
+module donut(radius,hole_radius,angle)
+{
+        difference() {
+            pie_slice(radius,angle);
+            pie_slice(hole_radius,angle);
+        }
+}
+
 module MakeToken (token )
 {
-    m_token_shape = __value( token, TOKEN_SHAPE, default = ROUND);
-    m_token_size = __value( token, TOKEN_SIZE_XYZ, default = [20,20,5]);
-    m_token_inner_size = __value( token, TOKEN_INNER_SIZE_XYZ, default = [18,18,3]);
-    m_token_cutout_bottom = __value( token, TOKEN_CUTOUT_BOTTOM_B, default = true);
-    m_token_cutout_bottom_pct = __value( token, TOKEN_CUTOUT_BOTTOM_PCT, default = 80);
+    module importShape() 
+    { 
+     rotate([0,180,0])
+        scale([m_token_scale,m_token_scale,1])
+            linear_extrude(height = 1,  scale=1, center = true)
+                import(file = m_custom_shape_file, center = true,dpi = 96);
+    }
     
-    if (m_token_shape == ROUND)
+    module MakeRoundToken()
     {
         difference()
         {
-            resize([m_token_size[0],m_token_size[1]])cylinder(d=1,h=m_token_size[2]);
-            translate([0,0,m_token_size[2]-m_token_inner_size[2]])
-                resize([m_token_inner_size[0],
-                        m_token_inner_size[1]])
-                    cylinder(d=1,h=m_token_inner_size[2]);
+            resize([m_token_size[0]+(2*m_token_wall_width),
+                    m_token_size[1]+(2*m_token_wall_width)])
+                    cylinder(d=1,
+                           h=m_token_size[2]+m_token_base_height+m_extra_height);
+            translate([0,0,m_token_base_height])
+                resize([m_token_size[0],
+                        m_token_size[1]])
+                    cylinder(d=1,h=m_token_size[2]+m_extra_height);
             if (m_token_cutout_bottom)
             {
-                resize([m_token_inner_size[0]*(m_token_cutout_bottom_pct/100),
-                        m_token_inner_size[1]*(m_token_cutout_bottom_pct/100)])
-                    cylinder(d=1,h=m_token_size[2]);
+                resize([m_token_size[0]-(2*m_token_base_width),
+                        m_token_size[1]-(2*m_token_base_width)])
+                    cylinder(d=1,h=m_token_size[2]+m_token_base_height);
             }
+            if (m_stackable)
+            {
+                translate([0,0,
+                            m_token_size[2]+m_token_base_height])
+                    cylinder(h=m_token_wall_width,
+                            d1=m_token_size[0],
+                            d2=m_token_size[0]+2*m_token_wall_width);
+                translate([0,0,0])
+                    difference()
+                    {
+                        cylinder(h=m_token_wall_width,
+                                d=m_token_size[0]+2*m_token_wall_width+0.01);
+                   
+                        cylinder(h=m_token_wall_width,
+                                d1=m_token_size[0],
+                                d2=m_token_size[0]+2*m_token_wall_width);
+                    }
+                translate([0,0, 
+                              m_token_size[2]+ (m_token_base_height*0.65) +
+                              m_token_wall_width])
+                resize([m_token_size[0]+(2*m_token_wall_width),
+                        m_token_size[1]+(2*m_token_wall_width)])
+                    cylinder(d=1,h=m_token_base_height*0.35);
+            }
+           
         }
+    }
+// holder_height,token_height,wall_width,base_width,custom_shape="
+
+    m_token_shape = __value( token, TOKEN_SHAPE, default = ROUND);
+    m_token_size = __value( token, TOKEN_SIZE_XYZ, default = [20,20,5]);
+    m_token_cutout_bottom = __value( token, TOKEN_CUTOUT_BOTTOM_B, default = true);
+    m_token_cutout_bottom_pct = __value( token, TOKEN_CUTOUT_BOTTOM_PCT, default = 80);
+    m_custom_shape_file = __value( token, CUSTOM_SHAPE_FILE, default = "");
+    m_token_scale = __value( token, TOKEN_SCALE, default = 1);
+    m_token_wall_width = __value( token, TOKEN_WALL_WIDTH, default = 1);
+    m_token_base_height = __value( token, TOKEN_BASE_HEIGHT, default = 0.5);
+    m_token_base_width = __value( token, TOKEN_BASE_WIDTH, default = 1);
+    m_stackable = __value( token, TOKEN_STACKABLE_B, default = false);
+    m_angle = __value( token, TOKEN_DONUT_ANGLE, default = 45);
+    m_extra_height = m_stackable?m_token_wall_width:0;
+
+    if (m_token_shape == ROUND)
+    {
+        MakeRoundToken();
+    }
+    else if (m_token_shape == CUSTOM)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            scale([m_token_scale,m_token_scale,0])
+            {   rotate([0,180,0])
+                    import(file = m_custom_shape_file, center = true,dpi = 96);
+            };
+    }
+    else if (m_token_shape == DONUT)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            donut(radius=m_token_size[0],hole_radius=m_token_size[1],angle=m_angle);
+    }
+    else if (m_token_shape == TEARDROP)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            raindrop2D(radius=m_token_size[0]/2,length=m_token_size[1]);
     }
     else
     {
         difference()
         {
-            cube([m_token_size[0],m_token_size[1],m_token_size[2]]);
-            translate([(m_token_size[0]-m_token_inner_size[0])/2,
-                       (m_token_size[0]-m_token_inner_size[0])/2,
-                       m_token_size[2]-m_token_inner_size[2]])
-                cube([m_token_inner_size[0],
-                      m_token_inner_size[1],m_token_inner_size[2]]);
+            cube([m_token_size[0]+(2*m_token_wall_width),
+                  m_token_size[1]+(2*m_token_wall_width),
+                  m_token_size[2]+ m_token_base_height]);
+            translate([m_token_wall_width,m_token_wall_width,m_token_base_height])
+                cube([m_token_size[0],
+                      m_token_size[1],m_token_size[2]]);
             if (m_token_cutout_bottom)
             {
-                cutout_x = m_token_inner_size[0]*(m_token_cutout_bottom_pct/100);
-                cutout_y = m_token_inner_size[1]*(m_token_cutout_bottom_pct/100);
-                translate([(m_token_size[0]-cutout_x)/2,
-                        (m_token_size[0]-cutout_y)/2,
-                        0])
-                    cube([cutout_x,cutout_y,m_token_size[2]]);
+                translate([m_token_wall_width+m_token_base_width,m_token_wall_width+m_token_base_width,0])
+                    resize([m_token_size[0]-(2*m_token_base_width),
+                            m_token_size[1]-(2*m_token_base_width)])
+                        cube([1,1,m_token_size[2]]);
             }
         }
     }
@@ -2968,6 +3140,7 @@ module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "a
 		}
 	}
 }
+
 
 
 

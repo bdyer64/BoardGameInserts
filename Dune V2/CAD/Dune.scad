@@ -4,7 +4,6 @@ include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
-
 g_b_print_lid = true;
 g_b_print_box = false; 
 g_wall_thickness = 2.0;
@@ -92,26 +91,75 @@ planetsSizes = [[ 61.5, 61.5, 16],[ 61.5, 61.5, 16],[61.5,61.5,2.5]];
 planetsPositions = [[0,0],[0,62.5],[0,31.25]];
 function planetsBox() = freeFormBox4( "Planets Box",planetsPositions,planetsSizes, 65.5,128,18,label_data=["Planets"],label_size=10,label_rotation=90,lid_patt_radius=5,fit_under=false,lid_inset=false,lid_height=4,stackable = false,lid_tabs = [t,t,f,f],cutout_sides=planetsCutoutSides,side_cutout_height_pct=100,invert_labels=false,shapes=[ROUND,ROUND,ROUND],rotate_shape=true,side_cutout_width_pct=50);
 
-function trooperHolder() = tokenHolder("Trooper Holder",shape=ROUND,size=[17.55, 17.55, 3],
-                                    inner_size=[14.9,14.9,2.1],cutout_bottom=true,
-                                    cutout_bottom_pct=85);
-                                    
- function ambassadorHolder() = tokenHolder("Ambassador Holder",shape=SQUARE,
-                                    size=[21.8, 21.8, 2.5],
-                                    inner_size=[19.8,19.8,2.1],cutout_bottom=true,
-                                    cutout_bottom_pct=95);
 
- function terrorHolder() = tokenHolder("Terror Holder",shape=ROUND,
-                                    size=[21.8, 21.8, 2.5],
-                                    inner_size=[19.8,19.8,2.1],cutout_bottom=true,
-                                    cutout_bottom_pct=95);
                                                           
-function noShipHolder() = tokenHolder("No Ship Holder",shape=ROUND,
-                                    size=[22, 22, 2.5],
-                                    inner_size=[20,20,2.1],cutout_bottom=true,
-                                    cutout_bottom_pct=95);
-
-g_isolated_print_box = "No Ship Holder"; 
+function noShipHolder() = tokenHolder("No Ship Holder",shape = ROUND,
+                                           size=[20,20,2.1],wall_width=1,
+                                           base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);  
+                                     
+function choamMarklerHolder() = tokenHolder("Choam Marker Holder",shape = ROUND,
+                                           size=[20,20,2.1],wall_width=1,
+                                           base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);         
+                                    
+function trooperHolder() = tokenHolder("Trooper Holder",shape = ROUND,
+                                           size=[15.1,15.1,2.2],wall_width=1.5,
+                                           base_width=0.8,
+                                           base_height=0.9,cutout_bottom = true,
+                                           stackable = true);
+                                           
+function ambassadorHolder() = tokenHolder("Ambassador Holder",shape = SQUARE,
+                                           size=[19.8,19.8,2.2],wall_width=1,
+                                           base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                    
+function discoveryHolder() = tokenHolder("Discovery Holder",shape = ROUND,
+                                           size=[24.9,24.9,2.1],wall_width=1,
+                                           base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                           
+function terrorHolder() = tokenHolder("Terror Holder",shape = ROUND,
+                                           size=[19.8,19.8,2.1],wall_width=1,
+                                           base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                           
+function kwisatzTokenHolder() = tokenHolder("Kwisatz Token Holder",shape = SQUARE,
+                                           size=[40,24.8,2.1],wall_width=1,base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                           
+function kwisatzMarkerHolder() = tokenHolder("Kwisatz Marker Holder",shape = ROUND,
+                                           size=[12,12,2.1],wall_width=1,base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                           
+function stormHolder() = tokenHolder("Storm Holder",shape = CUSTOM,
+                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           base_height=0.8,cutout_bottom = true,
+                                           shape_file="../Dune V2/CAD/Storm.svg",
+                                           shape_scale=0.127);
+                                           
+function shieldWallHolder() = tokenHolder("Shield Wall Holder",shape = CUSTOM,
+                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           base_height=0.8,cutout_bottom = true,
+                                           shape_file="../Dune V2/CAD/Shieldwall.svg",
+                                           shape_scale=0.128);
+                                           
+function techTokenHolder() = tokenHolder("Tech Token Holder",shape = CUSTOM,
+                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           base_height=0.8,cutout_bottom = true,
+                                           shape_file="../Dune V2/CAD/TechToken.svg",
+                                           shape_scale=0.128);
+                                           
+function turnMarkerHolder() = tokenHolder("Turn Marker Holder",shape = DONUT,
+                                           size=[38,13,2.1],wall_width=1,base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true,
+                                           angle=36);
+                                           
+function hmsHolder() = tokenHolder("Turn Marker Holder",shape = TEARDROP,
+                                           size=[30,45,2.1],wall_width=1,base_width=0.8,
+                                           base_height=0.4,cutout_bottom = true);
+                                           
+g_isolated_print_box = "Choam Marker Holder"; 
  
  data = [
     treacheryBox(), 
@@ -130,11 +178,19 @@ g_isolated_print_box = "No Ship Holder";
     ambassadorHolder(),
     terrorHolder(),
     noShipHolder(),
+    discoveryHolder(),
+    kwisatzTokenHolder(),
+    kwisatzMarkerHolder(),
+    stormHolder(),
+    shieldWallHolder(),
+    techTokenHolder(),
+    turnMarkerHolder(),
+    hmsHolder(),
+    noShipHolder(),
+    choamMarklerHolder(),
  ];
  
 MakeAll();
- 
- 
 
 
 
