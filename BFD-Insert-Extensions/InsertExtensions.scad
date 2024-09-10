@@ -100,7 +100,7 @@ function squareCompartment(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f
         ]
     ];
     
-function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER],cutout_pct = 50,side_cutout_height_pct = 33,side_cutout_width_pct=50,shape=SQUARE,fillet_radius=10,rotate_shape = f) = 
+function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f,f,f],padding=[2,2],compartmentLabels=[[""]],position=[CENTER,CENTER],cutout_pct = 50,side_cutout_height_pct = 33,side_cutout_width_pct=50,shape=SQUARE,fillet_radius=10,rotate_shape = f,shape_file="",shape_padding=0) = 
     [ BOX_COMPONENT,
         [
             [CMP_NUM_COMPARTMENTS_XY,   num],
@@ -118,6 +118,8 @@ function squareCompartmentGrid(num,x,y,height,cutout_bottom, cutout_sides = [f,f
             [CMP_FILLET_RADIUS, fillet_radius],
             [CMP_PADDING_HEIGHT_ADJUST_XY, [ 0, 0] ],
             [CMP_PADDING_XY, padding ],
+            [CMP_SHAPE_FILE, shape_file],
+            [CMP_SHAPE_PADDING, shape_padding ],
             for (i = [0:len(compartmentLabels)-1])
                 compartmentLabels[i]
         ]
@@ -305,7 +307,7 @@ function freeFormBox3( box_name, compartmentsPositions ,compartmentsSizes, width
     
 defaultShapes4 = [SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,];
 function freeFormBox4( box_name, compartmentsPositions ,compartmentsSizes, width, length, height, stack="",
-                        cutout_bottom = defaultCutoutBottom3, bottom_cutout_pct = 40,cutout_sides=defaultCutoutSides3, compLabel=[],positioned_labels=false,label_data=["Default"],label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33,side_cutout_width_pct=50,lid_label_thick=2,lid_patt_radius=6,shapes=defaultShapes4,fillet_radius=10,rotate_shape=f,fit_under=false,lid = t,lid_height = 4,invert_labels=true) =
+                        cutout_bottom = defaultCutoutBottom3, bottom_cutout_pct = 40,cutout_sides=defaultCutoutSides3, compLabel=[],positioned_labels=false,label_data=["Default"],label_size=10,label_rotation=0,stackable = f,lid_inset=f,lid_tabs = [t,t,t,t],side_cutout_height_pct=33,side_cutout_width_pct=50,lid_label_thick=2,lid_patt_radius=6,shapes=defaultShapes4,fillet_radius=10,rotate_shape=f,fit_under=false,lid = t,lid_height = 4,invert_labels=true,shape_file="",shape_padding = 0) =
     [   box_name,
         [
             [ BOX_SIZE_XYZ, [width, length, height] ],
@@ -321,13 +323,13 @@ function freeFormBox4( box_name, compartmentsPositions ,compartmentsSizes, width
                     squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
                          position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
                          cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides[i],compartmentLabels=compLabel[i],
-                         cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct,side_cutout_width_pct=side_cutout_width_pct,shape=shapes[i],fillet_radius=fillet_radius,rotate_shape=rotate_shape)  
+                         cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct,side_cutout_width_pct=side_cutout_width_pct,shape=shapes[i],fillet_radius=fillet_radius,rotate_shape=rotate_shape,shape_file=shape_file,shape_padding=shape_padding)  
                 else
                     squareCompartmentGrid([1,1],compartmentsSizes[i][0],compartmentsSizes[i][1],compartmentsSizes[i][2],
                          position=[compartmentsPositions[i][0],compartmentsPositions[i][1]],
                          cutout_bottom=cutout_bottom[i],cutout_sides=cutout_sides[i],compartmentLabels=[compartmentLabelsBlank],
                          cutout_pct = bottom_cutout_pct,side_cutout_height_pct=side_cutout_height_pct,side_cutout_width_pct=side_cutout_width_pct,
-                         shape=shapes[i],fillet_radius=fillet_radius,rotate_shape=rotate_shape), 
+                         shape=shapes[i],fillet_radius=fillet_radius,rotate_shape=rotate_shape,shape_file=shape_file,shape_padding=shape_padding), 
         ]
     ];
     
@@ -424,7 +426,7 @@ function mapHolder(name,holderSize,mapSize,borderWidth) = freeFormBox4(name,[bor
     
  function tokenHolder(name,shape = ROUND,
                        size,wall_width,base_width,base_height,
-                       cutout_bottom = true,shape_file="",shape_scale=1,stackable=f,
+                       cutout_bottom = true,shape_file="",stackable=f,
                        angle = 45) =
     [name,
         [
@@ -432,7 +434,6 @@ function mapHolder(name,holderSize,mapSize,borderWidth) = freeFormBox4(name,[bor
             [ TOKEN_WALL_WIDTH, wall_width],
             [ TOKEN_BASE_WIDTH, base_width],
             [ TOKEN_BASE_HEIGHT, base_height],
-            [ TOKEN_SCALE, shape_scale],
             [ TOKEN_CUTOUT_BOTTOM_B, cutout_bottom],
             [ TOKEN_SHAPE, shape],
             [ TOKEN_STACKABLE_B, stackable],

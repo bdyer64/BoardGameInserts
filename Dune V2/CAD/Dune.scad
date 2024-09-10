@@ -4,8 +4,8 @@ include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 g_wall_thickness = 2.0;
 g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;
@@ -131,24 +131,28 @@ function kwisatzTokenHolder() = tokenHolder("Kwisatz Token Holder",shape = SQUAR
 function kwisatzMarkerHolder() = tokenHolder("Kwisatz Marker Holder",shape = ROUND,
                                            size=[12,12,2.1],wall_width=1,base_width=0.8,
                                            base_height=0.4,cutout_bottom = true);
-                                           
+ 
+stormlWidth=34.16;
+stormHeight=70.99; 
 function stormHolder() = tokenHolder("Storm Holder",shape = CUSTOM,
-                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           size=[stormlWidth,stormHeight,2.2],wall_width=1,base_width=2,
                                            base_height=0.8,cutout_bottom = true,
-                                           shape_file="../Dune V2/CAD/Storm.svg",
-                                           shape_scale=0.127);
-                                           
+                                           shape_file="../Dune V2/CAD/Storm.svg");
+shieldWallWidth=36.32;
+shieldWallHeight=127.38;
 function shieldWallHolder() = tokenHolder("Shield Wall Holder",shape = CUSTOM,
-                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           size=[shieldWallWidth,shieldWallHeight,2.2],
+                                           wall_width=1,base_width=2,
                                            base_height=0.8,cutout_bottom = true,
-                                           shape_file="../Dune V2/CAD/Shieldwall.svg",
-                                           shape_scale=0.128);
-                                           
+                                           shape_file="../Dune V2/CAD/Shieldwall.svg");
+        
+techTokenWidth=40.77;
+techTokenHeight=39.62;         
 function techTokenHolder() = tokenHolder("Tech Token Holder",shape = CUSTOM,
-                                           size=[12,12,2.2],wall_width=1,base_width=2,
+                                           size=[techTokenWidth,techTokenHeight,2.2],
+                                           wall_width=1,base_width=2,
                                            base_height=0.8,cutout_bottom = true,
-                                           shape_file="../Dune V2/CAD/TechToken.svg",
-                                           shape_scale=0.128);
+                                           shape_file="../Dune V2/CAD/TechToken.svg");
                                            
 function turnMarkerHolder() = tokenHolder("Turn Marker Holder",shape = DONUT,
                                            size=[38,13,2.1],wall_width=1,base_width=0.8,
@@ -159,7 +163,13 @@ function hmsHolder() = tokenHolder("Turn Marker Holder",shape = TEARDROP,
                                            size=[30,45,2.1],wall_width=1,base_width=0.8,
                                            base_height=0.4,cutout_bottom = true);
                                            
-g_isolated_print_box = "Choam Marker Holder"; 
+                                           
+testCutoutSides = [[f,f,f,f]];
+testSizes = [[ shieldWallWidth+3, shieldWallHeight+3, 3]];
+testPositions = [[0,0]];
+function testBox() = freeFormBox4( "Test Box",testPositions,testSizes,shieldWallWidth+7,shieldWallHeight+7,5,label_data=["Test"],label_size=10,label_rotation=90,lid_patt_radius=5,fit_under=false,lid_inset=false,lid_height=4,stackable = false,lid_tabs = [t,t,f,f],cutout_sides=testCutoutSides,side_cutout_height_pct=100,invert_labels=false,shapes=[CUSTOM],rotate_shape=true,side_cutout_width_pct=50,cutout_bottom=[t,f],bottom_cutout_pct = 70,shape_file="../Dune V2/CAD/Shieldwall.svg",shape_padding=1.5);
+                                           
+g_isolated_print_box = "Test Box"; 
  
  data = [
     treacheryBox(), 
@@ -188,9 +198,30 @@ g_isolated_print_box = "Choam Marker Holder";
     hmsHolder(),
     noShipHolder(),
     choamMarklerHolder(),
+    testBox(),
  ];
- 
-MakeAll();
 
+MakeAll();
+svgWidth=269;
+svgHeight=559;
+
+//cube([100,126.747,16/2],center=true);
+/*
+resize([36.32,127.38,16/2])
+    translate([svgWidth*2,0,16/2])
+            rotate([0,180,0])
+                    linear_extrude(height = 16 ,  
+                        scale=1, center = true)
+                        import(file = "Shieldwall.svg", center = true,dpi = 96);
+                        
+                        
+scale([0.127,0.127,1])
+    translate([0,0,0])
+            rotate([0,180,0])
+                    linear_extrude(height = 16 ,  
+                        scale=1, center = true)
+                        import(file = "Shieldwall.svg", center = true,dpi = 96);
+                        */
+                        
 
 
