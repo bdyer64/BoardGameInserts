@@ -20,12 +20,13 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.15;
+g_tolerance = 0.00;
+g_detent_thickness = 0.25;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
 g_tolerance_detents_pos = 0.1;
-card_sizes = [[61,92]];
+card_sizes = [[30,50]];
 card_width = 61;
 card_height = 92;
 
@@ -132,10 +133,10 @@ function kwisatzMarkerHolder() = tokenHolder("Kwisatz Marker Holder",shape = ROU
                                            size=[12,12,2.1],wall_width=1,base_width=0.8,
                                            base_height=0.4,cutout_bottom = true);
  
-stormlWidth=34.16;
+stormWidth=34.16;
 stormHeight=70.99; 
 function stormHolder() = tokenHolder("Storm Holder",shape = CUSTOM,
-                                           size=[stormlWidth,stormHeight,2.2],wall_width=1,base_width=2,
+                                           size=[stormWidth,stormHeight,2.2],wall_width=1,base_width=2,
                                            base_height=0.8,cutout_bottom = true,
                                            shape_file="../Dune V2/CAD/Storm.svg");
 shieldWallWidth=36.32;
@@ -159,17 +160,34 @@ function turnMarkerHolder() = tokenHolder("Turn Marker Holder",shape = DONUT,
                                            base_height=0.4,cutout_bottom = true,
                                            angle=36);
                                            
-function hmsHolder() = tokenHolder("Turn Marker Holder",shape = TEARDROP,
+                                           
+
+                                           
+function hmsHolder() = tokenHolder("HMS Holder",shape = TEARDROP,
                                            size=[30,45,2.1],wall_width=1,base_width=0.8,
                                            base_height=0.4,cutout_bottom = true);
                                            
                                            
-testCutoutSides = [[f,f,f,f]];
-testSizes = [[ shieldWallWidth+3, shieldWallHeight+3, 3]];
-testPositions = [[0,0]];
-function testBox() = freeFormBox4( "Test Box",testPositions,testSizes,shieldWallWidth+7,shieldWallHeight+7,5,label_data=["Test"],label_size=10,label_rotation=90,lid_patt_radius=5,fit_under=false,lid_inset=false,lid_height=4,stackable = false,lid_tabs = [t,t,f,f],cutout_sides=testCutoutSides,side_cutout_height_pct=100,invert_labels=false,shapes=[CUSTOM],rotate_shape=true,side_cutout_width_pct=50,cutout_bottom=[t,f],bottom_cutout_pct = 70,shape_file="../Dune V2/CAD/Shieldwall.svg",shape_padding=1.5);
-                                           
-g_isolated_print_box = "Test Box"; 
+miscCutoutSides = [[f,f,f,f]];
+miscSizes = [[ techTokenWidth+3, techTokenHeight+3, 10.5],[22,22,12],[22,22,12],[22,22,9],[22.2,22.2,11.5],[22.2,22.2,11.5] ,[22.2,22.2,8.75]];
+miscPositions = [[3.03,0],[0,88],[28,88],[28,64.2],[0,64.2],[27.8,41],[0,41]];
+function miscTokensBox() = freeFormBox4( "Misc Tokens Box",miscPositions,miscSizes,54,114,15,label_data=["Misc Tokens"],label_size=10,label_rotation=90,lid_patt_radius=5,fit_under=false,lid_inset=false,lid_height=4,stackable = false,lid_tabs = [t,t,f,f],cutout_sides=miscCutoutSides,side_cutout_height_pct=20,invert_labels=true,shapes=[CUSTOM,SQUARE,SQUARE,SQUARE,ROUND],rotate_shape=true,side_cutout_width_pct=15,cutout_bottom=[t,t,t,t,t,t,t],bottom_cutout_pct = 75,shape_file=["../Dune V2/CAD/TechToken.svg"],shape_padding=1.5,lid_label_thick=1);
+
+
+
+misc2CutoutSides = [[f,f,t,f],[f,f,f,t],[f,f,f,t],[t,f,f,f],[f,f,f,t],[f,f,f,f],[f,f,f,f]];
+misc2Sizes = [[ shieldWallWidth+3, shieldWallHeight+3, 3.5],[ stormWidth+3, stormHeight+3, 3.5],[33,48,6],[25.4853,27.6363,7],[27.5,27.5,6.5],[27,27,16.6],[27,27,16.5],[27,42.5,3]];
+misc2Positions = [[0,0],[shieldWallWidth-3.5,9],[37,83],[31.5,0],[43,32.5],[40,100],[5,75],[40,83.5]];
+misc2Shapes = [CUSTOM,CUSTOM,TEARDROP,DONUT,ROUND,ROUND,ROUND,SQUARE];
+//misc2Shapes = [SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE];
+misc2ShapeFiles=["../Dune V2/CAD/Shieldwall.svg","../Dune V2/CAD/Storm.svg",hmsHolder(),turnMarkerHolder()];
+misc2CutoutParams=[[20,13.95,20,[100,100,100,100]],[33,13.95,20,[100,100,100,100]],[33,27.78,30,[100,100,100,100]],[50,33.33,20,[100,100,100,100]],[50,30.55,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]]]; //13.95
+function misc2TokensBox() = freeFormBox5( "Misc2 Tokens Box",misc2Positions,misc2Sizes,74,134,18,label_data=["Misc 2 Tokens"],label_size=10,label_rotation=90,lid_patt_radius=5,cutout_sides=misc2CutoutSides,shapes=misc2Shapes,rotate_shape=true,cutout_bottom=[f,f,f,f,f,t,t],bottom_cutout_pct = 75,shape_file=misc2ShapeFiles,shape_padding=1.0,lid_label_thick=1,side_cutout_params=misc2CutoutParams);
+                           
+           
+function testBox() = cardBox("Testing", ["Testing"], 7, "" , label_size = 7,card=0);     
+      
+g_isolated_print_box = "Misc2 Tokens Box"; 
  
  data = [
     treacheryBox(), 
@@ -198,30 +216,51 @@ g_isolated_print_box = "Test Box";
     hmsHolder(),
     noShipHolder(),
     choamMarklerHolder(),
+    miscTokensBox(),
+    misc2TokensBox(),
     testBox(),
+    [   "card tray - finger cutout",
+        [
+            [ BOX_SIZE_XYZ,                                     [45, 45, 30.0] ],
+            [ BOX_NO_LID_B, t],
+            [ BOX_LID,
+                [
+                    [ LID_SOLID_B, t],
+                    
+                ]
+            ],
+            [ BOX_COMPONENT,
+                [
+                    [CMP_COMPARTMENT_SIZE_XYZ,  [ 30, 30, 20] ],
+                    //[CMP_SHAPE,                             HEX],
+                    //[CMP_SHAPE_VERTICAL_B,                  t],  
+                    [CMP_CUTOUT_SIDES_4B,       [t,t,t,t]], // all sides
+                    [CMP_CUTOUT_DEPTH_PCT,          20],
+                    [CMP_CUTOUT_WIDTH_PCT,          50],
+                    [CMP_CUTOUT_HEIGHT_PCT,        50], 
+                    [CMP_CUTOUT_MARGIN_PCT,        [100,100,100,100]],
+                    [CMP_CUTOUT_TYPE, EXTERIOR ],
+                    [CMP_PADDING_XY,             [0,0]],
+                    //[POSITION_XY,                   [1,1]],
+                    
+                ]
+            ],                            
+        ]
+    ],
  ];
 
 MakeAll();
-svgWidth=269;
-svgHeight=559;
-
-//cube([100,126.747,16/2],center=true);
-/*
-resize([36.32,127.38,16/2])
-    translate([svgWidth*2,0,16/2])
-            rotate([0,180,0])
-                    linear_extrude(height = 16 ,  
-                        scale=1, center = true)
-                        import(file = "Shieldwall.svg", center = true,dpi = 96);
-                        
-                        
-scale([0.127,0.127,1])
-    translate([0,0,0])
-            rotate([0,180,0])
-                    linear_extrude(height = 16 ,  
-                        scale=1, center = true)
-                        import(file = "Shieldwall.svg", center = true,dpi = 96);
-                        */
-                        
 
 
+//3DShell(2,5)
+//    donut(38,13,36);
+//linear_extrude(height=5)
+//    donut(38,13,36);
+
+//MakeRoundedCubeAll( [15, 6, 9], 3, vecRounded = [ t,t,f,f ]);
+/*difference()
+{
+    MakeRoundedCubeAxis( [12.5, 3, 15], 3, [false, false, true, true], 2);
+    translate([0,-6,0])
+        cube([12.5,6,15]);
+}*/
