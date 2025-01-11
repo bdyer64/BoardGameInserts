@@ -1,11 +1,12 @@
 insert_font = "Orthodox Herbertarian:style=Regular";
+//insert_font = "Stencil Std:style=Bold";
 
 include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>;
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 g_wall_thickness = 2.0;
 g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;
@@ -177,17 +178,31 @@ function miscTokensBox() = freeFormBox4( "Misc Tokens Box",miscPositions,miscSiz
 
 misc2CutoutSides = [[f,f,t,f],[f,f,f,t],[f,f,f,t],[t,f,f,f],[f,f,f,t],[f,f,f,f],[f,f,f,f]];
 misc2Sizes = [[ shieldWallWidth+3, shieldWallHeight+3, 3.5],[ stormWidth+3, stormHeight+3, 3.5],[33,48,6],[25.4853,27.6363,7],[27.5,27.5,6.5],[27,27,16.6],[27,27,16.5],[27,42.5,3]];
-misc2Positions = [[0,0],[shieldWallWidth-3.5,9],[37,83],[31.5,0],[43,32.5],[40,100],[5,75],[40,83.5]];
+misc2Positions = [[0,0],[shieldWallWidth-3.5,8],[37.5,83],[32.5,0],[43,31.5],[40.5,100],[5,75],[40.5,83.5]];
 misc2Shapes = [CUSTOM,CUSTOM,TEARDROP,DONUT,ROUND,ROUND,ROUND,SQUARE];
 //misc2Shapes = [SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE,SQUARE];
 misc2ShapeFiles=["../Dune V2/CAD/Shieldwall.svg","../Dune V2/CAD/Storm.svg",hmsHolder(),turnMarkerHolder()];
-misc2CutoutParams=[[20,13.95,20,[100,100,100,100]],[33,13.95,20,[100,100,100,100]],[33,27.78,30,[100,100,100,100]],[50,33.33,20,[100,100,100,100]],[50,30.55,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]]]; //13.95
-function misc2TokensBox() = freeFormBox5( "Misc2 Tokens Box",misc2Positions,misc2Sizes,74,134,18,label_data=["Misc 2 Tokens"],label_size=10,label_rotation=90,lid_patt_radius=5,cutout_sides=misc2CutoutSides,shapes=misc2Shapes,rotate_shape=true,cutout_bottom=[f,f,f,f,f,t,t],bottom_cutout_pct = 75,shape_file=misc2ShapeFiles,shape_padding=1.0,lid_label_thick=1,side_cutout_params=misc2CutoutParams);
+misc2CutoutParams=[[20,13.95,20,[100,100,100,100]],[33,13.95,20,[100,100,100,100]],[33,27.78,30,[100,100,100,100]],[50,33.33,20,[100,100,100,100]],[50,33.55,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]],[33,50,20,[100,100,100,100]]]; //13.95
+function misc2TokensBox() = freeFormBox5( "Misc2 Tokens Box",misc2Positions,misc2Sizes,74,134,18,label_data=["Misc Tokens"],label_size=10,label_rotation=90,lid_patt_radius=5,cutout_sides=misc2CutoutSides,shapes=misc2Shapes,rotate_shape=true,cutout_bottom=[f,f,f,f,f,t,t],bottom_cutout_pct = 75,shape_file=misc2ShapeFiles,shape_padding=1.0,lid_label_thick=1,side_cutout_params=misc2CutoutParams);
+
+10s = 33;
+5s = 35;
+2s = 40;
+1s = 48;
+
+spiceBankCuoutSides = [[f,f,f,f],[f,f,f,f],[f,f,f,f],[f,f,f,f]];
+spiceBankSizes = [[ 41, 1s, 21],[ 41, 2s, 21],[41,5s,21],[41,10s,21]];
+spicePositions = [[0,0],[0,1s + 1],[0,1s + 2s + 2],[0,1s + 2s + 5s + 3]];
+1Label = compartmentLabel(label=[["1"]],size=10,rotation = 90,position=[0,0],depth=1);
+2Label = compartmentLabel(label=[["2"]],size=10,rotation = 90,position=[0,0],depth=1);
+5Label = compartmentLabel(label=[["5"]],size=10,rotation = 90,position=[0,0],depth=1);
+10Label = compartmentLabel(label=[["10"]],size=10,rotation = 90,position=[0,0],depth=1);
+function planetsBox() = freeFormBox4( "Spice Bank",spicePositions,spiceBankSizes, 45,163,23,label_data=["Spice Bank"],label_size=10,label_rotation=90,lid_patt_radius=5,fit_under=false,lid_inset=false,lid_height=4,stackable = false,lid_tabs = [t,t,f,f],cutout_sides=spiceBankCuoutSides,side_cutout_height_pct=100,shapes=[BOWL,BOWL,BOWL,BOWL],rotate_shape=true,side_cutout_width_pct=50,compLabel=[[1Label],[2Label],[5Label],[10Label]]);
                            
            
 function testBox() = cardBox("Testing", ["Testing"], 7, "" , label_size = 7,card=0);     
       
-g_isolated_print_box = "Misc2 Tokens Box"; 
+g_isolated_print_box = "Spice Bank"; 
  
  data = [
     treacheryBox(), 
