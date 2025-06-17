@@ -1,12 +1,12 @@
-insert_font = "Orthodox Herbertarian:style=Regular";
-//insert_font = "Stencil Std:style=Bold";
+//insert_font = "Orthodox Herbertarian:style=Regular";
+insert_font = "Stencil Std:style=Bold";
 
 include <../../The-Boardgame-Insert-Toolkit/boardgame_insert_toolkit_lib.2.scad>;
 include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 g_wall_thickness = 2.0;
 g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;

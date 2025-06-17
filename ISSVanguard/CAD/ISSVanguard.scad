@@ -58,7 +58,7 @@ tsbCompartmentSizes = [[50,35,15],[50,25,15]];
 tsbCompartmentPositions = [[0,0],[0,36]];
 function timeSuccessBox() = freeFormBox3( "Time & Success Box",tsbCompartmentPositions,tsbCompartmentSizes, 54,65, 17,label_data=["Time &","Success"],label_size=8,label_rotation=90,shape=BOWL,fillet_radius=8,fit_under=true);
 
-g_isolated_print_box = "Other Stuff"; 
+g_isolated_print_box = "Time & Success Box"; 
 
  
  data = [

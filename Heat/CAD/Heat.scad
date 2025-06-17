@@ -5,8 +5,8 @@ include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
 
-g_b_print_lid = true;
-g_b_print_box = false; 
+g_b_print_lid = false;
+g_b_print_box = true; 
 g_wall_thickness = 2.0;
 g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;
@@ -57,17 +57,17 @@ upgradeweatherRoadBoxSizes = [[80,61,13],[29,61,13]];
 weatherRoadBoxPositions = [[0,2],[81,2]];
 function weatherRoadBox() = freeFormBox3( "Weather Road Box",weatherRoadBoxPositions,upgradeweatherRoadBoxSizes, 114,69,19,cutout_bottom=[t,t],bottom_cutout_pct = 50,label_data=["Weather and","Road Conditions"],label_size=8,label_rotation=0,lid_patt_radius=5,shape=SQUARE);
 
-sponsorshipBoxSizes = [[92,61,23]];
+sponsorshipBoxSizes = [[92,61,25]];
 sponsorshipBoxPositions = [[0,0]];
 function sponsorshipBox() = freeFormBox3( "Sponsorship Box",sponsorshipBoxPositions,sponsorshipBoxSizes, 96,65, 32,cutout_bottom=[t,f],bottom_cutout_pct = 50,label_data=["Sponsorships"],lid_patt_radius=5,shape=SQUARE,label_size=9);
 
-otherBoxSizes = [[92,61,16]];
+otherBoxSizes = [[92,61,18]];
 otherBoxPositions = [[0,0]];
 function otherBox() = freeFormBox3( "Other Box",otherBoxPositions,otherBoxSizes, 96,65, 32,cutout_bottom=[t,f],bottom_cutout_pct = 50,label_data=["Tracks","Events","Legends"],lid_patt_radius=5,shape=SQUARE,label_size=8);
 
 borderWidth = [8,8];
 holderSize = [285,285,61];
-mapSize = [265,265,38];
+mapSize = [265,265,52];
 //function mapHolder() = freeFormBox4("Map Holder",
 //[borderWidth],[[mapSize[0],mapSize[1],mapSize[2]]], holderSize[0], holderSize[1],holderSize[2],
 //cutout_sides=[[t,t,t,t]],side_cutout_height_pct=100,cutout_bottom=[t],bottom_cutout_pct = 50,side_cutout_width_pct=50,lid=false);
@@ -76,14 +76,14 @@ function trackHolder() = mapHolder("Track Holder",holderSize,mapSize,borderWidth
 
 pressBoxSizes = [[66,52,9]];
 pressBoxPositions = [[0,6.5]];
-function otherBox() = freeFormBox3( "Press Corner Box",pressBoxPositions,pressBoxSizes, 70,69, 11,cutout_bottom=[f,f],bottom_cutout_pct = 50,label_data=["Press Corner"],lid_patt_radius=5,shape=SQUARE,label_size=7);
+function pressCornerBox() = freeFormBox3( "Press Corner Box",pressBoxPositions,pressBoxSizes, 70,69, 11,cutout_bottom=[f,f],bottom_cutout_pct = 50,label_data=["Press Corner"],lid_patt_radius=5,shape=SQUARE,label_size=7);
 
 function spacer1() = spacer("Spacer 1",24,144,34);
 function spacer2() = spacer("Spacer 2",32,69,34);
 function spacer3() = spacer("Spacer 3",75,69,13);
 
 
-g_isolated_print_box = "Press Corner Box"; 
+g_isolated_print_box = "Other Box"; 
  
  data = [
     playerBox(),
@@ -100,6 +100,7 @@ g_isolated_print_box = "Press Corner Box";
     spacer2(),
     otherBox(),
     spacer3(),
+    pressCornerBox(),
  ];
  
 
