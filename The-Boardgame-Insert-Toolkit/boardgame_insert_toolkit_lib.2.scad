@@ -8,7 +8,8 @@ VERSION = "2.45";
 COPYRIGHT_INFO = "\tThe Boardgame Insert Toolkit\n\thttps://github.com/IdoMagal/The-Boardgame-Insert-Toolkit\n\n\tCopyright 2020 Ido Magal\n\tCreative Commons - Attribution - Non-Commercial - Share Alike.\n\thttps://creativecommons.org/licenses/by-nc-sa/4.0/legalcode";
 
 fn = $preview ? 10 : 100;
-
+fa = $preview ? 59 : 1;
+$fa = fa;
 $fn = fn;
 
 // constants
@@ -41,6 +42,7 @@ TYPE = "type";
 BOX = "box";
 DIVIDERS = "dividers";
 SPACER = "spacer";
+TOKEN = "token";
 
 BOX_LID = "box_lid";
 
@@ -66,6 +68,18 @@ DIV_FRAME_BOTTOM = "div_frame_bottom";
 DIV_FRAME_COLUMN = "div_frame_column";
 DIV_FRAME_RADIUS = "div_frame_radius";
 DIV_FRAME_NUM_COLUMNS = "div_frame_num_columns";
+
+TOKEN_SIZE_XYZ = "token_size";
+TOKEN_SHAPE = "token_shape";
+TOKEN_CUTOUT_BOTTOM_PCT = "tok_cutout_bottom_pct";
+TOKEN_CUTOUT_BOTTOM_B = "tok_cutout_bottom";
+TOKEN_SCALE = "token_scale";
+TOKEN_WALL_WIDTH = "token_wall_width";
+TOKEN_BASE_WIDTH = "token_base_width";
+TOKEN_BASE_HEIGHT = "token_base_height";
+TOKEN_STACKABLE_B = "token_stackable";
+TOKEN_DONUT_ANGLE = "token_donut_angle";
+CUSTOM_SHAPE_FILE = "custom_shape_file";
 
 // BOX PARAMETERS
 BOX_SIZE_XYZ = "box_size";
@@ -108,6 +122,7 @@ CMP_CUTOUT_CORNERS_4B = "cutout_corners";
 CMP_CUTOUT_HEIGHT_PCT = "cutout_height_percent";
 CMP_CUTOUT_DEPTH_PCT = "cutout_depth_percent";
 CMP_CUTOUT_WIDTH_PCT = "cutout_width_percent";
+CMP_CUTOUT_MARGIN_PCT = "cutout_margin_percent";
 CMP_CUTOUT_BOTTOM_B = "cutout_bottom";
 CMP_CUTOUT_TYPE = "cutout_type";
 CMP_SHEAR = "shear";
@@ -116,6 +131,8 @@ CMP_PEDESTAL_BASE_B = "push_base";
 CMP_CUTOUT_DEPTH = "cutout_depth";
 CMP_CUTOUT_WIDTH = "cutout_width";
 CMP_CUTOUT_BOTTOM_PCT = "cutout_bottom_pct";
+CMP_SHAPE_FILE = "cutout_shape_file";
+CMP_SHAPE_PADDING = "shape padding";
 
 // LABEL PARAMETERS
 LBL_TEXT = "text";
@@ -160,6 +177,9 @@ TRI2 = "triangle2";
 ROUND = "round";
 FILLET = "fillet";
 BOWL = "bowl";
+CUSTOM = "custom";
+DONUT = "donut";
+TEARDROP = "teardrop";
 
 INTERIOR = "interior";
 EXTERIOR = "exterior";
@@ -406,6 +426,10 @@ module MakeAll()
         {
             MakeDividers( element );
         }
+        else if (__type( element ) == TOKEN )
+        {
+            MakeToken(element);
+        }
         else
         {
             MakeBox( element );
@@ -430,6 +454,10 @@ module MakeAll()
                            if ( __type( element ) == DIVIDERS )
                             {
                                 MakeDividers( element );
+                            }
+                            else if (__type( element ) == TOKEN )
+                            {
+                                MakeToken(element);
                             }
                             else
                             {
@@ -606,8 +634,7 @@ module MakeBox( box )
     // the part of the lid that overlaps the box
     m_lid_wall_height = __value( m_lid, LID_HEIGHT, default = m_lid_inset ? 2.0 : 4.0 );
     m_stack_lid_wall_height = __value( m_lid, LID_HEIGHT, default = 2.0);
-    m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;    
-
+    m_lid_wall_thickness = m_lid_inset ? 2*m_wall_thickness : m_wall_thickness/2;   
     m_lid_thickness = m_wall_thickness;
 
     m_box_has_lid = !__value( box, BOX_NO_LID_B, default = false );
@@ -749,6 +776,8 @@ module MakeBox( box )
         function __compartments_num( D ) = __value( component, CMP_NUM_COMPARTMENTS_XY, default = [1,1] )[ D ];
 
         function __component_rotation() = __value( component, ROTATION, default = 0 );
+        function __component_shape_file() = __value( component, CMP_SHAPE_FILE, default = "" );
+        function __component_shape_padding() = __value( component, CMP_SHAPE_PADDING, default = 0 );
         function __is_component_enabled() = __value( component, ENABLED_B, default = true);
 
         /////////
@@ -784,10 +813,12 @@ module MakeBox( box )
             (m_component_cutout_side[ k_left ]?1:0) +
             (m_component_cutout_side[ k_right ]?1:0) == 1;
 
+        echo(component);
 	    m_cutout_botttom_size_frac = __value( component, CMP_CUTOUT_BOTTOM_PCT, default = 80 )/100;
         m_cutout_height_pct = __value( component, CMP_CUTOUT_HEIGHT_PCT, default = 100 ) / 100;
         m_cutout_size_frac_aligned = __value( component, CMP_CUTOUT_DEPTH_PCT, default = 25 ) / 100;
         m_cutout_size_frac_perpindicular = __value( component, CMP_CUTOUT_WIDTH_PCT, default = 50 ) / 100;
+        m_cutout_margin_pct = __value(component, CMP_CUTOUT_MARGIN_PCT, default = [100,100,100,100] ) / 100;
 
         function __component_padding( D ) = __value( component, CMP_PADDING_XY, default = [1.0, 1.0] )[ D ];
         function __component_padding_height_adjust( D ) = __value( component, CMP_PADDING_HEIGHT_ADJUST_XY, default = [0.0, 0.0] )[ D ];
@@ -804,6 +835,9 @@ module MakeBox( box )
         function __component_is_square() = __component_shape() == SQUARE;
         function __component_is_fillet() = __component_shape() == FILLET; //|| __component_shape() == BOWL;
 	    function __component_is_bowl() = __component_shape() == BOWL;
+        function __component_is_custom() = __component_shape() == CUSTOM;
+        function __component_is_teardrop() = __component_shape() == TEARDROP;
+        function __component_is_donut() = __component_shape() == DONUT;
         function __component_fillet_radius() = __value( component, CMP_FILLET_RADIUS, default = min( __compartment_size( k_z ), 10) );
 
         function __component_shear( D ) = __value( component, CMP_SHEAR, default = [0.0, 0.0] )[ D ];
@@ -956,7 +990,7 @@ module MakeBox( box )
                     notch_pos_z =  m_box_size[ k_z ] - m_lid_wall_height + __lid_notch_depth();                    
 
                     if ( m_lid_notches )
-                     translate([ 0, 0, notch_pos_z]) 
+                        translate([ 0, 0, notch_pos_z]) 
                             MakeLidCornerNotches();                              
                 }
 
@@ -982,6 +1016,10 @@ module MakeBox( box )
                     {
                         translate( [ 0, 0, - m_lid_thickness ] )
                                 MakeLidBase_Cap( omit_detents = false );
+                        notch_pos_z =  __lid_notch_depth() + m_lid_wall_height; 
+                        if ( m_lid_notches )
+                            translate([ 0, 0, notch_pos_z]) 
+                                MakeLidCornerNotches(); 
                     }
  
                 }     
@@ -1190,7 +1228,7 @@ module MakeBox( box )
                 {
                     if ( !__component_is_square() && !__component_is_fillet() )
                     {
-                        difference()
+                       difference()
                         {
                             cube ( [ __compartment_size( k_x ), __compartment_size( k_y ), __smallest_partition_height() + m_component_base_height] );
                             MakeCompartmentShape();
@@ -1275,12 +1313,22 @@ module MakeBox( box )
                 InEachCompartment( )
                 {
                     frac = m_cutout_botttom_size_frac;
-
+                    
                     // this is the finger cutout underneath
                     if ( m_actually_cutout_the_bottom )
-                        translate( [ (__compartment_size( k_x) * (1-frac))/2, (__compartment_size( k_y) * (1-frac))/2, -m_wall_thickness ])
-                            scale( v = [ frac, frac, 1 ]) // bring in the sides
-                                MakeCompartmentShape();
+                    {
+                        if (__component_is_custom())
+                        {
+                            translate([0,0,-m_wall_thickness])
+                                MakeCustomCompartmentCutout(frac);
+                        }
+                        else
+                        {
+                            translate( [ (__compartment_size( k_x) * (1-frac))/2, (__compartment_size( k_y) * (1-frac))/2, -m_wall_thickness ])
+                                scale( v = [ frac, frac, 1 ]) // bring in the sides
+                                    MakeCompartmentShape();
+                        }
+                    }
                 }
 
                 if ( !g_b_no_labels_actual)
@@ -1292,6 +1340,7 @@ module MakeBox( box )
 
         module MakeAllBoxSideCutouts()
         {
+        
             ForEachCompartment( k_x )
             {
                     if ( m_component_cutout_side[ k_front ])
@@ -1308,14 +1357,14 @@ module MakeBox( box )
 
                     if ( m_component_cutout_side[ k_right ])    
                         MakeSideCutouts( k_right, margin = true );
-            }   
+            } 
 
             InEachCompartment( )
             {
                 for ( side = [ k_front:k_right ])
                     if ( m_component_cutout_side[ side ])
                         MakeSideCutouts( side );                     
-            }                
+            }         
         }
 
         module MakeAllBoxCornerCutouts()
@@ -1758,7 +1807,7 @@ module MakeBox( box )
 
                                         translate( [ 0,200,0])
                                             Make2dLidLabel( label, width, offset );
-                                    }         
+                                    }       
                                 }    
                                 
         }
@@ -1854,7 +1903,7 @@ module MakeBox( box )
 
                                         translate( [x/2-x2/2, y/2-y2/2, 0])
                                             RotateAboutPoint( theta, [0,0,1], [x2/2,y2/2,0] )
-                                                MakeStripedGrid( x = x2, y = y2, w = 0.5, dx = 1, dy = 0, depth_ratio = 0.5, thickness = thickness );
+                                                MakeStripedGrid( x = x2, y = y2, w = 0.5, dx = 0.5, dy = 0, depth_ratio = 0.5, thickness = thickness );
 
                                         MakeAllLidLabelFrames( offset = m_lid_label_bg_thickness, thickness = thickness );
                                     }
@@ -2047,7 +2096,6 @@ module MakeBox( box )
                                     Helper_MakeLabel( label, x, y );
                             }
                         }
-
                     }
                 }
             } 
@@ -2057,12 +2105,13 @@ module MakeBox( box )
         module MakeSideCutouts( side, margin = false )
         {
             function __cutout_z() = m_is_lid ? m_lid_wall_height + m_lid_thickness : 
-                                    m_box_size[ k_z ]  * m_cutout_height_pct; 
+                                    m_box_size[ k_z ]  * m_cutout_height_pct + (m_lid_inset ? m_lid_wall_height +3 : 0);
             function __padding( D ) = m_is_lid ? 0 : __component_padding( D );
-            function __size( D ) = m_is_lid ? __lid_external_size( D ) : __compartment_size( D );
+            function __size( D ) = m_is_lid ? __lid_external_sisze( D ) : __compartment_size( D );
             function __finger_cutouts_bottom() = m_is_lid ?__lid_external_size( k_z ) - __cutout_z() : 
                                                  (m_box_size[ k_z ] * (1-m_cutout_height_pct)) - m_wall_thickness;
             function __round_bottom() = __finger_cutouts_bottom() > m_box_size[ k_z ] - __size( k_z );
+
             // main and perpendicular dimensions
             main_d = ( side == k_back || side == k_front ) ? k_y : k_x; 
             perp_d = ( side == k_back || side == k_front ) ? k_x : k_y;
@@ -2072,29 +2121,29 @@ module MakeBox( box )
 
             // main and perpendicular size of hole
             //  main dimension intrudes into the compartment by some fraction ( e.g. 1/5 )
-
             main_size_standard = [
                 __padding( main_d )/2  + __size( main_d ) * m_cutout_size_frac_aligned,
                 __padding( main_d )/2  + __size( main_d ) * m_cutout_size_frac_aligned,
                 __padding( main_d )/2  + __size( main_d ) * m_cutout_size_frac_aligned,
                 __padding( main_d )/2  + __size( main_d ) * m_cutout_size_frac_aligned
             ];
-
+            
             main_size_margin = [
                 // Front
-                __component_position(k_y),
+                __component_position(k_y)*m_cutout_margin_pct[side],
                 // Back
-                m_box_size[k_y] - (__component_position(k_y) + __compartment_size(k_y)),
+                (m_box_size[k_y] - (__component_position(k_y) + __compartment_size(k_y)))*m_cutout_margin_pct[side],
                 // Left
-                __component_position(k_x),
+                __component_position(k_x)*m_cutout_margin_pct[side],
                 // Right
-                m_box_size[k_x] - (__component_position(k_x) + __compartment_size(k_x)),
+                (m_box_size[k_x] - (__component_position(k_x) + __compartment_size(k_x)))*m_cutout_margin_pct[side],
             ];
-
+            
             main_size = margin ? main_size_margin : main_size_standard;
 
             //  perp dimension is a half of the width and no more than 3cm
             perp_size = __size( perp_d ) * m_cutout_size_frac_perpindicular ;
+
             pos_standard = [
                 // front
                 [  
@@ -2105,7 +2154,7 @@ module MakeBox( box )
                 // back
                 [  
                     __size( k_x )/2  - perp_size/2,                     
-                    __size( main_d ) - main_size[k_back] + __padding( k_y )/2+0.01, 
+                    __size( main_d ) - main_size[k_back] + __padding( k_y )/2, //+0.01, 
                     __finger_cutouts_bottom() 
                 ],
                 // left
@@ -2116,7 +2165,7 @@ module MakeBox( box )
                 ],
                 // right
                 [   
-                    __size( main_d ) - main_size[k_right] + __padding( k_x )/2+0.01, 
+                    __size( main_d ) - main_size[k_right] + __padding( k_x )/2, //+0.01
                     __size( k_y )/2  - perp_size/2, 
                     __finger_cutouts_bottom()
                 ], 
@@ -2126,7 +2175,7 @@ module MakeBox( box )
                 // front
                 [  
                     __size( k_x )/2  - perp_size/2,       
-                    -__padding( main_d )/2 -  __component_position(k_y),               
+                    -__padding( main_d )/2 -  main_size_margin[0],               
                     __finger_cutouts_bottom()
                 ], 
                 // back
@@ -2137,7 +2186,7 @@ module MakeBox( box )
                 ],
                 // left
                 [   
-                    -__padding( main_d )/2 - __component_position(k_x),  
+                    -__padding( main_d )/2 - main_size_margin[2],  
                     __size( k_y )/2  - perp_size/2, 
                     __finger_cutouts_bottom() 
                 ],
@@ -2150,6 +2199,7 @@ module MakeBox( box )
 
 
             ];
+            
 
             pos = margin ? pos_margin : pos_standard;
 
@@ -2195,15 +2245,61 @@ module MakeBox( box )
             shape = __round_bottom() ? [ t,t,t,t] : 
                 m_actually_cutout_the_bottom || margin ? shape_square : shape_standard[ side ];
             
+            mask_size =
+            [
+                //front
+                [size[side][0],max(size[side][1],radius*2),size[side][2]],
+
+                //back
+                [size[side][0],max(size[side][1],radius*2),size[side][2]],
+
+                //left
+                [max(size[side][0],radius*2),size[side][1],size[side][2]],
+
+                //right
+                [max(size[side][0],radius*2),size[side][1],size[side][2]]
+            ];
+            
+            mask_pos =
+            [
+                //front
+                [0,-mask_size[side][1],0],
+
+                //back
+                [0,size[side][1],0],
+
+                //left
+                [-mask_size[side][0],0,0],
+
+                //right
+                [size[side][0],0,0]
+            ];
+            
+            shape_partial_margin = 
+            [
+                [t,t,f,f],[f,f,t,t],[t,f,t,f],[f,t,f,t]
+            ];
+           
             translate( pos[ side ] )
-                if ( __round_bottom() ) {
+                if (m_cutout_margin_pct[side] < 1)
+                {
+                    MakeRoundedCubeAll( size[ side ], radius,
+                                        vecRounded = shape_partial_margin[side]);
+                }
+                else if ( __round_bottom() ) {
                     if ( side == k_back || side == k_front )
                         MakeRoundedCubeAxis( size[ side ], radius, shape, k_y);
                     else
                         MakeRoundedCubeAxis( size[ side ], radius, shape, k_x);
                 }
                 else
-                    MakeRoundedCubeAxis( size[ side ], radius, shape, k_z);
+                {
+                    difference() {
+                        MakeRoundedCubeAxis( size[ side ], radius, shape, k_z);
+                        translate(mask_pos[side])
+                            cube(mask_size[side]);
+                    }
+                }
         }
 
         module MakeCornerCutouts( corner )
@@ -2378,12 +2474,95 @@ module MakeBox( box )
             roundedcube(size = [x, y, h*2], center = false, radius = r, apply_to = "zmin");
             //roundedcube(size = [x, y, h], center = false, radius = r, apply_to = "zmin");
         }
+        
+        module MakeCustomCompartmentCutout(fraction)
+        {
+            m_outset_padding = __component_shape_padding();
+            m_shape_width = __compartment_size( k_x )-(2*m_outset_padding);
+            m_shape_height = __compartment_size( k_y )-(2*m_outset_padding);
+            m_min_shape_dimension = min(m_shape_width,m_shape_height);
+            m_min_compartment_dimension = min(__compartment_size( k_x ),__compartment_size( k_y ));
+            m_hole_dimension = m_min_compartment_dimension * fraction;
+            m_inset_padding = (m_min_shape_dimension - m_hole_dimension)/2;
+
+            echo(m_component_base_height);
+            translate([__compartment_size( k_x )/2,
+                       __compartment_size( k_y )/2,
+                       __compartment_size( k_z )+m_component_base_height])
+                rotate([0,180,0])
+                    linear_extrude(height = __compartment_size( k_z )+
+                                            m_component_base_height, 
+                                   scale=1, center = false)
+                        inset_or_outset(m_inset_padding)
+                            resize([m_shape_width,m_shape_height,
+                                    __compartment_size( k_z )])
+                                import(file = __component_shape_file(), center = true,dpi = 96);
+        }
 
         module MakeCompartmentShape()
         {
             $fn = __component_is_hex() || __component_is_hex2() ? 6 : __component_is_oct() || __component_is_oct2() ? 8 : __component_is_square() ? 4 : __component_is_tri() || __component_is_tri2()? 3 : 100;
             
-            if (__component_is_bowl() )
+            echo(__compartment_size( k_z )+ m_component_base_height);
+            if (__component_is_custom() )
+            {
+                m_outset_padding = __component_shape_padding();
+                m_shape_width = __compartment_size( k_x )-(2*m_outset_padding);
+                m_shape_height = __compartment_size( k_y )-(2*m_outset_padding);
+                translate([__compartment_size( k_x )/2,
+                           __compartment_size( k_y )/2,
+                           __compartment_size( k_z )+m_component_base_height])
+                    rotate([0,180,0])
+                        linear_extrude(height = __compartment_size( k_z )+ m_component_base_height , 
+                                       scale=1, center = false)
+                            outset(m_outset_padding)
+                                resize([m_shape_width,m_shape_height,
+                                        __compartment_size( k_z )])
+                                    import(file = __component_shape_file(), center = true,dpi = 96);
+            }
+            else if (__component_is_teardrop())
+            {
+                m_teardrop = __component_shape_file();
+                m_outset_padding = __component_shape_padding();
+                m_shape_width = __value( m_teardrop[1], TOKEN_SIZE_XYZ, default = [10,10,10])[0];
+                m_shape_height = __value( m_teardrop[1], TOKEN_SIZE_XYZ, default = [10,10,10])[1];
+                
+                translate([__compartment_size( k_x )/2,
+                           __compartment_size( k_y )/2,
+                           m_component_base_height])
+                    union() {
+                        linear_extrude(height = __compartment_size( k_z )+ m_component_base_height , 
+                                       scale=1, center = false)
+                            shell(m_outset_padding)
+                                raindrop2D(radius=m_shape_width/2,m_shape_height,center=true);
+                        linear_extrude(height = __compartment_size( k_z )+ m_component_base_height , 
+                                       scale=1, center = false)
+                                raindrop2D(radius=m_shape_width/2,m_shape_height,center=true); 
+                    }
+            }
+            else if (__component_is_donut())
+            {
+                m_donut = __component_shape_file();
+                m_outset_padding = __component_shape_padding();
+                m_shape_radius = __value( m_donut[1], TOKEN_SIZE_XYZ, default = [10,10,10])[0];
+                m_shape_hole_radius = __value( m_donut[1], TOKEN_SIZE_XYZ, default = [10,10,10])[1];
+                m_shape_angle = __value( m_donut[1], TOKEN_DONUT_ANGLE, default = 90);
+                
+                translate([__compartment_size( k_x )/2,
+                           __compartment_size( k_y )/2,
+                           0])
+                  rotate([0,0,-90])
+                    union() {
+                        linear_extrude(height = __compartment_size( k_z )+ m_component_base_height , 
+                                       scale=1, center = false)
+                            shell(m_outset_padding)
+                                donut(m_shape_radius,m_shape_hole_radius,m_shape_angle);
+                        linear_extrude(height = __compartment_size( k_z )+ m_component_base_height , 
+                                       scale=1, center = false)
+                                donut(m_shape_radius,m_shape_hole_radius,m_shape_angle);
+                    }
+            }
+            else if (__component_is_bowl() )
             {
                 MakeBowlShape(__compartment_size( k_x ), __compartment_size( k_y ), __compartment_size( k_z ) + m_component_base_height,__component_fillet_radius());
             }
@@ -2597,6 +2776,21 @@ module MakeBox( box )
                         cube([ __notch_length( k_x ), __lid_notch_depth(), m_lid_notch_height ]);
                         cube([__lid_notch_depth(), __notch_length( k_y ), m_lid_notch_height]);
                     }
+                    
+                    
+                    hull()
+                    {
+                        
+                        cube([ __notch_length( k_x ), __lid_notch_depth(), 0.01]);
+                        translate([0,0,__lid_notch_depth()])
+                            cube([ __notch_length( k_x ), 0.01, 0.01]); 
+                    }
+                    hull()
+                    {
+                        cube([__lid_notch_depth(), __notch_length( k_y ),0.01]);
+                        translate([0,0,__lid_notch_depth()])
+                            cube([0.01, __notch_length( k_y ),0.01]);
+                    }
                 }
             }
 
@@ -2782,6 +2976,274 @@ module MakeRoundedCubeAxis( vec3, radius, vecRounded = [ t, t, t, t ], axis = k_
         }
     }
 }
+module outset(d=1) {
+    minkowski() {
+        circle(r=d,$fn=20);
+        children();
+	}
+}
+
+module inset(d=1) {
+    render() inverse() outset(d=d) inverse() children();
+}
+
+module inverse() {
+	difference() {
+		square(1e5,center=true);
+		children();
+	}
+}
+
+module inset_or_outset(d=1)
+{
+    if(d < 0)
+    {
+        outset(-d)
+            children();
+    }
+    else
+    {
+        inset(d)
+            children();
+    }
+}
+
+module shell(d,center=false) {
+	if (center && d > 0) {
+		difference() {
+			outset(d=d/2) children();
+			inset(d=d/2) children();
+		}
+	}
+	if (!center && d > 0) {
+		difference() {
+			outset(d=d) children();
+			children();
+		}
+	}
+	if (!center && d < 0) {
+		difference() {
+			children();
+			inset(d=-d) children();
+		}
+	}
+	if (d == 0) children();
+}
+
+module 3DShell(thickness,height)
+{
+    linear_extrude(height=height)
+        shell(thickness)
+            children();
+}
+
+module fast_shell(thickness,height)
+{
+    local_fn = 20;
+    if (thickness < 0)
+    {
+        linear_extrude(height=height)
+            intersection() {     
+                children();
+                minkowski($fn=local_fn) 
+                {
+                    difference () {
+                        translate([-150/2, -150/2 ]) 
+                            square([150, 150]);
+                        children();
+                    }
+                    circle(r=-thickness,$fn=local_fn);
+                }
+            }
+    } else
+    {
+        linear_extrude(height=height)
+            difference() {
+                minkowski($fn=local_fn) 
+                {
+                    children();
+                    circle(r = thickness,$fn=local_fn);
+                }
+                children();
+            }
+    }
+}
+
+module raindrop2D(radius, length, center = true){
+    l = length - radius;
+    y = (radius * radius)/l;
+    x = (radius/l) * sqrt((l * l) -(radius * radius));
+	if(!center){
+		translate([radius, radius, 0]){
+			circle(r = radius,$fn=100);
+			polygon(points=[[x, y],
+                            [x, -y],
+                            [l, 0]], paths=[[0,1,2]]);
+		}
+	}else if(center){
+        translate([0, (l-radius)/2, 0]){
+            circle(r = radius,$fn=100);
+                polygon(points=[[x, -y],
+                                [-x, -y],
+                                [0, -l]], paths=[[0,1,2]]);
+        }
+	}	
+}
+
+module fastTokenHolderFromShape(holder_height,token_height,wall_width,base_width,cutout_bottom=true)
+{
+    3DShell(wall_width,holder_height)
+        children();
+            
+    3DShell(-base_width,holder_height-token_height)
+        children();
+}
+
+module pie_slice(r=10.0, a=30) {
+  polygon(points=[
+    [0, 0],
+    for(theta=-a/2; theta<a/2; theta=theta+$fa)
+      [r*cos(theta), r*sin(theta)],
+    [r*cos(a/2), r*sin(a/2)]
+  ]);
+}
+
+module donut(radius,hole_radius,angle)
+{
+    edge_x = cos(angle/2) * hole_radius;
+    trans_x = edge_x+(radius-edge_x)/2;
+    //echo(radius-edge_x);
+    //echo(2*sin(angle/2)*radius);
+    translate([-trans_x,0,0])
+        difference() {
+            pie_slice(radius,angle);
+            pie_slice(hole_radius,angle+1);
+        }
+}
+
+module MakeToken (token )
+{
+    module importShape() 
+    { 
+     rotate([0,180,0])
+        scale([m_token_scale,m_token_scale,1])
+            linear_extrude(height = 1,  scale=1, center = true)
+                import(file = m_custom_shape_file, center = true,dpi = 96);
+    }
+    
+    module MakeRoundToken()
+    {
+        difference()
+        {
+            resize([m_token_size[0]+(2*m_token_wall_width),
+                    m_token_size[1]+(2*m_token_wall_width)])
+                    cylinder(d=1,
+                           h=m_token_size[2]+m_token_base_height+m_extra_height);
+            translate([0,0,m_token_base_height])
+                resize([m_token_size[0],
+                        m_token_size[1]])
+                    cylinder(d=1,h=m_token_size[2]+m_extra_height);
+            if (m_token_cutout_bottom)
+            {
+                resize([m_token_size[0]-(2*m_token_base_width),
+                        m_token_size[1]-(2*m_token_base_width)])
+                    cylinder(d=1,h=m_token_size[2]+m_token_base_height);
+            }
+            if (m_stackable)
+            {
+                translate([0,0,
+                            m_token_size[2]+m_token_base_height])
+                    cylinder(h=m_token_wall_width,
+                            d1=m_token_size[0],
+                            d2=m_token_size[0]+2*m_token_wall_width);
+                translate([0,0,0])
+                    difference()
+                    {
+                        cylinder(h=m_token_wall_width,
+                                d=m_token_size[0]+2*m_token_wall_width+0.01);
+                   
+                        cylinder(h=m_token_wall_width,
+                                d1=m_token_size[0],
+                                d2=m_token_size[0]+2*m_token_wall_width);
+                    }
+                translate([0,0, 
+                              m_token_size[2]+ (m_token_base_height*0.65) +
+                              m_token_wall_width])
+                resize([m_token_size[0]+(2*m_token_wall_width),
+                        m_token_size[1]+(2*m_token_wall_width)])
+                    cylinder(d=1,h=m_token_base_height*0.35);
+            }
+           
+        }
+    }
+// holder_height,token_height,wall_width,base_width,custom_shape="
+
+    m_token_shape = __value( token, TOKEN_SHAPE, default = ROUND);
+    m_token_size = __value( token, TOKEN_SIZE_XYZ, default = [20,20,5]);
+    m_token_cutout_bottom = __value( token, TOKEN_CUTOUT_BOTTOM_B, default = true);
+    m_token_cutout_bottom_pct = __value( token, TOKEN_CUTOUT_BOTTOM_PCT, default = 80);
+    m_custom_shape_file = __value( token, CUSTOM_SHAPE_FILE, default = "");
+    m_token_scale = __value( token, TOKEN_SCALE, default = 1);
+    m_token_wall_width = __value( token, TOKEN_WALL_WIDTH, default = 1);
+    m_token_base_height = __value( token, TOKEN_BASE_HEIGHT, default = 0.5);
+    m_token_base_width = __value( token, TOKEN_BASE_WIDTH, default = 1);
+    m_stackable = __value( token, TOKEN_STACKABLE_B, default = false);
+    m_angle = __value( token, TOKEN_DONUT_ANGLE, default = 45);
+    m_extra_height = m_stackable?m_token_wall_width:0;
+
+    if (m_token_shape == ROUND)
+    {
+        MakeRoundToken();
+    }
+    else if (m_token_shape == CUSTOM)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            resize([m_token_size[0],m_token_size[1],0])
+                rotate([0,180,0])
+                    import(file = m_custom_shape_file, center = true,dpi = 96);
+    }
+    else if (m_token_shape == DONUT)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            donut(radius=m_token_size[0],hole_radius=m_token_size[1],angle=m_angle);
+    }
+    else if (m_token_shape == TEARDROP)
+    {
+        fastTokenHolderFromShape(holder_height=m_token_size[2]+m_token_base_height,
+                            token_height=m_token_size[2],
+                            wall_width=m_token_wall_width,
+                            base_width=m_token_base_width,
+                            cutout_bottom=m_token_cutout_bottom)
+            raindrop2D(radius=m_token_size[0]/2,length=m_token_size[1]);
+    }
+    else
+    {
+        difference()
+        {
+            cube([m_token_size[0]+(2*m_token_wall_width),
+                  m_token_size[1]+(2*m_token_wall_width),
+                  m_token_size[2]+ m_token_base_height]);
+            translate([m_token_wall_width,m_token_wall_width,m_token_base_height])
+                cube([m_token_size[0],
+                      m_token_size[1],m_token_size[2]]);
+            if (m_token_cutout_bottom)
+            {
+                translate([m_token_wall_width+m_token_base_width,m_token_wall_width+m_token_base_width,0])
+                    resize([m_token_size[0]-(2*m_token_base_width),
+                            m_token_size[1]-(2*m_token_base_width)])
+                        cube([1,1,m_token_size[2]]);
+            }
+        }
+    }
+}
 
 
 module MakeRoundedCubeAll( vecCube, radius, axis = k_z, vecRounded = [ t, t, t, t ] ){
@@ -2811,7 +3273,7 @@ module MakeRoundedCubeAll( vecCube, radius, axis = k_z, vecRounded = [ t, t, t, 
     //debug();
 
     RotateAboutPoint( a=90, v=[ axis==k_x?1:0, axis==k_y?1:0, 0 ], pt= vecCubeCtr)
-    color( rands(0,1,3), 0.5 )
+    //color( rands(0,1,3), 0.5 )
     hull()
     {
         h = vecCube2[ k_z ];
@@ -2888,6 +3350,7 @@ module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "a
 		}
 	}
 }
+
 
 
 

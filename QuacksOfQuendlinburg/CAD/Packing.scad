@@ -102,7 +102,7 @@ module spacer() { cube([spacerX,spacerY,spacerZ]); };
 layer1 = true;
 layer2 = true;
 layer3 = true;
-layer4 = false;
+layer4 = true;
 
 //color("red",0.10) box();
 

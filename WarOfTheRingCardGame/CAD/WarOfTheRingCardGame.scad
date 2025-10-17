@@ -38,16 +38,16 @@ m_lid_notches = false;
 m_lid_bevel_edges = true;
 //m_lid_overlap = 0.32;
 
-wotrCompartmentSizes = [[241,171,3],[97,152,77],[97,152,77]];
-wotrCompartmentPositions = [[0,0],[9.5,9.5],[134.5,9.5]];
+wotrCompartmentSizes = [[241,171,3],[100,165,77],[100,165,77]];
+wotrCompartmentPositions = [[0,0],[3,3],[137,3]];
 box1LabelData = [[[0,14],[0,-14]],["War of the Ring","The Card Game"]];
 function mainBox() = 
-freeFormBox3( "WOTRCardGame", wotrCompartmentPositions, wotrCompartmentSizes, 245,175,79, stack="",cutout_bottom=[f,t,t],cutout_sides=[[f,f,f,f],[t,t,t,t],[t,t,t,t]],compLabel = [],positioned_labels=true,lid_inset = false,stackable=false,lid_tabs=[f,f,f,f],label_data=box1LabelData,label_size=15,side_cutout_height_pct=94,side_cutout_width_pct=80);
+freeFormBox3( "WOTRCardGame", wotrCompartmentPositions, wotrCompartmentSizes, 245,175,79, stack="",cutout_bottom=[f,t,t],bottom_cutout_pct=60,cutout_sides=[[f,f,f,f],[t,t,t,t],[t,t,t,t]],compLabel = [],positioned_labels=true,lid_inset = false,stackable=false,lid_tabs=[f,f,f,f],label_data=box1LabelData,label_size=15,side_cutout_height_pct=90,side_cutout_width_pct=80);
 
 // Focus on one box
 g_isolated_print_box = "WOTRCardGame"; 
-g_b_print_lid = false;
-g_b_print_box = true;   
+g_b_print_lid = true;
+g_b_print_box = false;   
   
 data =
 [ 

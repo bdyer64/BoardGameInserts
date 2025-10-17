@@ -2,10 +2,10 @@
 include <boardgame_insert_toolkit_lib.bill.scad>;
 
 // determines whether lids are output.
-g_b_print_lid = t;
+g_b_print_lid = f;
 
 // determines whether boxes are output.
-g_b_print_box = f; 
+g_b_print_box = t; 
 
 // Focus on one box
 g_isolated_print_box = ""; 
@@ -18,7 +18,7 @@ lid_parms =
     [ LID_INSET_B, t ],
     [ LID_TABS_4B, [ t,t,f,f]],
     [ LID_FIT_UNDER_B, f],
-    [ LID_LABELS_INVERT_B, t],
+    [ LID_LABELS_INVERT_B, f],
  ];
 
 function makeFaction( label ) = 
