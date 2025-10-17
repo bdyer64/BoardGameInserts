@@ -5,8 +5,8 @@ include <../../BFD-Insert-Extensions/InsertExtensions.scad>;
 
 
 
-g_b_print_lid = false;
-g_b_print_box = true; 
+g_b_print_lid = true;
+g_b_print_box = false; 
 g_wall_thickness = 2.0;
 g_lid_thickness = 2.0;
 g_min_bottom_thickness = 1.0;
@@ -21,7 +21,7 @@ g_min_bottom_thickness = 1.0;
 // The exception is the stackable box, where the bottom of the box is the lid of the box below,
 // in which case the tolerance also affects that box bottom.
 //
-g_tolerance = 0.15;
+g_tolerance = 0.25;
 
 // This adjusts the position of the lid detents downward. 
 // The larger the value, the bigger the gap between the lid and the box.
@@ -83,7 +83,7 @@ function spacer2() = spacer("Spacer 2",32,69,34);
 function spacer3() = spacer("Spacer 3",75,69,13);
 
 
-g_isolated_print_box = "Other Box"; 
+g_isolated_print_box = "Sponsorship Box"; 
  
  data = [
     playerBox(),

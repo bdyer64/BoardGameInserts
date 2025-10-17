@@ -106,9 +106,9 @@ function choamMarklerHolder() = tokenHolder("Choam Marker Holder",shape = ROUND,
                                            base_height=0.4,cutout_bottom = true);         
                                     
 function trooperHolder() = tokenHolder("Trooper Holder",shape = ROUND,
-                                           size=[15.1,15.1,2.2],wall_width=1.5,
+                                           size=[15.2,15.2,2.1],wall_width=1.4,
                                            base_width=0.8,
-                                           base_height=0.9,cutout_bottom = true,
+                                           base_height=0.8,cutout_bottom = true,
                                            stackable = true);
                                            
 function ambassadorHolder() = tokenHolder("Ambassador Holder",shape = SQUARE,
@@ -202,7 +202,7 @@ function planetsBox() = freeFormBox4( "Spice Bank",spicePositions,spiceBankSizes
            
 function testBox() = cardBox("Testing", ["Testing"], 7, "" , label_size = 7,card=0);     
       
-g_isolated_print_box = "Spice Bank"; 
+g_isolated_print_box = "Trooper Holder"; 
  
  data = [
     treacheryBox(), 
